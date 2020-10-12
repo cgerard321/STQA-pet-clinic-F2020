@@ -13,7 +13,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+// Test
 /**
  * Test class for {@link VisitController}
  *
@@ -63,7 +63,7 @@ class VisitControllerTests {
         )
             .andExpect(model().attributeHasErrors("visit"))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdateVisitFormm"));
+            .andExpect(view().name("pets/createOrUpdateVisitForm"));
     }
 
     @Test

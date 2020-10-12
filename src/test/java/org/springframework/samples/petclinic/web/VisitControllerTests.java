@@ -63,7 +63,7 @@ class VisitControllerTests {
         )
             .andExpect(model().attributeHasErrors("visit"))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdateVisitForm"));
+            .andExpect(view().name("pets/createOrUpdateVisitFormm"));
     }
 
     @Test

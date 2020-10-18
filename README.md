@@ -1,114 +1,121 @@
 # STQA Project
 
-Champlain SQTA 420-521-LA Project 1 repo
+Champlain STQA 420-521-LA Pet Clinic F2020 repo
 
 ## Structure
 
-- Only make changes i.e. pull requests to your teams folder, if you see someone making a pr on another teams folder do not accept it
-- Please following standard naming convention as stated in the 'story workflow' section and also don't forget to label your pull requests
+- Please following standard naming convention as stated in the 'story workflow' section, and don't forget to label your pull requests
+- We are all contributing to the same root project. If you break something, it will affect everyone. So, working on your own BRANCH is mandatory.
 
 ### Project Structure
 
-- There are 4 teams (A, B, C, D)
-- Each team has their respective root project folder
+- There are 4 teams. The teams will self-name and come up with a four-letter acronym. The acronym will be called your TEAMTAG in these instructions.
+- Each team is responsible for one or more functional areas of the codebase.
 
 ### Branch Naming
 
-- Branches can really be called whatever but it will help to name them smth you can easily remember, I like to break it down into 4 'folders'
+- Branches will be named according to the following convention: type/JiraID_Description
+ I like to break it down into 4 'folders' or types:
   - feat/
   - bug/
   - gen/
   - conf/
-- For this project you will only need to use `feat/` and `bug/` or whatever naming convention you like this is just a recommendation if you are lost
-- After the slash add the JIRA id so smth like SQTA-4, the full branch name would look like this `feat/SQTA-4` and would be created and navigated to by
+- For this project, you will only need to use `feat/` and `bug/` 
+- After the slash, add your TEAMTAG
+- After the TEAMTAG, add a sash and then the JIRA id (it will be something like STQA-4).
+- The full branch name would look like this `feat/TEAMA-SQTA-4_Add_Test_Scenario_New_Pet` and would be created and navigated to by executing the following command:
 
 ```
-git checkout -b feat/SQTA-4
+git checkout -b feat/TEAMTAG-SQTA-4_Add_Test_Scenario_New_Pet
 ```
 
 ### Pull Requests (PR) Naming
 
-- To make it so we can easily search and find pull requests it is nice to follow a standard such as
+- To make it so we can easily search and find pull requests it is nice to follow a standard such as:
 
 ```
-[JIRA-TICKET-ID] [TEAM A] Short description
+feat(TEAMTAG-JIRA-TICKET-ID): short description
 ```
 
-- In that example You would replace JIRA-TICKET-ID with the id and team A with whatever team you are on, keep the square brackets
+- In that example, you would replace TEAMTAG with your team's acronym and the JIRA-TICKET-ID with the id from Jira.
+- Keep the parentheses.
+- Do not include any capital letters or punctuation in the description
 
 ### Pull Request Commit Naming
 
-- Pretty much the exact same as Pull Request naming except at the end there will be an auto generated number in parens, please don't delete it and just add your stuff before it i.e.
+- This is pretty much the exact same as the Pull Request Naming except that at the end there will be an auto-generated number in parentheses. Please don't delete it. Simply add your stuff before it.
 
 ```
-[JIRA-TICKET-ID] [TEAM A] Short description (#420)
+feat(TEAMTAG-JIRA-TICKET-ID): short description (#420)
 ```
 
 ## Setup
 
 - First create an account on GitHub
 - Download git https://git-scm.com/downloads
-- Go to the official/ main repo https://github.com/cgerard321/sqta-project-1
-- At the top right of the page click 'fork'
-- Navigate to your forks page, click the green button 'clone or download', and copy the url given
-- On your file explorer naviagte to where you want the project, right click and select 'git bash here'
-- In the terminal window type 'git clone' and then paste the copied url, it will look like this (Do not ctrl + v to paste in the git bash terminal, it does not use standard windows encoding and will add extra invisible chars to the command causing it to error out):
+- Go to the official/ main repo https://github.com/cgerard321/STQA-pet-clinic-F2020
+- Click the green button 'Code', and copy the given URL
+- On your file explorer, navigate to where you want the project, right-click, and select 'git bash here'
+- In the terminal window, type 'git clone' and then paste the copied url. (Do not ctrl + v to paste in the git bash terminal, it does not use standard windows encoding and will add extra invisible chars to the command causing it to error out.) It will look like this:
 
 ```
-git clone https://github.com/YOUR-USER-NAME/sqta-project-1
+git clone https://github.com/cgerard321/STQA-pet-clinic-F2020.git
 ```
 
-- We now have your fork of the 'official' repo locally
-- From now on the 'official' or main repo can also be reffered to as the 'upstream' and your fork of the 'upstream' can be called the origin as per standard naming conventions
-- Next we will set up a remote to the upstream which will allow us to 'talk' to it
+- The repo on your computer is known as the "local"
+- The repo on GitHub is known as the "remote origin" or simply "origin"
+- cd into the STQA-pet-clinic-F2020 folder on your computer
 
+```
+cd STQA-pet-clinic-F2020/
+```
+To see that the remote orgin has been correctly set up, type: 
 ```
 git remote add upstream https://github.com/cgerard321/sqta-project-1.git
 ```
-
 - If we type `git remote -v` we should see 4 different connections, push and fetch for our upstream and for our origin
-- When you make any git command it will add `origin` implicitly so it means you are doing that command on your fork of the upstream repo
-- Think of your fork as an instance of the `upstream` repo if you enjoy programming metaphors
-- You have now setup your basic fork, move on to the 'story workflow section'
+- Now that you have setup your clone, move on to the 'story workflow section'
 
 ## Story Workflow
 
-- So you setup your fork of the repo and started your first story now what
-- We will first navigate to our project in the file explorer, right click and select 'git bash here'
-- In the current command line you should see in parens the branch you are currently on, we want to start this 'new story process' from our origins master branch
-- If it says master, great skip this next line if not then don't skip it
-
+- So you've setup your clone of the repo and started your first story. Now what?
+- We will first navigate to our project in the file explorer, right-click, and select 'git bash here'
+- In the current command line, you should see in parentheses, the branch you are currently on. We want to start this 'new story process' from our origin's master branch.
+```
+Christine@DESKTOP-2VF5PQD MINGW64 /e/STQA-pet-clinic-F2020 (master)
+```
+- If it says master, great. Skip this next line. If not, type:
 ```
 git checkout master
 ```
 
-- This will simply transfer us to our origins master
-- Next we will want to update our local project with any code our fellow devs have pushed while we were gone, to do this we must first 'download' the code
+- This will simply transfer us to our origin's master branch
+- Next, we will want to update our local project with any code our fellow devs have pushed while we were gone. To do this we must first 'download' the code using the following command:
 
 ```
-git fetch upstream master
+git fetch origin master
 ```
 
-- We are telling git to take the latest stuff from the master branch on our upstream remote
-- Then we want to actually start our story fresh with that code, so we will reset our local env with that new fetched code, don't ask why this uses a forward slash and the other command uses a space, no one knows
+- We are telling git to download the latest stuff from the master branch on our remote remote
+- Then we want to actually start our story fresh with that code, so we will reset our local environment with that newly fetched code:
 
 ```
-git reset --hard upstream/master
+git reset --hard origin/master
 ```
 
-- It is also important to note this will reset any uncommited changes you've made, so keep that in mind if you are following along and not starting a story from scratch you might want to rebase instead, more info on rebasing can be found in the 'useful git commands' section
+- It is also important to note this will reset any uncommited changes you've made, so keep that in mind. If you are following along and not starting a story from scratch, you might want to rebase instead. More info on rebasing can be found in the 'useful git commands' section
 
-- Now we will want to make a new branch to start work on our feature or bug fix, simply type
+- Now we will want to make a new branch to start working on our feature or bug fix. Simply type:
 
 ```
 git checkout -b YOUR-BRANCH-NAME
 ```
 
 - This command is broken down into 2 parts, `checkout` will move you to a given branch the `-b` modifier will create the branch
-- You have now created your new branch and are on it, check the 'structure' section for what you should write in place of YOUR-BRANCH-NAME
-- Now its time to unfortunately actually write some code, so go fix the bug or make the test and then come back
-- So now you have hopefully something done or atleast the start to it and want to commit it
-- First we have to stage all edits, additions, and removals
+- You have now created your new branch and are on it. Check the 'structure' section for what you should write in place of YOUR-BRANCH-NAME
+- Now it's time to actually write some code. So go start implementing a new feature using TDD. Then come back after you're done. 
+- So now you have hopefully something done or at least the start to it and want to commit it
+- First, we have to stage all edits, additions, and removals
 
 ```
 git add .
@@ -126,48 +133,49 @@ git add /path/to/file
 git commit -m "A short description of what work was done in the commit"
 ```
 
-- After that you might repeat the `git add .` and `git commit` a couple times before your master piece is done
+- After that you might repeat the `git add .` and `git commit` a couple times before your masterpiece is done
 
-- When you are ready to show it to everyone else or if you want to be able to access it on another computer we have to push it with this command, it might ask you for login creds
+- When you are ready to show it to everyone else or if you want to be able to access it on another computer, we have to push it with this command: (it might ask you for login creds)
 
 ```
 git push
 ```
 
-- Again this is the same this as saying `git push origin master` the `origin` and `master` are implicity typed
+- Again this is the same this as saying `git push origin YOUR-BRANCH-NAME` the `origin` and `YOUR-BRANCH-NAME` are implicitly applied
+- If git gives you and error here telling you that you need to set the remote as upstream, simply copy/paste the command it gives you. Next time you push on this branch, you won't get this error.
 
-- Imagine at this point everything in the story is done and you are ready to get it code reviewed by the other devs, we need to make a pull request to do that
-- Go to your origins github page or the upstreams and make a new pull request, at the top verify that the branch and HEAD are all coming from and going to the correct place
-- Add a title documented in the 'structure' section and make sure to add the label on the side bar indicating which team you are on
-- In order to merge this pr we need two other people to review and approve it, you can get other peoples attention by 'requesting a review' on the side bar
-- Start by asking people on your team to do the review but don't hesitate to ask someone from a different team
-- Once you've pleased everyone, your code is in prime condition, and you have no merge conflicts you can finally hit the 'squash and merge' button and set another title in which the naming conventions are documented in the 'Pull Request Commit Naming' section of 'Structure'
-- Your pr is now merged on the upstream master and everyone can fetch and rebase to see the work you've done
-- Congrats just repeat this process until the semester is over
+- Imagine at this point that everything in the story is done, and you are ready to get your code reviewed by the other devs. We need to make a pull request to do that
+- Go to your origin's github page (or project repo) and make a new pull request. At the top, verify that the branch (thing you want to compare) and base are all coming from and going to the correct place. "Compare" should be YOUR-BRANCH-NAME and "base" should be master.
+- Add a title as per the instructions in the 'structure' section, and make sure to add the label on the side bar, indicating which team you are on
+- In order to merge this Pull Request (PR), we need two other people to review and approve it. You can get other peoples attention by 'requesting a review' on the side bar or by sending them a DM in slack
+- Start by asking people on your team to do the review but don't hesitate to ask someone from a different team if there is an interaction
+- Once you've pleased everyone, your code is in prime condition, and you have no merge conflicts you can finally hit the 'squash and merge' button and set another title. Follow the naming conventions in the 'Pull Request Commit Naming' section of 'Structure'
+- Your PR is now merged and everyone can fetch and rebase or pull to see the work you've done
+- Congrats. Just repeat this process until the semester is over.
 
-## Merge conflicts / Updating your branch
+## Merge Conflicts / Updating your Branch
 
-### The commands are pretty much the same if you are updating a branch or if you are trying to fix a merge conflict, except if you are updating you will skip the `git add .` and the `git rebase --continue` because you don't have anything to fix, you will still have to `git push -f`
+The commands are pretty much the same whether you are updating a branch, or you are trying to fix a merge conflict, except if you are updating you will skip the `git add .` and the `git rebase --continue` because you don't have anything to fix. You will still have to `git push -f`
 
-Oh no, you have a merge conflict, this happens when you and another dev are working on the same file and edit the same line or git can't automatically figure out how to add your code and the upstream master code together
+Here's the scenario: Oh no, you have a merge conflict! This happens when you and another dev are working on the same file and edit the same line or git can't automatically figure out how to add your code and the master code together.
 
-Once you see this error on your pull request or if you happen to run into it outside of a pr just follow these easy steps
+Once you see this error on your pull request, or if you happen to run into it outside of a PR, just follow these easy steps:
 
-- First download the upstream master data
+- First download the origin master data
 
 ```
-git fetch upstream master
+git fetch origin master
 ```
 
 - Next we will use the rebase command
 
 ```
-git rebase upstream/master
+git rebase origin/master
 ```
 
-- Git will now replay the commits of your branch on top of the upstream master, if you have a merge conflict the prompt will pause and tell you which files were effected. From there just navigate to your file and update the code accordingly
+- Git will now replay the commits of your branch on top of the origin master. If you have a merge conflict, the prompt will pause and tell you which files were affected. From there, just navigate to your file and update the code accordingly.
 
-- Once you have fixed all the merge conflicts go back to your terminal and type
+- Once you have fixed all the merge conflicts go back to your terminal and type:
 
 ```
 git add .
@@ -179,23 +187,23 @@ git add .
 git rebase --continue
 ```
 
-- This command is telling git ok I've fixed this conflict now move on to the next commit
+- This command is telling git "ok I've fixed this conflict now move on to the next commit"
 
-- If you have more conflicts just repeat the last couple of steps, until the rebase is complete
+- If you have more conflicts, repeat the last couple of steps, until the rebase is complete
 
-- Generally you can tell the rebase is complete when you look at the branch name in your terminal and it is the correct branch name i.e. without any extra text or random symbols
+- Generally, you can tell the rebase is complete when you look at the branch name in your terminal, and it is the correct branch name i.e. without any extra text or random symbols
 
-- After that the rebase has made a new local commit with all your changes, only one step left which is to force push
+- After that, the rebase has made a new local commit with all your changes, only one step left which is to force push:
 
 ```
 git push -f
 ```
 
-- This is just short hand for `git push --force`
+- This is just shorthand for `git push --force`
 
-- If you don't force push you'll get a bunch of red and yellow text, which looks like you messed up but it's fine. It didn't actually do anything just redo the command but with the `-f`
+- If you don't force push you'll get a bunch of red and yellow text, which looks like you messed up, but it's fine. It didn't actually do anything just redo the command but with the `-f`
 
-- Should be all done if you go back to your pull request the branch should be able to automatically merge
+- At this point, if you go back to your pull request, you should be able to automatically merge the branch.
 
 ## Useful Git Commands
 
@@ -205,7 +213,7 @@ This command lets you see any edited, added, or removed files:
 git status
 ```
 
-This will show you the difference in what the last commit and your local repo is, press q when you want to leave:
+This will show you the differences between last commit (HEAD is master) and your local repo. Press q when you want to leave:
 
 ```
 git diff HEAD .
@@ -226,15 +234,15 @@ git branch
 Reset your current branch to the upstream master:
 
 ```
-git fetch upstream master
-git reset --hard upstream/master
+git fetch origin master
+git reset --hard origin/master
 ```
 
 If you want to rebase the upstream master on top of your working branch:
 
 ```
-git fetch upstream master
-git rebase upstream/master
+git fetch origin master
+git rebase origin/master
 ```
 
 Switch to a branch:

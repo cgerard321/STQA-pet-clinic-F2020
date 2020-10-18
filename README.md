@@ -142,9 +142,10 @@ git push
 ```
 
 - Again this is the same this as saying `git push origin YOUR-BRANCH-NAME` the `origin` and `YOUR-BRANCH-NAME` are implicitly applied
+- If git gives you and error here telling you that you need to set the remote as upstream, simply copy/paste the command it gives you. Next time you push on this branch, you won't get this error.
 
-- Imagine at this point that everything in the story is done, and you are ready to get it code reviewed by the other devs. We need to make a pull request to do that
-- Go to your origin's github page (or project repo) and make a new pull request. At the top, verify that the branch and HEAD are all coming from and going to the correct place. Branch should be YOUR-BRANCH-NAME and HEAD should be master.
+- Imagine at this point that everything in the story is done, and you are ready to get your code reviewed by the other devs. We need to make a pull request to do that
+- Go to your origin's github page (or project repo) and make a new pull request. At the top, verify that the branch (thing you want to compare) and base are all coming from and going to the correct place. "Compare" should be YOUR-BRANCH-NAME and "base" should be master.
 - Add a title as per the instructions in the 'structure' section, and make sure to add the label on the side bar, indicating which team you are on
 - In order to merge this Pull Request (PR), we need two other people to review and approve it. You can get other peoples attention by 'requesting a review' on the side bar or by sending them a DM in slack
 - Start by asking people on your team to do the review but don't hesitate to ask someone from a different team if there is an interaction

@@ -14,7 +14,7 @@ Champlain STQA 420-521-LA Pet Clinic F2020 repo
 
 ### Branch Naming
 
-- Branches will be named according to the following convention: type/JiraID_Description
+- Branches will be named according to the following convention: type/TEAMTAG-JiraID_Description
  I like to break it down into 4 'folders' or types:
   - feat/
   - bug/

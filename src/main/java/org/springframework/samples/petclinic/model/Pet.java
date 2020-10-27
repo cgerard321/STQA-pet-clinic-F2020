@@ -46,6 +46,7 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+    /* Test comment from cgerard */
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate birthDate;

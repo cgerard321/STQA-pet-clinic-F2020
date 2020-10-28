@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Arjen Poutsma
  * @author Michael Isvy
  */
+// NEW UI TO BE IMPLEMENTED -> JAV
 @Controller
 public class OwnerController {
 

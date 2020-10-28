@@ -41,6 +41,7 @@ import org.springframework.core.style.ToStringCreator;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+//Team OWRT - Antoine
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {

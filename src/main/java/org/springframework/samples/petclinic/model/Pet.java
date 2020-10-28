@@ -46,8 +46,7 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
-    // This is another comment
-    // This is a second comment
+    /* Test comment Nichita */
 
     /* Test comment from cgerard */
     @Column(name = "birth_date")

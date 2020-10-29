@@ -46,12 +46,7 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
-/*<<<<<<< HEAD
-    // This is another comment
-    // This is a second comment
-
     *//* Test comment from cgerard *//*
-=======*/
     /*Ok here is my test comment :)*/
 //>>>>>>> 23378b3... A short description of the work done
     @Column(name = "birth_date")

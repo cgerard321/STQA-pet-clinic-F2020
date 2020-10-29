@@ -44,6 +44,7 @@ import org.springframework.core.style.ToStringCreator;
 /*
 <<<<<<< HEAD
 //comment by Lucas Cimino
+//comment by Antoine Hebert
 =======
 
 >>>>>>> 0093671 (Following class - added comment to our section)

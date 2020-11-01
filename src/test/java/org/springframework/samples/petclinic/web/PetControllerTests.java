@@ -117,4 +117,12 @@ class PetControllerTests {
             .andExpect(view().name("pets/createOrUpdatePetForm"));
     }
 
+    @Test
+    void testListAllPetsSuccess() throws Exception {
+        mockMvc.perform(get("/pets"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pets"))
+            .andExpect(view().name("pets/petList"));
+    }
+
 }

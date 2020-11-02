@@ -15,13 +15,9 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
+import org.springframework.samples.petclinic.model.*;
 
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
+import java.util.Collection;
 
 
 /**
@@ -36,6 +32,8 @@ public interface ClinicService {
     Owner findOwnerById(int id);
 
     Pet findPetById(int id);
+
+    Collection<Pet> findPetById();
 
     void savePet(Pet pet);
 

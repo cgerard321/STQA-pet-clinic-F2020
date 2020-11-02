@@ -15,12 +15,6 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,6 +29,12 @@ import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ken Krebs
@@ -93,12 +93,38 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             Number newKey = this.insertPet.executeAndReturnKey(
                 createPetParameterSource(pet));
             pet.setId(newKey.intValue());
-        } else {
+        }
+        else {
             this.namedParameterJdbcTemplate.update(
                 "UPDATE pets SET name=:name, birth_date=:birth_date, type_id=:type_id, " +
                     "owner_id=:owner_id WHERE id=:id",
                 createPetParameterSource(pet));
         }
+    }
+
+    @Override
+    public Collection<Pet> findAllPets() {
+        System.out.println("Yeet2");
+
+        // Retrieve the list of all pets
+        Collection<Pet> pets = this.namedParameterJdbcTemplate.query(
+            "SELECT * FROM pets ORDER BY name",
+            BeanPropertyRowMapper.newInstance(Pet.class));
+
+//        // Retrieve the list of all possible pet types
+//        final List<PetType> petTypes = this.namedParameterJdbcTemplate.query(
+//            "SELECT id, name FROM types",
+//            BeanPropertyRowMapper.newInstance(PetType.class)
+//        );
+//
+//        // Retrieve the list of all possible pet owners
+//        final Collection<Owner> owners = ownerRepository.findByLastName("");
+//
+//        // Build each pet's list item
+//        for (Pet pet : pets) {
+//            for (int )
+//        }
+        return pets;
     }
 
     /**

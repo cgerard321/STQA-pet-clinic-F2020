@@ -15,11 +15,12 @@
  */
 package org.springframework.samples.petclinic.repository;
 
-import java.util.List;
-
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Repository class for <code>Pet</code> domain objects All method names are compliant with Spring Data naming
@@ -56,4 +57,10 @@ public interface PetRepository {
      */
     void save(Pet pet);
 
+    /**
+     * Retrieve all the <code>Pet</code> from the data store
+     *
+     * @return - A list of all the pets
+     */
+    Collection<Pet> findAllPets();
 }

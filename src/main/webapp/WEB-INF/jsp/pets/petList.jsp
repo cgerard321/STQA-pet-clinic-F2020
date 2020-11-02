@@ -21,10 +21,8 @@
         <c:forEach items="${selections}" var="pet">
             <tr>
                 <td>
-                        <%--                    <spring:url value="/owners/{ownerId}.html" var="ownerUrl">--%>
-                        <%--                        <spring:param name="ownerId" value="${pet.id}"/>--%>
-                        <%--                    </spring:url>--%>
-                    <spring:url value="/owners/{ownerId}" var="petUrl">
+                    <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+                        <spring:param name="ownerId" value="${pet.owner.id}"/>
                         <spring:param name="petId" value="${pet.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(petUrl)}"><c:out value="${pet.name}"/></a>

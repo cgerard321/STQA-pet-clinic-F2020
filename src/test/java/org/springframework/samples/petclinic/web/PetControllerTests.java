@@ -121,7 +121,7 @@ class PetControllerTests {
     void testListAllPetsSuccess() throws Exception {
         mockMvc.perform(get("/pets"))
             .andExpect(status().isOk())
-            .andExpect(model().attributeExists("pets"))
+            .andExpect(model().attributeExists("selections"))
             .andExpect(view().name("pets/petList"));
     }
 

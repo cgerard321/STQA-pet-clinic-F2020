@@ -104,26 +104,10 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
     @Override
     public Collection<Pet> findAllPets() {
-        System.out.println("Yeet2");
-
         // Retrieve the list of all pets
         Collection<Pet> pets = this.namedParameterJdbcTemplate.query(
             "SELECT * FROM pets ORDER BY name",
             BeanPropertyRowMapper.newInstance(Pet.class));
-
-//        // Retrieve the list of all possible pet types
-//        final List<PetType> petTypes = this.namedParameterJdbcTemplate.query(
-//            "SELECT id, name FROM types",
-//            BeanPropertyRowMapper.newInstance(PetType.class)
-//        );
-//
-//        // Retrieve the list of all possible pet owners
-//        final Collection<Owner> owners = ownerRepository.findByLastName("");
-//
-//        // Build each pet's list item
-//        for (Pet pet : pets) {
-//            for (int )
-//        }
         return pets;
     }
 

@@ -63,7 +63,7 @@ public class JpaPetRepositoryImpl implements PetRepository {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<Pet> findAllPets() {
+    public Collection<Pet> findAll() {
         return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
     }
 

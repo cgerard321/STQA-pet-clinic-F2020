@@ -89,7 +89,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Collection<Pet> findPetById() {
-        return petRepository.findAllPets();
+        return petRepository.findAll();
     }
 
     @Override

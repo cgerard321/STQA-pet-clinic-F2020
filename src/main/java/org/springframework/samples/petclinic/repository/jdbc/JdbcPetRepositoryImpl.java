@@ -103,7 +103,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     @Override
-    public Collection<Pet> findAllPets() {
+    public Collection<Pet> findAll() {
         // Retrieve the list of all pets
         Collection<Pet> pets = this.namedParameterJdbcTemplate.query(
             "SELECT * FROM pets ORDER BY name",

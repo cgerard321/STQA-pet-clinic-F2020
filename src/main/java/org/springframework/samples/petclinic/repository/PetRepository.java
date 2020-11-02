@@ -60,7 +60,7 @@ public interface PetRepository {
     /**
      * Retrieve all the <code>Pet</code> from the data store
      *
-     * @return - A list of all the pets
+     * @return a <code>Collection</code> of <code>Pet</code>s
      */
-    Collection<Pet> findAllPets();
+    Collection<Pet> findAll();
 }

@@ -15,21 +15,17 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.*;
+import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.util.EntityUtils;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context
@@ -199,5 +195,16 @@ abstract class AbstractClinicServiceTests {
         assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
     }
 
+    @Test
+    void shouldFindAllPetInClinic() {
+        Collection<Pet> pets = this.clinicService.findPetById();
+        // Make sure that all the pets is there
+        assertThat(pets.size()).isEqualTo(13);
 
+        Pet pet = EntityUtils.getById(pets, Pet.class, 13);
+        assertThat(pet.getName()).isEqualTo("Sly");
+        assertThat(pet.getBirthDate()).isEqualTo("2012-06-08");
+        assertThat(pet.getType().toString()).isEqualTo("cat");
+        assertThat(pet.getOwner().getId()).isEqualTo(10);
+    }
 }

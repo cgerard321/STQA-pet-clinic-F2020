@@ -4,6 +4,7 @@
 <%@ attribute name="name" required="true" rtexprvalue="true"
               description="Name of the active menu: home, owners, pets, vets, appointments, or error" %>
 
+<link href="/foundation-icons" rel="stylesheet">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -29,11 +30,8 @@
                 </petclinic:menuItem>
 
                 <petclinic:menuItem active="${name eq 'pets'}" url="/pets.html" title="find pets">
-                    <spring:url value="/resources/images/petLogo.png" htmlEscape="true" var="petsLogo"/>
-                    <img src="${petsLogo}" alt="Pet Logo">Pets
-
-                    <!--
-                    <span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
+                    Find Pets
+                    <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     <span>Find pets</span> -->
                 </petclinic:menuItem>
 

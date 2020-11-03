@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="name" required="true" rtexprvalue="true"
-              description="Name of the active menu: home, owners, vets or error" %>
+              description="Name of the active menu: home, owners, pets, vets, appointments, or error" %>
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
@@ -28,16 +28,32 @@
                     <span>Find owners</span>
                 </petclinic:menuItem>
 
+                <petclinic:menuItem active="${name eq 'pets'}" url="/pets.html" title="find pets">
+                    <spring:url value="/resources/images/petLogo.png" htmlEscape="true" var="petsLogo"/>
+                    <img src="${petsLogo}" alt="Pet Logo">Pets
+
+                    <!--
+                    <span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>
+                    <span>Find pets</span> -->
+                </petclinic:menuItem>
+
                 <petclinic:menuItem active="${name eq 'vets'}" url="/vets.html" title="veterinarians">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Veterinarians</span>
                 </petclinic:menuItem>
 
+                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments.html" title="schedule appointments">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                    <span>Appointments</span>
+                </petclinic:menuItem>
+
+                <!--
                 <petclinic:menuItem active="${name eq 'error'}" url="/oups.html"
                             title="trigger a RuntimeException to see how it is handled">
                     <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                     <span>Error</span>
                 </petclinic:menuItem>
+                -->
 
             </ul>
         </div>

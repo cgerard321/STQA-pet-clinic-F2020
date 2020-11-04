@@ -31,10 +31,9 @@ import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * @author Ken Krebs
@@ -104,10 +103,31 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
     @Override
     public Collection<Pet> findAll() {
+        JdbcPetRowMapper mapper = new JdbcPetRowMapper();
+
+        // Retrieve the list of all the pet types
+        final List<PetType> petTypes = findPetTypes();
+
         // Retrieve the list of all pets
-        Collection<Pet> pets = this.namedParameterJdbcTemplate.query(
+        List<JdbcPet> jdbcPets = this.namedParameterJdbcTemplate.query(
             "SELECT * FROM pets ORDER BY name",
-            BeanPropertyRowMapper.newInstance(Pet.class));
+            new BeanPropertyRowMapper<JdbcPet>() {
+                int ownerId;
+
+                @Override
+                public JdbcPet mapRow(ResultSet rs, int rowNumber) throws SQLException {
+                    JdbcPet jdbcPet = mapper.mapRow(rs, rowNumber);
+                    ownerId = rs.getInt("owner_id");
+                    jdbcPet.setType(EntityUtils.getById(petTypes, PetType.class, jdbcPet.getTypeId()));
+                    return jdbcPet;
+                }
+            });
+
+        for (JdbcPet jdbcPet : jdbcPets) {
+            jdbcPet.setOwner(this.ownerRepository.findById(jdbcPet.getOwnerId()));
+        }
+
+        Collection<Pet> pets = new ArrayList<>(jdbcPets);
         return pets;
     }
 

@@ -89,7 +89,12 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Collection<Pet> findPetById() {
-        return petRepository.findAll();
+        Collection<Pet> ret = petRepository.findAll();
+        if (ret == null || ret.isEmpty()) {
+            throw new NullPointerException();
+        }
+
+        return ret;
     }
 
     @Override

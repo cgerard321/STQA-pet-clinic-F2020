@@ -16,8 +16,13 @@
 package org.springframework.samples.petclinic.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.*;
+import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +31,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context
@@ -46,10 +53,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+@ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 
     @Autowired
     protected ClinicService clinicService;
+
+    @Mock
+    PetRepository petRepository;
+
+    @InjectMocks
+    ClinicServiceImpl mockService;
 
     @Test
     void shouldFindOwnersByLastName() {
@@ -206,5 +220,11 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getBirthDate()).isEqualTo("2012-06-08");
         assertThat(pet.getType().toString()).isEqualTo("cat");
         assertThat(pet.getOwner().getId()).isEqualTo(10);
+    }
+
+    @Test
+    void shouldExceptionFindAllPetInClinic() {
+        when(petRepository.findAll()).thenReturn(null);
+        assertThrows(NullPointerException.class, () -> mockService.findPetById());
     }
 }

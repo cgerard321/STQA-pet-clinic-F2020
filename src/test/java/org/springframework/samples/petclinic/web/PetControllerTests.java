@@ -13,6 +13,11 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,9 +55,23 @@ class PetControllerTests {
         PetType cat = new PetType();
         cat.setId(3);
         cat.setName("hamster");
+
+        Pet pet1 = new Pet();
+        pet1.setId(1);
+        pet1.setName("Test1");
+
+        Pet pet2 = new Pet();
+        pet2.setId(2);
+        pet2.setName("Test2");
+
+        Collection<Pet> petList = new ArrayList<>();
+        petList.add(pet1);
+        petList.add(pet2);
+
         given(this.clinicService.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
+        given(this.clinicService.findPetById()).willReturn(petList);
     }
 
     @Test
@@ -118,11 +137,34 @@ class PetControllerTests {
     }
 
     @Test
-    void testListAllPetsSuccess() throws Exception {
+    void testListAllPetsDisplaySuccess() throws Exception {
+        mockMvc.perform(get("/pets"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petList"));
+    }
+
+    @Test
+    void testListAllPetsCorrectInfo() throws Exception {
+        Pet pet1Expected = new Pet();
+        pet1Expected.setId(1);
+        pet1Expected.setName("Test1");
+
+        Pet pet2Expected = new Pet();
+        pet2Expected.setId(2);
+        pet2Expected.setName("Test2");
+
+        List<Pet> expectedList = new ArrayList<>();
+        expectedList.add(pet1Expected);
+        expectedList.add(pet2Expected);
+
         mockMvc.perform(get("/pets"))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("selections"))
-            .andExpect(view().name("pets/petList"));
+            .andExpect(model().attribute("selections", hasSize(2)))
+            .andExpect(model().attribute("selections", contains(
+                hasProperty("id", equalTo(1)),
+                any(Pet.class)
+            )));
     }
 
 }

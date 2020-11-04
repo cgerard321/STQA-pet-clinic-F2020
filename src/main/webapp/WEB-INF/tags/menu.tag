@@ -4,13 +4,12 @@
 <%@ attribute name="name" required="true" rtexprvalue="true"
               description="Name of the active menu: home, owners, pets, vets, appointments, or error" %>
 
-<link href="/foundation-icons" rel="stylesheet">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-                <span class="sr-only"><os-p>Toggle navigation</os-p></span>
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -30,7 +29,8 @@
                 </petclinic:menuItem>
 
                 <petclinic:menuItem active="${name eq 'pets'}" url="/pets.html" title="find pets">
-                    Find Pets
+                    <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
+                    <span style="position:relative; top:-4px;"> Find Pets</span>
                     <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     <span>Find pets</span> -->
                 </petclinic:menuItem>
@@ -41,8 +41,8 @@
                 </petclinic:menuItem>
 
                 <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments.html" title="schedule appointments">
-                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                    <span>Appointments</span>
+                    <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
+                    <span style="position:relative; top:-4px;"> Appointments</span>
                 </petclinic:menuItem>
 
                 <!--

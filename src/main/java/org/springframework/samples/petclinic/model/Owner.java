@@ -41,6 +41,13 @@ import org.springframework.core.style.ToStringCreator;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+/*
+<<<<<<< HEAD
+//comment by Lucas Cimino
+=======
+
+>>>>>>> 0093671 (Following class - added comment to our section)
+ */
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {

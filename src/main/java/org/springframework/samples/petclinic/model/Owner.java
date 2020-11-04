@@ -41,6 +41,9 @@ import org.springframework.core.style.ToStringCreator;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
+
+
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
@@ -60,7 +63,7 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
-
+    //here is my comment (Illia) 11/4/2020
     public String getAddress() {
         return this.address;
     }

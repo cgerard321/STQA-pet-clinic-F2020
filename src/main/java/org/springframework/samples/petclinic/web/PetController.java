@@ -58,11 +58,6 @@ public class PetController {
         return ownerId != null ? this.clinicService.findOwnerById(ownerId) : null;
     }
 
-//    @ModelAttribute("owner")
-//    public Owner findOwner() {
-//        return null;
-//    }
-
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
@@ -116,7 +111,7 @@ public class PetController {
         }
     }
 
-    @GetMapping(value = "/pets")
+    @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
         Collection<Pet> results = clinicService.findPetById();
 

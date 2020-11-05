@@ -37,19 +37,17 @@
     <div>
         <h2>Set Weekly Availabilities</h2>
 
+        <form id="scheduler" action="saveVetSchedule.jsp" method="GET">
         <label>Select a Veterinarian</label>
-        <select>
+        <select name="veterinarian">
             <c:forEach items="${vets.vetList}" var="vet">
                     <option>
                         <c:out value="${vet.firstName} ${vet.lastName}"/>
                     </option>
             </c:forEach>
         </select>
+            <br>
 
-
-<%--        Gabriel Schedule Form--%>
-
-        <form id="scheduler" action="saveVetSchedule.jsp">
             <label>Monday</label>
             <input type="checkbox" id="1" name="monday">
             <br>

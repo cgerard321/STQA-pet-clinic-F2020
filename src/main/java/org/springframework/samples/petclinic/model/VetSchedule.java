@@ -8,19 +8,18 @@ public class VetSchedule {
 
     protected Integer vetId;
     protected String roomId;
-
     protected List<DayOfWeek> dayAvailable;
 
     public VetSchedule(Integer vetId, String roomId, List<DayOfWeek> dayAvailable) {
         this.vetId = vetId;
-
         this.roomId = roomId;
         this.dayAvailable = dayAvailable;
     }
 
-
     public VetSchedule() {
     }
+
+
 
     public Integer getVetId() {
         return vetId;
@@ -31,12 +30,14 @@ public class VetSchedule {
     }
 
 
+
     public String getRoomId() {
         return roomId;
     }
 
     public List<DayOfWeek> getDayAvailable() {
-
+        return dayAvailable;
+    }
 
 
     public void setRoomId(String roomId) {
@@ -47,11 +48,4 @@ public class VetSchedule {
         this.dayAvailable = dayAvailable;
     }
 
-    public Integer getVetId() {
-        return vetId;
-    }
-
-    public void setVetId(Integer vetId) {
-        this.vetId = vetId;
-    }
 }

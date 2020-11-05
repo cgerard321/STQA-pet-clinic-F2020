@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.repository.jpa;
 
-
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.springdatajpa.VetScheduleRepository;
@@ -20,5 +19,6 @@ public class JpaVetScheduleRepository implements VetScheduleRepository {
     public Collection<VetSchedule> findAll() {
       //  return this.em.createQuery("SELECT day_available FROM vet_schedule LEFT JOIN FETCH Vet.id").getResultList();
         throw new NotYetImplementedException();
+
     }
 }

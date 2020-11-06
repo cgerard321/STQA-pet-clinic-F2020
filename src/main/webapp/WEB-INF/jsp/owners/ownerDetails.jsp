@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <th id="email">Email</th>
-            <td headers="telephone"><c:out value="${owner.email}"/></td>
+            <td headers="email"><c:out value="${owner.email}"/></td>
         </tr>
     </table>
 

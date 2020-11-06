@@ -225,6 +225,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getOwner().getId()).isEqualTo(10);
     }
 
+    @Test
     void shouldRetrieveOwnerEmail() throws Exception {
         Owner owner = new Owner();
         owner.setEmail("antoine.heb@outlook.com");

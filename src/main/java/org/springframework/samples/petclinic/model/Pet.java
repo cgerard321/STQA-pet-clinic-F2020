@@ -46,6 +46,8 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+    /* Test comment Nichita */
+
     /* Test comment from cgerard */
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -97,6 +99,8 @@ public class Pet extends NamedEntity {
     protected void setVisitsInternal(Set<Visit> visits) {
         this.visits = visits;
     }
+
+    /* Test comment from Ryan */
 
     public List<Visit> getVisits() {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());

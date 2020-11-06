@@ -34,7 +34,9 @@ import java.time.LocalDate;
 @Table(name = "visits")
 public class Visit extends BaseEntity {
 
+
     /**
+     * TEST COMMENT GABRIEL
      * Holds value of property date.
      */
     @Column(name = "visit_date")

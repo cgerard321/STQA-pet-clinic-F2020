@@ -215,7 +215,9 @@ abstract class AbstractClinicServiceTests {
         // Make sure that all the pets is there
         assertThat(pets.size()).isEqualTo(13);
 
+        // Get the last pet
         Pet pet = EntityUtils.getById(pets, Pet.class, 13);
+
         assertThat(pet.getName()).isEqualTo("Sly");
         assertThat(pet.getBirthDate()).isEqualTo("2012-06-08");
         assertThat(pet.getType().toString()).isEqualTo("cat");

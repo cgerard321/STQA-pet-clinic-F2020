@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
@@ -56,6 +55,7 @@ class PetControllerTests {
         cat.setId(3);
         cat.setName("hamster");
 
+        // Stub new pet for a pet list
         Pet pet1 = new Pet();
         pet1.setId(1);
         pet1.setName("Test1");
@@ -64,6 +64,7 @@ class PetControllerTests {
         pet2.setId(2);
         pet2.setName("Test2");
 
+        // Add stubbed pets to list
         Collection<Pet> petList = new ArrayList<>();
         petList.add(pet1);
         petList.add(pet2);
@@ -71,6 +72,7 @@ class PetControllerTests {
         given(this.clinicService.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
+        // Return stubbed petList
         given(this.clinicService.findPetById()).willReturn(petList);
     }
 
@@ -138,30 +140,18 @@ class PetControllerTests {
 
     @Test
     void testListAllPetsDisplaySuccess() throws Exception {
-        mockMvc.perform(get("/pets"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("pets/petList"));
+        mockMvc.perform(get("/pets")) // Navigate to the page
+            .andExpect(status().isOk()) // Make sure the status is ok
+            .andExpect(view().name("pets/petList")); // Check if controller handle correctly
     }
 
     @Test
     void testListAllPetsCorrectInfo() throws Exception {
-        Pet pet1Expected = new Pet();
-        pet1Expected.setId(1);
-        pet1Expected.setName("Test1");
-
-        Pet pet2Expected = new Pet();
-        pet2Expected.setId(2);
-        pet2Expected.setName("Test2");
-
-        List<Pet> expectedList = new ArrayList<>();
-        expectedList.add(pet1Expected);
-        expectedList.add(pet2Expected);
-
-        mockMvc.perform(get("/pets"))
-            .andExpect(status().isOk())
-            .andExpect(model().attributeExists("selections"))
-            .andExpect(model().attribute("selections", hasSize(2)))
-            .andExpect(model().attribute("selections", contains(
+        mockMvc.perform(get("/pets")) // Navigate to the page
+            .andExpect(status().isOk()) // Make sure the status is ok
+            .andExpect(model().attributeExists("selections")) // Check if the model have the pet list called "selections"
+            .andExpect(model().attribute("selections", hasSize(2))) // Check if pet list is size 2
+            .andExpect(model().attribute("selections", contains( // Check if the pet list contains correct information
                 hasProperty("id", equalTo(1)),
                 any(Pet.class)
             )));

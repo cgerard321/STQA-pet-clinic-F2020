@@ -115,20 +115,23 @@ public class JdbcPetRepositoryImpl implements PetRepository {
                 int ownerId;
 
                 @Override
-                public JdbcPet mapRow(ResultSet rs, int rowNumber) throws SQLException {
+                public JdbcPet mapRow(ResultSet rs, int rowNumber) throws SQLException { // This method is called for every row that's been returned
                     JdbcPet jdbcPet = mapper.mapRow(rs, rowNumber);
+                    // Get the id of the owners
                     ownerId = rs.getInt("owner_id");
+                    // Set pet type
                     jdbcPet.setType(EntityUtils.getById(petTypes, PetType.class, jdbcPet.getTypeId()));
+
                     return jdbcPet;
                 }
             });
 
+        // Add the owners to the pets
         for (JdbcPet jdbcPet : jdbcPets) {
             jdbcPet.setOwner(this.ownerRepository.findById(jdbcPet.getOwnerId()));
         }
 
-        Collection<Pet> pets = new ArrayList<>(jdbcPets);
-        return pets;
+        return new ArrayList<>(jdbcPets);
     }
 
     /**

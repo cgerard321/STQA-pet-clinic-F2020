@@ -28,7 +28,7 @@
                     <span>Find owners</span>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'pets'}" url="/pets.html" title="find pets">
+                <petclinic:menuItem active="${name eq 'pets'}" url="/pets/find.html" title="find pets">
                     <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
                     <span style="position:relative; top:-4px;"> Find Pets</span>
                     <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author Juergen Hoeller
@@ -37,7 +38,7 @@ import java.util.Collection;
  * @author Arjen Poutsma
  */
 @Controller
-@RequestMapping("/owners/{ownerId}")
+//@RequestMapping("/owners/{ownerId}")
 public class PetController {
 // Yu Qiao was here
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
@@ -53,10 +54,10 @@ public class PetController {
         return this.clinicService.findPetTypes();
     }
 
-    @ModelAttribute("owner")
-    public Owner findOwner(@PathVariable("ownerId") int ownerId) {
-        return this.clinicService.findOwnerById(ownerId);
-    }
+    //@ModelAttribute("owner")
+    //public Owner findOwner(@PathVariable("ownerId") int ownerId) {
+    //    return this.clinicService.findOwnerById(ownerId);
+    //}
 
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {
@@ -108,6 +109,13 @@ public class PetController {
             this.clinicService.savePet(pet);
             return "redirect:/owners/{ownerId}";
         }
+    }
+
+
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        model.put("pet", new Pet());
+        return "pets/findPets";
     }
 
 }

@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 
 /**
@@ -45,4 +46,7 @@ class JdbcPet extends Pet {
         this.ownerId = ownerId;
     }
 
+    public void setOwner(Owner owner) {
+        super.setOwner(owner);
+    }
 }

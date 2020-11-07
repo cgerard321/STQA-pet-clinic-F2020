@@ -85,6 +85,7 @@ abstract class AbstractClinicServiceTests {
         owner.setAddress("4, Evans Street");
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
+        owner.setEmail("george.franklin@gamil.com");
         this.clinicService.saveOwner(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
@@ -198,6 +199,39 @@ abstract class AbstractClinicServiceTests {
         assertThat(visitArr[0].getDate()).isNotNull();
         assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
     }
+
+    @Test
+    void shouldRetrieveOwnerEmail() throws Exception {
+        Owner owner = new Owner();
+        owner.setEmail("antoine.heb@outlook.com");
+
+        String expected = "antoine.heb@outlook.com";
+        String actualResult = owner.getEmail();
+
+        assertThat(actualResult.equals(expected));
+    }
+
+    @Test
+    @Transactional
+    void shouldUpdateOwnerEmail() {
+        Owner owner = this.clinicService.findOwnerById(1);
+        String oldEmail = owner.getEmail();
+        String newEmail = oldEmail + "X";
+
+        owner.setEmail(newEmail);
+        this.clinicService.saveOwner(owner);
+
+        // retrieving new name from database
+        owner = this.clinicService.findOwnerById(1);
+        assertThat(owner.getEmail()).isEqualTo(newEmail);
+    }
+
+
+
+
+
+
+
 
 
 }

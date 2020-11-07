@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.DayOfWeek;
-
 import java.util.List;
 
 public class VetSchedule {
@@ -20,7 +19,6 @@ public class VetSchedule {
     }
 
 
-
     public Integer getVetId() {
         return vetId;
     }
@@ -30,18 +28,16 @@ public class VetSchedule {
     }
 
 
-
     public String getRoomId() {
         return roomId;
     }
 
-    public List<DayOfWeek> getDayAvailable() {
-        return dayAvailable;
-    }
-
-
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public List<DayOfWeek> getDayAvailable() {
+        return dayAvailable;
     }
 
     public void setDayAvailable(List<DayOfWeek> dayAvailable) {

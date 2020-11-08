@@ -52,6 +52,7 @@ INSERT IGNORE INTO visits VALUES (2, 8, '2011-03-04', 'rabies shot');
 INSERT IGNORE INTO visits VALUES (3, 8, '2009-06-04', 'neutered');
 INSERT IGNORE INTO visits VALUES (4, 7, '2008-09-04', 'spayed');
 
-INSERT INTO vet_schedule VALUES(2,'A-102', 'Wednesday',NULL);
-INSERT INTO vet_schedule VALUES(2,'A-102', 'Monday',NULL);
+INSERT INTO vet_schedule VALUES(2,'A-102', 2,NULL);
+INSERT INTO vet_schedule VALUES(2,'A-102', 0,NULL);
+--Monday = 0, Sunday = 6
 

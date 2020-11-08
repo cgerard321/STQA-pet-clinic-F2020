@@ -64,11 +64,10 @@ CREATE TABLE IF NOT EXISTS visits (
 CREATE TABLE IF NOT EXISTS vet_schedule (
     vet_ID INT(4) NOT NULL PRIMARY KEY,
     room_ID VARCHAR(5) NOT NULL,
-    day_available VARCHAR(10),
+    day_available NUMERIC(1,0),
     visit_id INT(4),
 
     FOREIGN KEY(vet_ID) REFERENCES vets(id),
     FOREIGN KEY(visit_id) REFERENCES  visits(id)
 ) engine=InnoDB;
-/*Note. Use the DAYNAME() function to convert visit_date to the corresponding day.
-  Then, you can compare to the string in day_available*/
+

@@ -70,7 +70,8 @@ CREATE TABLE vet_schedule (
 
     vet_ID INTEGER IDENTITY PRIMARY KEY,
     room_ID VARCHAR(5) NOT NULL,
-    day_available INTEGER NOT NULL,
+    day_available NUMERIC(1,0) NOT NULL,
     visit_id INTEGER
 );
 ALTER TABLE vet_schedule ADD CONSTRAINT fk_schedule_vets FOREIGN KEY (vet_ID) REFERENCES vets(id);
+ALTER TABLE vet_schedule ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);

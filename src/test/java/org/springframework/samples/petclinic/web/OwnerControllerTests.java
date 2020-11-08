@@ -178,4 +178,11 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/ownerDetails"));
     }
 
+    @Test
+    void testNavigateToFindOwners() throws Exception{
+        mockMvc.perform(get("/owners/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/findOwners"))
+            .andExpect(forwardedUrl("owners/findOwners"));
+    }
 }

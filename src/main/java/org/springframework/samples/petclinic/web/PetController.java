@@ -54,10 +54,10 @@ public class PetController {
         return this.clinicService.findPetTypes();
     }
 
-    //@ModelAttribute("owner")
-    //public Owner findOwner(@PathVariable("ownerId") int ownerId) {
-    //    return this.clinicService.findOwnerById(ownerId);
-    //}
+//    @ModelAttribute("owner")
+//    public Owner findOwner(@PathVariable("ownerId") int ownerId) {
+//        return this.clinicService.findOwnerById(ownerId);
+//    }
 
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {

@@ -21,12 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
@@ -43,6 +38,9 @@ import org.springframework.beans.support.PropertyComparator;
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vet", fetch = FetchType.EAGER)
+   private Set<Reminder> reminders;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
@@ -73,6 +71,29 @@ public class Vet extends Person {
 
     public void addSpecialty(Specialty specialty) {
         getSpecialtiesInternal().add(specialty);
+    }
+
+    protected Set<Reminder> getRemindersInternal() {
+        if (this.reminders == null) {
+            this.reminders = new HashSet<>();
+        }
+        return this.reminders;
+    }
+
+    protected void setRemindersInternal(Set<Reminder> reminders) {
+        this.reminders = reminders;
+    }
+
+    //Problem is with this method
+    public List<Reminder> getReminders() {
+        List<Reminder> sortedReminders = new ArrayList<>(getRemindersInternal());
+        PropertyComparator.sort(sortedReminders, new MutableSortDefinition("date", false, false));
+        return Collections.unmodifiableList(sortedReminders);
+    }
+
+    public void addReminder(Reminder reminder) {
+        getRemindersInternal().add(reminder);
+        reminder.setVet(this);
     }
 
 }

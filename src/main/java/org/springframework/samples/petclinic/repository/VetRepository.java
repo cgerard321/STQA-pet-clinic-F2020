@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
 
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Vet;
 
 /**
@@ -37,5 +38,5 @@ public interface VetRepository {
      */
     Collection<Vet> findAll();
 
-
+    Vet findById(int id);
 }

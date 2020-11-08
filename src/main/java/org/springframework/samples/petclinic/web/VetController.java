@@ -20,7 +20,9 @@ import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -60,6 +62,14 @@ public class VetController {
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
+    }
+
+
+    @GetMapping("/vets/{vetId}")
+    public ModelAndView showOwner(@PathVariable("vetId") int vetId) {
+        ModelAndView mav = new ModelAndView("vets/vetDetails");
+        mav.addObject(this.clinicService.findVetById(vetId));
+        return mav;
     }
 
 

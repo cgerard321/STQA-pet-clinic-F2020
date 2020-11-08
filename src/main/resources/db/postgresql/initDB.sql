@@ -82,3 +82,14 @@ CREATE TABLE IF NOT EXISTS visits (
 );
 
 ALTER SEQUENCE visits_id_seq RESTART WITH 100;
+
+CREATE TABLE IF NOT EXISTS reminders (
+  id SERIAL,
+  vet_id INT NOT NULL,
+  event_date DATE,
+  event_description VARCHAR(255),
+  FOREIGN KEY (vet_id) REFERENCES vets(id),
+  CONSTRAINT pk_reminders PRIMARY KEY (id)
+);
+
+ALTER SEQUENCE reminders_id_seq RESTART WITH 100;

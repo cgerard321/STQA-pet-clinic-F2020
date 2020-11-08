@@ -17,13 +17,16 @@ package org.springframework.samples.petclinic.repository.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Reminder;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -43,6 +46,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class JdbcVetRepositoryImpl implements VetRepository {
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -83,6 +88,66 @@ public class JdbcVetRepositoryImpl implements VetRepository {
                 vet.addSpecialty(specialty);
             }
         }
+
+//        // Retrieve the list of all reminders.
+//        final List<Reminder> reminders = this.jdbcTemplate.query(
+//            "SELECT id, event_date, event_description FROM reminders",
+//            BeanPropertyRowMapper.newInstance(Reminder.class));
+//
+//        // Build each vet's list of specialties.
+//        for (Vet vet : vets) {
+//            final List<Integer> vetRemindersIds = this.jdbcTemplate.query(
+//                "SELECT reminder_id FROM reminders WHERE vet_id=?",
+//                new BeanPropertyRowMapper<Integer>() {
+//                    @Override
+//                    public Integer mapRow(ResultSet rs, int row) throws SQLException {
+//                        return rs.getInt(1);
+//                    }
+//                },
+//                vet.getId());
+//            for (int reminderId : vetRemindersIds) {
+//                Reminder reminder = EntityUtils.getById(reminders, Reminder.class, reminderId);
+//                vet.addReminder(reminder);
+//            }
+//        }
+
+        loadOwnersAndReminders(vets);
         return vets;
     }
+
+    @Override
+    public Vet findById(int id) {
+        Vet vet;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+            vet = this.namedParameterJdbcTemplate.queryForObject(
+                "SELECT id, first_name, last_name FROM vets WHERE id= :id",
+                params,
+                BeanPropertyRowMapper.newInstance(Vet.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Vet.class, id);
+        }
+        loadReminders(vet);
+        return vet;
+    }
+
+    public void loadReminders(final Vet vet) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", vet.getId());
+        final List<Vet> reminders = this.namedParameterJdbcTemplate.query(
+            "SELECT vets.id, first_name, last_name, reminders.id, event_date, event_description FROM reminders LEFT OUTER JOIN vets ON reminders.vet_id :=id ORDER BY reminders.id",
+            params,
+            new JdbcVetReminderExtractor()
+        );
+    }
+
+    private void loadOwnersAndReminders(List<Vet> vets) {
+        for (Vet vet : vets) {
+            loadReminders(vet);
+        }
+    }
+
+
 }

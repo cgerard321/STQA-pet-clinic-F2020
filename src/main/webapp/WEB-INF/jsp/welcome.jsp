@@ -11,4 +11,6 @@
             <img class="img-responsive" alt="A cat and a dog" src="${petsImage}"/>
         </div>
     </div>
+    <h2>Reminders</h2>
+    <a class="btn btn-default" href='<spring:url value="/vets.html" htmlEscape="true"/>'>Add Reminder</a>
 </petclinic:layout>

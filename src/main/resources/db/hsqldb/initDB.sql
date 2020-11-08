@@ -74,4 +74,3 @@ CREATE TABLE vet_schedule (
     visit_id INTEGER
 );
 ALTER TABLE vet_schedule ADD CONSTRAINT fk_schedule_vets FOREIGN KEY (vet_ID) REFERENCES vets(id);
-ALTER TABLE vet_schedule ADD CONSTRAINT fk_visit_schedule FOREIGN KEY (visit_id) REFERENCES  visits(id);

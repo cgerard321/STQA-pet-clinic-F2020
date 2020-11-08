@@ -15,23 +15,14 @@
  */
 package org.springframework.samples.petclinic.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import java.util.*;
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -40,6 +31,13 @@ import org.springframework.core.style.ToStringCreator;
  * @author Juergen Hoeller
  * @author Sam Brannen
  * @author Michael Isvy
+ */
+/*
+<<<<<<< HEAD
+//comment by Lucas Cimino
+=======
+
+>>>>>>> 0093671 (Following class - added comment to our section)
  */
 @Entity
 @Table(name = "owners")
@@ -56,6 +54,10 @@ public class Owner extends Person {
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     private String telephone;
+
+    @Column(name = "email")
+    @NotEmpty
+    private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
@@ -83,6 +85,14 @@ public class Owner extends Person {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     protected Set<Pet> getPetsInternal() {
@@ -148,6 +158,7 @@ public class Owner extends Person {
             .append("address", this.address)
             .append("city", this.city)
             .append("telephone", this.telephone)
+            .append("email", this.email)
             .toString();
     }
 }

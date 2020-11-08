@@ -1,11 +1,12 @@
 DROP TABLE vet_specialties IF EXISTS;
+DROP TABLE vet_schedule IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
 DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
-DROP TABLE vet_schedule IF EXISTS;
+
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,
@@ -67,7 +68,7 @@ CREATE INDEX visits_pet_id ON visits (pet_id);
 /*Code added by Maria Carolina Avila for the APPT team*/
 CREATE TABLE vet_schedule (
 
-    vet_ID INTEGER PRIMARY KEY,
+    vet_ID INTEGER IDENTITY PRIMARY KEY,
     room_ID VARCHAR(5) NOT NULL,
     day_available INTEGER NOT NULL,
     visit_id INTEGER

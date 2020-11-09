@@ -18,7 +18,6 @@ public class VetSchedule {
     public VetSchedule() {
     }
 
-
     public Integer getVetId() {
         return vetId;
     }

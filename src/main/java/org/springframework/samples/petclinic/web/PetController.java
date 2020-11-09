@@ -111,6 +111,12 @@ public class PetController {
         }
     }
 
+    @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
+    public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
+        Pet pet = this.clinicService.findPetById(petId);
+        model.put("pet", pet);
+        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+    }
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {

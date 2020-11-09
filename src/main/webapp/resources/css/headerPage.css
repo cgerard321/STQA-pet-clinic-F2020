@@ -8,3 +8,8 @@ li a {
     left: 50px;
     top: 7px;
 }
+
+.foundationIconsSpacing{
+    position:relative;
+    top: -4px;
+}

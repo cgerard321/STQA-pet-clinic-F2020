@@ -67,8 +67,8 @@ CREATE INDEX visits_pet_id ON visits (pet_id);
 
 /*Code added by Maria Carolina Avila for the APPT team*/
 CREATE TABLE vet_schedule (
-
-    vet_ID INTEGER IDENTITY PRIMARY KEY,
+    schedule_id INTEGER IDENTITY PRIMARY KEY,
+    vet_ID INTEGER NOT NULL,
     room_ID VARCHAR(5) NOT NULL,
     day_available NUMERIC(1,0) NOT NULL,
     visit_id INTEGER

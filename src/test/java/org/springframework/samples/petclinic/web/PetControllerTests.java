@@ -145,7 +145,8 @@ class PetControllerTests {
            .andExpect(model().attributeHasErrors("pet"))
            .andExpect(status().isOk())
            .andExpect(view().name("pets/createOrUpdatePetForm"));
-   
+   }
+       
     @Test
     void testListAllPetsDisplaySuccess() throws Exception {
         mockMvc.perform(get("/pets/petList")) // Navigate to the page

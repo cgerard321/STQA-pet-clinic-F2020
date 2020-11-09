@@ -117,5 +117,8 @@ public class ClinicServiceImpl implements ClinicService {
         return visitRepository.findByPetId(petId);
     }
 
-
+    @Override
+    public Collection<Visit> findVisitsByOwnerId(int ownerId) {
+        return visitRepository.findByOwnerId(ownerId);
+    }
 }

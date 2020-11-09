@@ -144,11 +144,6 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/javax.mail-api-1.6.2.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>all</artifactId>
-            <version>1.4.2</version>
-        </dependency>
 
 
         <!-- SPRING, SPRING, SPRINGITY SPRING -->

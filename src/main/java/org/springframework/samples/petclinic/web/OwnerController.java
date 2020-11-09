@@ -19,10 +19,14 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.samples.petclinic.model.EmailPackage;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.service.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,8 +45,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+    public static final String VIEWS_OWNER_SEND_EMAIL ="owners/sendEmailToOwner";
     private final ClinicService clinicService;
 
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     public OwnerController(ClinicService clinicService) {
@@ -133,4 +140,21 @@ public class OwnerController {
         return mav;
     }
 
+    @GetMapping("/owners/{ownerId}/email")
+    public ModelAndView showEmailForm(@PathVariable("ownerId") int ownerId, Model model) {
+        ModelAndView mav = new ModelAndView(VIEWS_OWNER_SEND_EMAIL);
+        return mav;
+    }
+
+   @PostMapping("/owners/{ownerId}/sendEmail")
+    public String sendEmail(@RequestBody EmailPackage emailPackage) {
+
+        try {
+            emailService.sendEmail(emailPackage);
+        } catch (MailException e) {
+            return "failure";
+        }
+
+        return "success";
+    }
 }

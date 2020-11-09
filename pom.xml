@@ -135,6 +135,22 @@
             <version>${json-path.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Email dependency -->
+        <dependency>
+            <groupId>org.springframework.samples.petclinic</groupId>
+            <artifactId>mail-lib</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/javax.mail-api-1.6.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>all</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+
+
         <!-- SPRING, SPRING, SPRINGITY SPRING -->
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -292,6 +308,11 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>${activation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
     </dependencies>

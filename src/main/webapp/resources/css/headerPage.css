@@ -1,0 +1,15 @@
+li a{
+    max-height: 73px;
+}
+
+#headerImage{
+    height: 60px;
+    position:relative;
+    left: 40px;
+    top: 7px;
+}
+
+.foundationIconsSpacing{
+    position: relative;
+    top: -4px;
+}

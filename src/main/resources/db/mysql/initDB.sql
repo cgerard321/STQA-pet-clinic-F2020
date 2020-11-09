@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS visits (
 
 /*Code added by Maria Carolina Avila for the APPT team*/
 CREATE TABLE IF NOT EXISTS vet_schedule (
-    vet_ID INT(4) NOT NULL PRIMARY KEY,
+    schedule_id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    vet_ID INT(4) NOT NULL,
     room_ID VARCHAR(5) NOT NULL,
     day_available NUMERIC(1,0) NOT NULL CHECK ( day_available BETWEEN 0 AND 6),
     visit_id INT(4),

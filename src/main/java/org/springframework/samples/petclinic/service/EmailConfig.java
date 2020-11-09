@@ -19,8 +19,8 @@ public class EmailConfig {
         mailSender.setPort(587);
 
         // I know, I know, this is horrible... Thank god this isn't a security course! :)
-        mailSender.setUsername("merozwilliam@gmail.com");
-        mailSender.setPassword("3Ke6^H%#IKxNhq8");
+        mailSender.setUsername("springpetclinicfall2020@gmail.com");
+        mailSender.setPassword("MockitoHamcrest2020");
 
         // Since we are using Google's SMTP server, we have to enable the tls protocol.
         Properties props = mailSender.getJavaMailProperties();

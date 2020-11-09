@@ -15,13 +15,9 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
+import org.springframework.samples.petclinic.model.*;
 
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
+import java.util.Collection;
 
 
 /**
@@ -37,6 +33,13 @@ public interface ClinicService {
 
     Pet findPetById(int id);
 
+    /**
+     * Find all the <code>Pet</code> in the clinic
+     *
+     * @return a list of all the pets
+     */
+    Collection<Pet> findPetById();
+
     void savePet(Pet pet);
 
     void saveVisit(Visit visit);
@@ -48,5 +51,7 @@ public interface ClinicService {
     Collection<Owner> findOwnerByLastName(String lastName);
 
 	Collection<Visit> findVisitsByPetId(int petId);
+
+    Collection<Visit> findVisitsByOwnerId(int ownerId);
 
 }

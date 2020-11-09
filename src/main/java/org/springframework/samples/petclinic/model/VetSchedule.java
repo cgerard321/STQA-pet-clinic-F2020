@@ -26,7 +26,6 @@ public class VetSchedule {
         this.vetId = vetId;
     }
 
-
     public String getRoomId() {
         return roomId;
     }

@@ -43,7 +43,7 @@
 
 <form>
     <p>Choose your appointment: </p>
-    <select>
+    <select name="appointNumber">
         <c:forEach var="count" begin="1" end="${flag}">
         <option value="<c:out value="${count}"/>"><c:out value="${count}"/></option>
         </c:forEach>

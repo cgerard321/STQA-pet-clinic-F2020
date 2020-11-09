@@ -1,6 +1,4 @@
 package org.springframework.samples.petclinic.web;
-
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
@@ -20,9 +18,10 @@ public class AppointmentController {
     public AppointmentController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
-
+    
+    /*Controller for the booking appointment page*/
     @GetMapping(value = "/appointments")
-    public String initFindForm(Map<String, Object> vetInfo) {
+    public String initCreationForm(Map<String, Object> vetInfo) {
         Vets vetList = new Vets();
         vetList.getVetList().addAll(this.clinicService.findVets());
         vetInfo.put("vetAppoint", vetList);

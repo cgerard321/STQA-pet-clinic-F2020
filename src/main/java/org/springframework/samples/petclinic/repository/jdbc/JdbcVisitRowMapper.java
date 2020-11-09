@@ -17,11 +17,14 @@ package org.springframework.samples.petclinic.repository.jdbc;
 
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * {@link RowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties
@@ -29,12 +32,36 @@ import java.time.LocalDate;
  */
 class JdbcVisitRowMapper implements RowMapper<Visit> {
 
+    private List<JdbcPet> pets;
+
+    public List<JdbcPet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<JdbcPet> pets) {
+        this.pets = pets;
+    }
+
+    public JdbcVisitRowMapper() {
+        this.pets = null;
+    }
+
+    public JdbcVisitRowMapper(List<JdbcPet> pets) {
+        this.pets = pets;
+    }
+
     @Override
     public Visit mapRow(ResultSet rs, int row) throws SQLException {
         Visit visit = new Visit();
         visit.setId(rs.getInt("visit_id"));
         visit.setDate(rs.getObject("visit_date", LocalDate.class));
         visit.setDescription(rs.getString("description"));
+
+        if (pets != null) {
+            int petId = rs.getInt("pet_id");
+            pets.stream().filter(p -> p.getId() == petId).findFirst().ifPresent(visit::setPet);
+        }
+
         return visit;
     }
 }

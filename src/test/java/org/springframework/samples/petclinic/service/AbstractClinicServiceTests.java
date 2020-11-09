@@ -211,6 +211,19 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
+    void shouldFindVisitsByOwnerId() throws Exception {
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
+        assertThat(visits.size()).isEqualTo(4);
+        Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
+        assertThat(visitArr[0].getPet()).isNotNull();
+        assertThat(visitArr[0].getDate()).isNotNull();
+
+        // we need this because retrieving visits doesn't fill the pet's owner property.
+        Pet pet = this.clinicService.findPetById(visitArr[0].getPet().getId());
+        assertThat(pet.getOwner().getId()).isEqualTo(6);
+    }
+
+    @Test
     void shouldFindAllPetInClinic() {
         Collection<Pet> pets = this.clinicService.findPetById();
         // Make sure that all the pets is there

@@ -31,18 +31,24 @@
                 <petclinic:menuItem active="${name eq 'pets'}" url="/pets/find.html" title="find pets">
                     <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
                     <span class="foundationIconsSpacing"> Find Pets</span>
+
                     <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     <span>Find pets</span> -->
                 </petclinic:menuItem>
+
 
                 <petclinic:menuItem active="${name eq 'vets'}" url="/vets.html" title="veterinarians">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Veterinarians</span>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments.html" title="schedule appointments">
+
+                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments/create.html" title="schedule appointments">
                     <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
+
                     <span class="foundationIconsSpacing"> Appointments</span>
+                    
+
                 </petclinic:menuItem>
 
                 <!--
@@ -58,4 +64,8 @@
             </ul>
         </div>
     </div>
+    <!-- The button will be in the nav bar to appear in all pages! -->
+    <button onclick="topFunction()" id="goToTopButton" title="Go to top">Top</button>
 </nav>
+
+

@@ -186,7 +186,7 @@ class OwnerControllerTests {
     }
 
     @Test
-    void testNavigateToFindOwners() throws Exception{
+    void testNavigateToFindOwners() throws Exception {
         mockMvc.perform(get("/owners/find.html"))
             .andExpect(status().isOk())
             .andExpect(view().name("owners/findOwners"))

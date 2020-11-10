@@ -15,13 +15,10 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.DayOfWeek;
 import java.util.Collection;
 
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.*;
 
 
 /**
@@ -47,6 +44,9 @@ public interface ClinicService {
 
     Collection<Owner> findOwnerByLastName(String lastName);
 
-	Collection<Visit> findVisitsByPetId(int petId);
+    Collection<Visit> findVisitsByPetId(int petId);
 
+    Collection<Schedule> findSchedules();
+
+    Schedule findScheduleByVetId(int id);
 }

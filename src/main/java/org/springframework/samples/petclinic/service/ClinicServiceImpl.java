@@ -15,19 +15,14 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.DayOfWeek;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.model.*;
+import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,13 +39,15 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
+    private ScheduleRepository scheduleRepository;
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Override
@@ -104,10 +101,21 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
-	@Override
-	public Collection<Visit> findVisitsByPetId(int petId) {
-		return visitRepository.findByPetId(petId);
-	}
 
+    @Override
+    public Collection<Visit> findVisitsByPetId(int petId) {
+        return visitRepository.findByPetId(petId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Schedule> findSchedules() {
+        return scheduleRepository.listSchedules();
+    }
+
+    @Override
+    public Schedule findScheduleByVetId(int id) {
+        return scheduleRepository.findScheduleById(id);
+    }
 
 }

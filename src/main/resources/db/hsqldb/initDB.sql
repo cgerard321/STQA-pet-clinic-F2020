@@ -1,7 +1,6 @@
 DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vet_schedule IF EXISTS;
 DROP TABLE vets IF EXISTS;
-DROP TABLE vet_schedule IF EXISTS;
 DROP TABLE specialties IF EXISTS;
 DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;

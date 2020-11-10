@@ -53,7 +53,11 @@
                 <th scope="col">
                     <dl class="dl-horizontal">
                         <dt>Name</dt>
-                        <dd><c:out value="${pet.name}"/></dd>
+                        <dd><spring:url value="/owners/{ownerId}/pets/{petId}/view" var="petUrl">
+                            <spring:param name="ownerId" value="${owner.id}"/>
+                            <spring:param name="petId" value="${pet.id}"/>
+                        </spring:url>
+                            <a href="${fn:escapeXml(petUrl)}"><c:out value="${pet.name}"/></a></dd>
                         <dt>Birth Date</dt>
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt>Type</dt>

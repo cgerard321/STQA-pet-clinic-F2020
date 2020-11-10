@@ -19,21 +19,25 @@ PetClinic :: a Spring Framework demonstration
     <%-- CSS generated from LESS --%>
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
     <link href="${petclinicCss}" rel="stylesheet"/>
-    <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon" />
+    <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon"/>
     <link href="${foundationIcon}" rel="stylesheet">
+
     <spring:url value="/resources/css/header.css" var="headerCss" />
     <link href="${headerCss}" rel="stylesheet">
     <spring:url value="/resources/css/calendar.css" var="calendarCss" />
     <link href="${calendarCss}" rel="stylesheet">
     <spring:url value="/resources/css/headerPage.css" var="headerCss" />
-    <link href="${headerCss}" rel="stylesheet">
 
     <%-- Css and JS added for back to top button --%>
     <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
     <link href="${goBackToTopCss}" rel="stylesheet">
     <spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
     <script src="${backToTopJs}"></script>
+    <link href="${headerCss}" rel="stylesheet">
 
+
+    <spring:url value="/resources/css/footer.css" var="footerCss" />
+    <link href="${footerCss}" rel="stylesheet">
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

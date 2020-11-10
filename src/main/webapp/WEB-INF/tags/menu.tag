@@ -36,6 +36,7 @@
                     <span>Find pets</span> -->
                 </petclinic:menuItem>
 
+
                 <petclinic:menuItem active="${name eq 'vets'}" url="/vets.html" title="veterinarians">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Veterinarians</span>
@@ -44,6 +45,7 @@
 
                 <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments/create.html" title="schedule appointments">
                     <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
+
                     <span class="foundationIconsSpacing"> Appointments</span>
                     
 

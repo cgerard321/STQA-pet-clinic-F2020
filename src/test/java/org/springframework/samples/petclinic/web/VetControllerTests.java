@@ -76,7 +76,7 @@ class VetControllerTests {
     }
 
     @Test
-    void testNavigateToVets() throws Exception{
+    void testNavigateToVets() throws Exception {
         mockMvc.perform(get("/vets.html"))
             .andExpect(status().isOk())
             .andExpect(view().name("vets/vetList"))

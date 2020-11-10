@@ -111,29 +111,7 @@ public class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
-  
-    @GetMapping(value = "/pets/find")
-    public String initFindForm(Map<String, Object> model) {
-        model.put("pet", new Pet());
-        return "pets/findPets";
-    }
-    
-    // GET /pets/petList
-    @GetMapping(value = "/pets/petList")
-    public String processAllPets(Map<String, Object> model) {
-        Collection<Pet> results = clinicService.findPetById();
 
-        // Put the list of all the pets into the model
-        // and give it the key "selections"
-        model.put("selections", results);
-        return "pets/petList";
-    }
-
-    @GetMapping(value = "/pets/find")
-    public String initFindForm(Map<String, Object> model) {
-        model.put("pet", new Pet());
-        return "pets/findPets";
-    }
 
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")

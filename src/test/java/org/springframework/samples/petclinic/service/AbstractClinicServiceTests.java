@@ -62,6 +62,7 @@ abstract class AbstractClinicServiceTests {
     @Mock
     PetRepository petRepository;
 
+
     @InjectMocks
     ClinicServiceImpl mockService;
 
@@ -269,4 +270,22 @@ abstract class AbstractClinicServiceTests {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
     }
+
+    @Test
+    void shouldFindAllSchedulesClinic() {
+        Collection<Schedule> schedules = this.clinicService.findSchedules();
+        // Make sure that all the pets is there
+        assertThat(schedules.size()).isEqualTo(6);
+
+    }
+
+
+    @Test
+    void shouldFindScheduleWithCorrectId() {
+        Schedule sched6 = this.clinicService.findScheduleByVetId(6);
+        assertThat(sched6.getVetId()).isEqualTo(6);
+        assertThat(sched6.getDayAvailable()).isEqualTo(5);
+
+    }
+
 }

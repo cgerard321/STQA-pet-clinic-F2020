@@ -1,0 +1,37 @@
+.footer{
+    background: #303036;
+    color:#d3d3d3;
+    height: 300px;
+    position: fixed;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+}
+.links{
+    width:50%;
+    display: table;
+    margin: 0 auto;
+}
+
+ul#horizontal-list {
+    min-width: 900px;
+    list-style: none;
+    padding-top: 30px;
+}
+ul#horizontal-list li {
+    margin-top: 5px;
+
+}
+/*When Screen is bigger than 900PX, change footer nav list to horizontal*/
+@media only screen and (min-width: 900px) {
+    ul#horizontal-list {
+        min-width: 900px;
+        list-style: none;
+        padding-top: 20px;
+    }
+    ul#horizontal-list li {
+        margin: 20px;
+        display: inline;
+
+    }
+}

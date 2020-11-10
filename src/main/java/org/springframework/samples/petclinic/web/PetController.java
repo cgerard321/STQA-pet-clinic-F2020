@@ -110,7 +110,13 @@ public class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
-
+  
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        model.put("pet", new Pet());
+        return "pets/findPets";
+    }
+    
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {

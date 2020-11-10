@@ -15,7 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.time.DayOfWeek;
+
 import java.util.Collection;
 
 import org.springframework.samples.petclinic.model.*;
@@ -34,6 +34,13 @@ public interface ClinicService {
 
     Pet findPetById(int id);
 
+    /**
+     * Find all the <code>Pet</code> in the clinic
+     *
+     * @return a list of all the pets
+     */
+    Collection<Pet> findPetById();
+
     void savePet(Pet pet);
 
     void saveVisit(Visit visit);
@@ -46,7 +53,11 @@ public interface ClinicService {
 
     Collection<Visit> findVisitsByPetId(int petId);
 
+
     Collection<Schedule> findSchedules();
 
     Schedule findScheduleByVetId(int id);
+
+    Collection<Visit> findVisitsByOwnerId(int ownerId);
+
 }

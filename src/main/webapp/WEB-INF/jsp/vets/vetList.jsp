@@ -61,7 +61,6 @@
         <input type="submit" value="View Schedule">
     </form:form>
 
-
     <div class="row">
         <div class="col-md-2">
             <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>

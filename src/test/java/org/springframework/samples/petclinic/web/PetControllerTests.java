@@ -13,7 +13,12 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,9 +55,34 @@ class PetControllerTests {
         PetType cat = new PetType();
         cat.setId(3);
         cat.setName("hamster");
+
+        // Stub new pet for a pet list
+        Pet pet1 = new Pet();
+        pet1.setId(1);
+        pet1.setName("Test1");
+
+        Pet pet2 = new Pet();
+        pet2.setId(2);
+        pet2.setName("Test2");
+
+        // Add stubbed pets to list
+        Collection<Pet> petList = new ArrayList<>();
+        petList.add(pet1);
+        petList.add(pet2);
+
         given(this.clinicService.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
+        // Return stubbed petList
+        given(this.clinicService.findPetById()).willReturn(petList);
+    }
+
+    @Test
+    void testNavigateToFindPets() throws Exception {
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
     }
 
     @Test
@@ -117,4 +147,22 @@ class PetControllerTests {
             .andExpect(view().name("pets/createOrUpdatePetForm"));
     }
 
+    @Test
+    void testListAllPetsDisplaySuccess() throws Exception {
+        mockMvc.perform(get("/pets/petList")) // Navigate to the page
+            .andExpect(status().isOk()) // Make sure the status is ok
+            .andExpect(view().name("pets/petList")); // Check if controller handle correctly
+    }
+
+    @Test
+    void testListAllPetsCorrectInfo() throws Exception {
+        mockMvc.perform(get("/pets/petList")) // Navigate to the page
+            .andExpect(status().isOk()) // Make sure the status is ok
+            .andExpect(model().attributeExists("selections")) // Check if the model have the pet list called "selections"
+            .andExpect(model().attribute("selections", hasSize(2))) // Check if pet list is size 2
+            .andExpect(model().attribute("selections", contains( // Check if the pet list contains correct information
+                hasProperty("id", equalTo(1)),
+                any(Pet.class)
+            )));
+    }
 }

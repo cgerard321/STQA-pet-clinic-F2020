@@ -8,12 +8,13 @@ import javax.persistence.*;
 public class Schedule {
 
     @Id
-    @Column(name = "vetId")
+    @Column(name = "vet_id")
     private int vetId;
 
 
-    @Column(name = "dayAvailable")
+    @Column(name = "day_available")
     private int dayAvailable;
+
 
     public Schedule(int vetId, int dayAvailable) {
         this.vetId = vetId;

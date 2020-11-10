@@ -41,7 +41,6 @@ public class VetController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public VetController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -67,6 +66,4 @@ public class VetController {
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
     }
-
-
 }

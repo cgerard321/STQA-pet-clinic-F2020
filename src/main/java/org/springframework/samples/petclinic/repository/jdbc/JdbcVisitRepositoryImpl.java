@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.samples.petclinic.model.BaseEntity;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * A simple JDBC-based implementation of the {@link VisitRepository} interface.
@@ -85,17 +88,38 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("id", petId);
         JdbcPet pet = this.jdbcTemplate.queryForObject(
-                "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE id=:id",
-                params,
-                new JdbcPetRowMapper());
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE id=:id",
+            params,
+            new JdbcPetRowMapper());
 
         List<Visit> visits = this.jdbcTemplate.query(
             "SELECT id as visit_id, visit_date, description FROM visits WHERE pet_id=:id",
             params, new JdbcVisitRowMapper());
 
-        for (Visit visit: visits) {
+        for (Visit visit : visits) {
             visit.setPet(pet);
         }
+
+        return visits;
+    }
+
+    @Override
+    public List<Visit> findByOwnerId(Integer ownerId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", ownerId);
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id=:id",
+            params,
+            new JdbcPetRowMapper());
+
+        List<Integer> pets = results.stream().map(JdbcPet::getId).collect(Collectors.toList());
+
+        params = new HashMap<>();
+        params.put("pets", pets);
+        List<Visit> visits = this.jdbcTemplate.query(
+            "SELECT id as visit_id, visit_date, description, pet_id FROM visits WHERE pet_id IN (:pets)",
+            params,
+            new JdbcVisitRowMapper(results));
 
         return visits;
     }

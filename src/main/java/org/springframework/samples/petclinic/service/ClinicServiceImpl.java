@@ -15,7 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.time.DayOfWeek;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -23,8 +23,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
+
+import org.springframework.samples.petclinic.repository.OwnerRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.VetRepository;
+import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 /**
  * Mostly used as a facade for all Petclinic controllers
@@ -35,11 +42,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
+
     private PetRepository petRepository;
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
     private ScheduleRepository scheduleRepository;
+
 
     @Autowired
     public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
@@ -74,18 +83,27 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
-
     @Override
     @Transactional
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public Pet findPetById(int id) {
         return petRepository.findById(id);
+    }
+
+    @Override
+    public Collection<Pet> findPetById() {
+        Collection<Pet> ret = petRepository.findAll();
+
+        // Check if there is pets in the clinic
+        if (ret == null || ret.isEmpty()) {
+            throw new NullPointerException();
+        }
+        return ret;
     }
 
     @Override
@@ -118,4 +136,8 @@ public class ClinicServiceImpl implements ClinicService {
         return scheduleRepository.findScheduleById(id);
     }
 
+    @Override
+    public Collection<Visit> findVisitsByOwnerId(int ownerId) {
+        return visitRepository.findByOwnerId(ownerId);
+    }
 }

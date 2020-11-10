@@ -35,7 +35,6 @@ public class ScheduleController {
 
     @GetMapping(value = "/displaySchedule")
     public ModelAndView getScheduleById(@ModelAttribute("schedule") Schedule schedule, BindingResult result, int vetId) throws IOException {
-        System.out.println("hi");
         schedule = this.clinicService.findScheduleByVetId(vetId);
         ModelAndView model = new ModelAndView("vets/displaySchedule");
         model.addObject("schedule", schedule);

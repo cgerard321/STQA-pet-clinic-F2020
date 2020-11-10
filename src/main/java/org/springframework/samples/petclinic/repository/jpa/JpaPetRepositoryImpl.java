@@ -15,15 +15,15 @@
  */
 package org.springframework.samples.petclinic.repository.jpa;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * JPA implementation of the {@link PetRepository} interface.
@@ -58,6 +58,13 @@ public class JpaPetRepositoryImpl implements PetRepository {
         } else {
             this.em.merge(pet);
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Collection<Pet> findAll() {
+        // Select all the pet in the db
+        return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
     }
 
 }

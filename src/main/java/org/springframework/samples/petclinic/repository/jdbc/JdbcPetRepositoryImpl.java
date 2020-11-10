@@ -15,12 +15,6 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,6 +29,11 @@ import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * @author Ken Krebs
@@ -99,6 +98,39 @@ public class JdbcPetRepositoryImpl implements PetRepository {
                     "owner_id=:owner_id WHERE id=:id",
                 createPetParameterSource(pet));
         }
+    }
+
+    @Override
+    public Collection<Pet> findAll() {
+        JdbcPetRowMapper mapper = new JdbcPetRowMapper();
+
+        // Retrieve the list of all the pet types
+        final List<PetType> petTypes = findPetTypes();
+
+        // Retrieve the list of all pets
+        List<JdbcPet> jdbcPets = this.namedParameterJdbcTemplate.query(
+            "SELECT * FROM pets ORDER BY name",
+            new BeanPropertyRowMapper<JdbcPet>() {
+                int ownerId;
+
+                @Override
+                public JdbcPet mapRow(ResultSet rs, int rowNumber) throws SQLException { // This method is called for every row that's been returned
+                    JdbcPet jdbcPet = mapper.mapRow(rs, rowNumber);
+                    // Get the id of the owners
+                    ownerId = rs.getInt("owner_id");
+                    // Set pet type
+                    jdbcPet.setType(EntityUtils.getById(petTypes, PetType.class, jdbcPet.getTypeId()));
+
+                    return jdbcPet;
+                }
+            });
+
+        // Add the owners to the pets
+        for (JdbcPet jdbcPet : jdbcPets) {
+            jdbcPet.setOwner(this.ownerRepository.findById(jdbcPet.getOwnerId()));
+        }
+
+        return new ArrayList<>(jdbcPets);
     }
 
     /**

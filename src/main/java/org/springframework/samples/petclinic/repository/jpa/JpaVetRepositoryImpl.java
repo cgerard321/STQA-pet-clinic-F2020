@@ -38,7 +38,6 @@ public class JpaVetRepositoryImpl implements VetRepository {
     @PersistenceContext
     private EntityManager em;
 
-
     @Override
     @SuppressWarnings("unchecked")
     public Collection<Vet> findAll() {

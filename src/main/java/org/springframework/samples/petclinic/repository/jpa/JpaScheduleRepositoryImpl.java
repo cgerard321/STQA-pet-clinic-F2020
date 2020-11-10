@@ -18,7 +18,7 @@ public class JpaScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public List<Schedule> findAll() {
-        return this.em.createQuery("SELECT new vet_schedule (vetId, dayAvailable) FROM vet_schedule").getResultList();
+        return this.em.createQuery("SELECT distinct sched FROM Schedule sched ORDER BY sched.id").getResultList();
     }
 
     @Override

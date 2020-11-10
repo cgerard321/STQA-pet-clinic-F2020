@@ -149,14 +149,14 @@ class PetControllerTests {
 
     @Test
     void testListAllPetsDisplaySuccess() throws Exception {
-        mockMvc.perform(get("/pets/petList")) // Navigate to the page
+        mockMvc.perform(get("/pets/findPets")) // Navigate to the page
             .andExpect(status().isOk()) // Make sure the status is ok
-            .andExpect(view().name("pets/petList")); // Check if controller handle correctly
+            .andExpect(view().name("pets/findPets")); // Check if controller handle correctly
     }
 
     @Test
     void testListAllPetsCorrectInfo() throws Exception {
-        mockMvc.perform(get("/pets/petList")) // Navigate to the page
+        mockMvc.perform(get("/pets/findPets")) // Navigate to the page
             .andExpect(status().isOk()) // Make sure the status is ok
             .andExpect(model().attributeExists("selections")) // Check if the model have the pet list called "selections"
             .andExpect(model().attribute("selections", hasSize(2))) // Check if pet list is size 2

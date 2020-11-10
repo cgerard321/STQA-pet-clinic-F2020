@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.model;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,11 +30,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Simple business object representing a pet.
@@ -46,8 +43,7 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
-    // This is another comment
-    // This is a second comment
+    /* Test comment Nichita */
 
     /* Test comment from cgerard */
     @Column(name = "birth_date")
@@ -101,6 +97,8 @@ public class Pet extends NamedEntity {
         this.visits = visits;
     }
 
+    /* Test comment from Ryan */
+
     public List<Visit> getVisits() {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
         PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
@@ -111,5 +109,4 @@ public class Pet extends NamedEntity {
         getVisitsInternal().add(visit);
         visit.setPet(this);
     }
-
 }

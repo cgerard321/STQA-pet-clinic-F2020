@@ -104,13 +104,13 @@ public class PetController {
         if (result.hasErrors()) {
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-        }
-        else {
+        } else {
             owner.addPet(pet);
             this.clinicService.savePet(pet);
             return "redirect:/owners/{ownerId}";
         }
     }
+
 
     @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
     public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
@@ -118,6 +118,14 @@ public class PetController {
         model.put("pet", pet);
         return VIEWS_PETS_VIEW_DETAILS;
     }
+
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        model.put("pet", new Pet());
+        return "pets/findPets";
+    }
+
+
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {

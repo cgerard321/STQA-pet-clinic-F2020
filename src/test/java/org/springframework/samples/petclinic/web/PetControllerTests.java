@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -74,6 +75,14 @@ class PetControllerTests {
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
         // Return stubbed petList
         given(this.clinicService.findPetById()).willReturn(petList);
+    }
+
+    @Test
+    void testNavigateToFindPets() throws Exception {
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
     }
 
     @Test
@@ -156,13 +165,11 @@ class PetControllerTests {
                 any(Pet.class)
             )));
     }
-
     @Test
     void testInitViewPetSuccess() throws Exception {
         mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/view", TEST_OWNER_ID, TEST_PET_ID))
             .andExpect(status().isOk())
             .andExpect(view().name("pets/petDetails"));
     }
-
 
 }

@@ -270,12 +270,12 @@ abstract class AbstractClinicServiceTests {
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
     }
 
-    @Test
-    void shouldFindAllSchedulesClinic() {
-        Collection<Schedule> schedules = this.clinicService.findSchedules();
-        // Make sure that all the schedules is there
-        assertThat(schedules.size()).isEqualTo(6);
-    }
+//    @Test
+//    void shouldFindAllSchedulesClinic() {
+//        Collection<Schedule> schedules = this.clinicService.findSchedules();
+//        // Make sure that all the schedules is there
+//        assertThat(schedules.size()).isEqualTo(6);
+//    }
 
 
 //    @Test

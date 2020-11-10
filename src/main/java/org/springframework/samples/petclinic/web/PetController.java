@@ -41,6 +41,7 @@ import java.util.Map;
 public class PetController {
 // Yu Qiao was here
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
+    private static final String VIEWS_PETS_VIEW_DETAILS = "pets/petDetails";
     private final ClinicService clinicService;
 
     @Autowired
@@ -110,11 +111,20 @@ public class PetController {
         }
     }
 
+
+    @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
+    public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
+        Pet pet = this.clinicService.findPetById(petId);
+        model.put("pet", pet);
+        return VIEWS_PETS_VIEW_DETAILS;
+    }
+
     @GetMapping(value = "/pets/find")
     public String initFindForm(Map<String, Object> model) {
         model.put("pet", new Pet());
         return "pets/findPets";
     }
+
 
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")

@@ -32,13 +32,8 @@ import java.util.*;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-/*
-<<<<<<< HEAD
-//comment by Lucas Cimino
-=======
+//test with william
 
->>>>>>> 0093671 (Following class - added comment to our section)
- */
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
@@ -62,7 +57,7 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
-
+    //here is my comment (Illia) 11/4/2020
     public String getAddress() {
         return this.address;
     }

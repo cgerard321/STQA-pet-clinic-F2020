@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.repository;
 import java.util.Collection;
 
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 
 /**
  * Repository class for <code>Vet</code> domain objects All method names are compliant with Spring Data naming
@@ -36,6 +37,4 @@ public interface VetRepository {
      * @return a <code>Collection</code> of <code>Vet</code>s
      */
     Collection<Vet> findAll();
-
-
 }

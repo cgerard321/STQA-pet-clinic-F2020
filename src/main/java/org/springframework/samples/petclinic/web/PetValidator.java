@@ -61,5 +61,4 @@ public class PetValidator implements Validator {
         return Pet.class.isAssignableFrom(clazz);
     }
 
-
 }

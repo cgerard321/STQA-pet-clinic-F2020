@@ -19,7 +19,7 @@ public class JpaScheduleRepositoryImpl implements ScheduleRepository {
     @Override
     public List<Schedule> findAll() {
         return this.em.createQuery("SELECT distinct sched FROM vet_schedule sched ORDER BY sched.vetId").getResultList();
-    }
+
 
     @Override
     public Schedule findScheduleById(int id) {

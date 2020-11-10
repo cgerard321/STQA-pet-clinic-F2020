@@ -53,6 +53,7 @@ import static org.mockito.Mockito.when;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
 @ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 

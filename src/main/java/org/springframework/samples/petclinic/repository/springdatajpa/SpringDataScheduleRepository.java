@@ -11,7 +11,7 @@ public interface SpringDataScheduleRepository extends ScheduleRepository, Reposi
 
     @Override
     @Query("SELECT vetId FROM vet_schedule ORDER BY vetId")
-    List<Schedule> findAllSchedules();
+    List<Schedule> findAll();
 
     @Override
     @Query("SELECT vetId, dayAvailable FROM vet_schedule WHERE vetId = :id")

@@ -128,7 +128,7 @@ public class ClinicServiceImpl implements ClinicService {
     @Override
     @Transactional(readOnly = true)
     public List<Schedule> findSchedules() {
-        return scheduleRepository.findAllSchedules();
+        return scheduleRepository.findAll();
     }
 
     @Override

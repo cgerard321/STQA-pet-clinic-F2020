@@ -36,7 +36,7 @@ public class JdbcScheduleRepositoryImpl implements ScheduleRepository {
 
 
     @Override
-    public List<Schedule> findAllSchedules() {
+    public List<Schedule> findAll() {
         List<Schedule> schedules = new ArrayList<>();
         schedules.addAll(this.jdbcTemplate.query(
             "SELECT vet_id, day_available FROM vet_schedule ORDER BY vet_id",
@@ -53,7 +53,7 @@ public class JdbcScheduleRepositoryImpl implements ScheduleRepository {
             Map<String, Object> params = new HashMap<>();
             params.put("vet_id", id);
             schedule = this.namedParameterJdbcTemplate.queryForObject(
-                "SELECT vet_id, day_available FROM vet_schedule WHERE vet_id=: id",
+                "SELECT vet_id, day_available FROM vet_schedule WHERE vet_id= :vet_id",
                 params,
                 BeanPropertyRowMapper.newInstance(Schedule.class)
             );

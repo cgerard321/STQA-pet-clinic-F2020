@@ -39,7 +39,6 @@ public class VisitController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public VisitController(ClinicService clinicService) {
         this.clinicService = clinicService;

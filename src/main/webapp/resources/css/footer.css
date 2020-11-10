@@ -31,8 +31,6 @@ body {
     flex-direction: column;
 }
 
-=======
-
 /*When Screen is bigger than 900PX, change footer nav list to horizontal*/
 @media only screen and (min-width: 900px) {
     ul#horizontal-list {

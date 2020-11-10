@@ -28,8 +28,6 @@
                     <span>Find owners</span>
                 </petclinic:menuItem>
 
-
-
                 <petclinic:menuItem active="${name eq 'pets'}" url="/pets/find.html" title="find pets">
                     <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
                     <span class="foundationIconsSpacing"> Find Pets</span>
@@ -50,6 +48,7 @@
 
                     <span class="foundationIconsSpacing"> Appointments</span>
                     
+
                 </petclinic:menuItem>
 
                 <!--
@@ -65,4 +64,8 @@
             </ul>
         </div>
     </div>
+    <!-- The button will be in the nav bar to appear in all pages! -->
+    <button onclick="topFunction()" id="goToTopButton" title="Go to top">Top</button>
 </nav>
+
+

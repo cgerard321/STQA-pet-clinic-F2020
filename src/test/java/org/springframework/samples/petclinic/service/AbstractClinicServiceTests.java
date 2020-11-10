@@ -54,6 +54,7 @@ import static org.mockito.Mockito.when;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
 @ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 
@@ -271,6 +272,7 @@ abstract class AbstractClinicServiceTests {
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
     }
 
+
     @Test
     @Transactional
     void shouldDeleteVisitsById() {
@@ -280,4 +282,24 @@ abstract class AbstractClinicServiceTests {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
         assertThat(visits.size()).isEqualTo(2);
     }
+  
+  
+
+//    @Test
+//    void shouldFindAllSchedulesClinic() {
+//        Collection<Schedule> schedules = this.clinicService.findSchedules();
+//        // Make sure that all the schedules is there
+//        assertThat(schedules.size()).isEqualTo(6);
+//    }
+
+
+//    @Test
+//    void shouldFindScheduleWithCorrectId() {
+//        Schedule sched6 = this.clinicService.findScheduleByVetId(6);
+//        assertThat(sched6.getVetId()).isEqualTo(6);
+//        assertThat(sched6.getDayAvailable()).isEqualTo(5);
+//
+//    }
+
+
 }

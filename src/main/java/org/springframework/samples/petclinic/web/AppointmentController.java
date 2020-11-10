@@ -1,4 +1,5 @@
 package org.springframework.samples.petclinic.web;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;

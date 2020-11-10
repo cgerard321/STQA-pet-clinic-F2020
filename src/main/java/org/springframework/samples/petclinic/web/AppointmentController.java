@@ -58,7 +58,7 @@ public class AppointmentController {
         model.put("showWarning", true);
         return VIEWS_APPOINTMENTS_VIEW_FORM;
     }
-}
+
 
     /* Controller for the booking appointment page */
     @GetMapping(value = "/appointments/create")

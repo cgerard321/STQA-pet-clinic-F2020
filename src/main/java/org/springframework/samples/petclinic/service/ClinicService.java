@@ -62,5 +62,7 @@ public interface ClinicService {
     Collection<Visit> findVisitsByOwnerId(int ownerId);
 
     void deleteVisitsById(List<Integer> visitIds);
+  
+    void removePetById(int petId);
 
 }

@@ -28,7 +28,13 @@ PetClinic :: a Spring Framework demonstration
     <link href="${calendarCss}" rel="stylesheet">
     <spring:url value="/resources/css/headerPage.css" var="headerCss" />
 
+    <%-- Css and JS added for back to top button --%>
+    <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
+    <link href="${goBackToTopCss}" rel="stylesheet">
+    <spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
+    <script src="${backToTopJs}"></script>
     <link href="${headerCss}" rel="stylesheet">
+
 
     <spring:url value="/resources/css/footer.css" var="footerCss" />
     <link href="${footerCss}" rel="stylesheet">
@@ -43,4 +49,5 @@ PetClinic :: a Spring Framework demonstration
     <link href="${jQueryUiCss}" rel="stylesheet"/>
     <spring:url value="/webjars/jquery-ui/1.11.4/jquery-ui.theme.min.css" var="jQueryUiThemeCss"/>
     <link href="${jQueryUiThemeCss}" rel="stylesheet"/>
+
 </head>

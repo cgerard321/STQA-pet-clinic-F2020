@@ -1,0 +1,23 @@
+/* Author: Simon St-Andre */
+/* Css for the button's place and color */
+#goToTopButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #6db33f;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+/* Css for the when the user is hovering over the button */
+/* Makes the button background grey */
+#goToTopButton:hover {
+    background-color: #555;
+}

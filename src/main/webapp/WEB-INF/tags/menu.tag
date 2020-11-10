@@ -28,9 +28,7 @@
                     <span>Find owners</span>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'pets'}" url="/pets.html" title="find pets">
-                    <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
-                    <span style="position:relative; top:-4px;"> Find Pets</span>
+
                     <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     <span>Find pets</span> -->
                 </petclinic:menuItem>
@@ -40,9 +38,7 @@
                     <span>Veterinarians</span>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments.html" title="schedule appointments">
-                    <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
-                    <span style="position:relative; top:-4px;"> Appointments</span>
+
                 </petclinic:menuItem>
 
                 <!--
@@ -53,6 +49,8 @@
                 </petclinic:menuItem>
                 -->
 
+                <spring:url value="/resources/images/headerImage.png" htmlEscape="true" var="CatAndDogImage"/>
+                <img id="headerImage" class="img-responsive" alt="A cat and a dog" src="${CatAndDogImage}"/>
             </ul>
         </div>
     </div>

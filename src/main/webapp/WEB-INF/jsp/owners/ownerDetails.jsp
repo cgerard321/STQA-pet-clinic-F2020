@@ -25,6 +25,10 @@
             <th id="telephone">Telephone</th>
             <td headers="telephone"><c:out value="${owner.telephone}"/></td>
         </tr>
+        <tr>
+            <th id="email">Email</th>
+            <td headers="email"><c:out value="${owner.email}"/></td>
+        </tr>
     </table>
 
     <spring:url value="{ownerId}/edit.html" var="editUrl">

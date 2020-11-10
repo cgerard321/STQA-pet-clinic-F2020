@@ -61,4 +61,12 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         return query.getResultList();
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Visit> findByOwnerId(Integer ownerId) {
+        Query query = this.em.createQuery("SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :id");
+        query.setParameter("id", ownerId);
+        return query.getResultList();
+    }
+
 }

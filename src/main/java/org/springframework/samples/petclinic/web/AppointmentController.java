@@ -24,12 +24,9 @@ public class AppointmentController {
 
 
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
-    private final ClinicService clinicService;
-
-
-
     private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;
+
 
 
     @Autowired

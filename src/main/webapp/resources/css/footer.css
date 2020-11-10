@@ -2,10 +2,8 @@
     background: #303036;
     color:#d3d3d3;
     height: 300px;
-    position: fixed;
     width: 100%;
-    left: 0px;
-    bottom: 0px;
+    margin-top: auto;
 }
 .links{
     width:50%;
@@ -22,6 +20,17 @@ ul#horizontal-list li {
     margin-top: 5px;
 
 }
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
 /*When Screen is bigger than 900PX, change footer nav list to horizontal*/
 @media only screen and (min-width: 900px) {
     ul#horizontal-list {

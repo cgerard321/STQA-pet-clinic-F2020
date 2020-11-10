@@ -25,6 +25,8 @@ PetClinic :: a Spring Framework demonstration
     <link href="${headerCss}" rel="stylesheet">
     <spring:url value="/resources/css/calendar.css" var="calendarCss" />
     <link href="${calendarCss}" rel="stylesheet">
+    <spring:url value="/resources/css/headerPage.css" var="headerCss" />
+    <link href="${headerCss}" rel="stylesheet">
 
 
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>

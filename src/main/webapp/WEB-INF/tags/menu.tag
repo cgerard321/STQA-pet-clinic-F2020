@@ -27,7 +27,10 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <span>Find owners</span>
                 </petclinic:menuItem>
-
+                <petclinic:menuItem active="${name eq 'pets'}" url="/pets/findPets.html" title="find pets">
+                    <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    <span>Find Pets</span>
+                </petclinic:menuItem>
                 <petclinic:menuItem active="${name eq 'vets'}" url="/vets.html" title="veterinarians">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Veterinarians</span>

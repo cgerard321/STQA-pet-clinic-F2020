@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -110,13 +111,8 @@ public class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
-  
-    @GetMapping(value = "/pets/find")
-    public String initFindForm(Map<String, Object> model) {
-        model.put("pet", new Pet());
-        return "pets/findPets";
-    }
-    
+
+
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
@@ -128,4 +124,10 @@ public class PetController {
         return "pets/petList";
     }
 
+    // DELETE REQUEST
+    @GetMapping (value = "/pets/{petId}/remove")
+    public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
+        clinicService.removePetById(petId);
+        return "redirect:/pets/petList";
+    }
 }

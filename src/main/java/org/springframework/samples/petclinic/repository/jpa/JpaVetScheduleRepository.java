@@ -6,9 +6,7 @@ import org.springframework.samples.petclinic.repository.springdatajpa.VetSchedul
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class JpaVetScheduleRepository implements VetScheduleRepository {
 

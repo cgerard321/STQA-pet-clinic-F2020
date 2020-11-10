@@ -18,6 +18,7 @@ public class VetSchedule {
     public VetSchedule() {
     }
 
+
     public Integer getVetId() {
         return vetId;
     }
@@ -25,6 +26,7 @@ public class VetSchedule {
     public void setVetId(Integer vetId) {
         this.vetId = vetId;
     }
+
 
     public String getRoomId() {
         return roomId;

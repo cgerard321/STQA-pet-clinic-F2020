@@ -54,4 +54,6 @@ public interface ClinicService {
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
 
+    void removePetById(int petId);
+
 }

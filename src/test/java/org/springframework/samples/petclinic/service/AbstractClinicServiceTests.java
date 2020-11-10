@@ -237,6 +237,21 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getType().toString()).isEqualTo("cat");
         assertThat(pet.getOwner().getId()).isEqualTo(10);
     }
+    @Test
+    void  shouldRemovePetFromPetList(){
+
+        Collection<Pet> pets = this.clinicService.findPetById();
+
+        Pet pet = EntityUtils.getById(
+            pets,
+            Pet.class,
+            1);
+
+        pets.remove(pet);
+
+        assertThat(pets.size()).isEqualTo(12);
+
+    }
 
     @Test
     void shouldRetrieveOwnerEmail() throws Exception {

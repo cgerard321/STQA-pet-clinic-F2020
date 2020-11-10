@@ -21,15 +21,10 @@ PetClinic :: a Spring Framework demonstration
     <link href="${petclinicCss}" rel="stylesheet"/>
     <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon" />
     <link href="${foundationIcon}" rel="stylesheet">
-    <spring:url value="/resources/css/header.css" var="headerCss" />
-    <link href="${headerCss}" rel="stylesheet">
-    <spring:url value="/resources/css/calendar.css" var="calendarCss" />
-    <link href="${calendarCss}" rel="stylesheet">
     <spring:url value="/resources/css/headerPage.css" var="headerCss" />
     <link href="${headerCss}" rel="stylesheet">
 
-    <spring:url value="/resources/css/footer.css" var="footerCss" />
-    <link href="${footerCss}" rel="stylesheet">
+
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

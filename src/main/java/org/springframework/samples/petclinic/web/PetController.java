@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -41,7 +42,6 @@ import java.util.Map;
 public class PetController {
 // Yu Qiao was here
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
-    private static final String VIEWS_PETS_VIEW_DETAILS = "pets/petDetails";
     private final ClinicService clinicService;
 
     @Autowired
@@ -104,7 +104,8 @@ public class PetController {
         if (result.hasErrors()) {
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-        } else {
+        }
+        else {
             owner.addPet(pet);
             this.clinicService.savePet(pet);
             return "redirect:/owners/{ownerId}";
@@ -112,29 +113,21 @@ public class PetController {
     }
 
 
-    @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
-    public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
-        Pet pet = this.clinicService.findPetById(petId);
-        model.put("pet", pet);
-        return VIEWS_PETS_VIEW_DETAILS;
-    }
-
-    @GetMapping(value = "/pets/find")
-    public String initFindForm(Map<String, Object> model) {
-        model.put("pet", new Pet());
-        return "pets/findPets";
-    }
-
-
     // GET /pets/petList
-    @GetMapping(value = "/pets/findPets")
+    @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
         Collection<Pet> results = clinicService.findPetById();
 
         // Put the list of all the pets into the model
         // and give it the key "selections"
         model.put("selections", results);
-        return "pets/findPets";
+        return "pets/petList";
     }
 
+    // DELETE REQUEST
+    @GetMapping (value = "/pets/{petId}/remove")
+    public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
+        clinicService.removePetById(petId);
+        return "redirect:/pets/petList";
+    }
 }

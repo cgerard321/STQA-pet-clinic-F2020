@@ -83,11 +83,13 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
+
     @Override
     @Transactional
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -103,6 +105,7 @@ public class ClinicServiceImpl implements ClinicService {
         if (ret == null || ret.isEmpty()) {
             throw new NullPointerException();
         }
+
         return ret;
     }
 
@@ -140,4 +143,10 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
         return visitRepository.findByOwnerId(ownerId);
     }
+
+    @Override
+    public void removePetById(int petId) {
+        petRepository.removePet(petId);
+    }
+
 }

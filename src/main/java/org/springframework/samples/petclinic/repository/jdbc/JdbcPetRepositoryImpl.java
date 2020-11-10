@@ -134,6 +134,20 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     /**
+     * This needs to be implemented in the next Sprint
+     */
+    @Override
+    public void removePet(int id) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        Pet pet = this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM Pet WHERE id=:id", params ,Pet.class);
+
+        String DELETE_PET = "delete from Pet p WHERE p.id =: id";
+       this.namedParameterJdbcTemplate.update(DELETE_PET, createPetParameterSource(pet));
+    }
+
+    /**
      * Creates a {@link MapSqlParameterSource} based on data values from the supplied {@link Pet} instance.
      */
     private MapSqlParameterSource createPetParameterSource(Pet pet) {

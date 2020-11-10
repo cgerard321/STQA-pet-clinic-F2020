@@ -19,14 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.samples.petclinic.model.BaseEntity;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,4 +123,11 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
         return visits;
     }
 
+    @Override
+    public void deleteByIdIn(List<Integer> visitIds) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("ids", visitIds);
+
+        this.jdbcTemplate.execute("DELETE FROM visits WHERE id IN (:ids)", params, PreparedStatement::execute);
+    }
 }

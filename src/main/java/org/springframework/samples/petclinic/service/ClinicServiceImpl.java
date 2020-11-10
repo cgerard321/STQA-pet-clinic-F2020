@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Mostly used as a facade for all Petclinic controllers
@@ -145,6 +146,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    @Transactional
+    public void deleteVisitsById(List<Integer> visitIds) {
+        visitRepository.deleteByIdIn(visitIds);
+    }
+  
     public void removePetById(int petId) {
         petRepository.removePet(petId);
     }

@@ -15,16 +15,23 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -129,7 +136,44 @@ public class OwnerController {
     public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
         ModelAndView mav = new ModelAndView("owners/ownerDetails");
         mav.addObject(this.clinicService.findOwnerById(ownerId));
+        mav.addObject("hasFutureVisits", this.clinicService.findVisitsByOwnerId(ownerId).stream()
+            .anyMatch(v -> v.getDate().isAfter(LocalDate.now())));
         return mav;
     }
 
+    @GetMapping(value = "/owners/{ownerId}/appointments/cancel")
+    public String initCancelOwnerAppointmentForm(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(ownerId).stream()
+            .filter(v -> v.getDate().isAfter(LocalDate.now()))
+            .collect(Collectors.toList());
+
+        model.put("visits", visits);
+        model.put("showWarning", visits.stream().anyMatch(v -> v.getDate().isBefore(LocalDate.now().plusDays(3))));
+        return "appointments/cancelAppointment";
+    }
+
+    @PostMapping(value = "/owners/{ownerId}/appointments/cancel", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String processCancelOwnerAppointmentForm(@RequestBody MultiValueMap<String, String> formData) {
+        List<Integer> visits = new ArrayList<>();
+        formData.forEach((k, v) -> {
+            int visit;
+            try {
+                visit = Integer.parseInt(k);
+            } catch (NumberFormatException e) {
+                return;
+            }
+
+            v.stream().findAny().ifPresent(answer -> {
+                if (answer.equals("on")) {
+                    visits.add(visit);
+                }
+            });
+        });
+
+        if (!visits.isEmpty()) {
+            clinicService.deleteVisitsById(visits);
+        }
+
+        return "redirect:/owners/{ownerId}";
+    }
 }

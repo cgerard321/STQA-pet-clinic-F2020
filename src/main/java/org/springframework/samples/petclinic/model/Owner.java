@@ -54,12 +54,24 @@ public class Owner extends Person {
     @NotEmpty
     private String email;
 
+    @Column(name = "comment")
+    @NotEmpty
+    private String comment;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
     //here is my comment (Illia) 11/4/2020
     public String getAddress() {
         return this.address;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public void setAddress(String address) {

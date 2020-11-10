@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Visit;
 
@@ -40,5 +42,8 @@ public interface VisitRepository {
     void save(Visit visit);
 
     List<Visit> findByPetId(Integer petId);
+
+    @Query(value = "SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :ownerId")
+    List<Visit> findByOwnerId(@Param("ownerId") Integer ownerId);
 
 }

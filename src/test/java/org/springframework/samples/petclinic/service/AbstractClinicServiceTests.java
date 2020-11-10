@@ -15,21 +15,24 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.*;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.util.EntityUtils;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context
@@ -50,10 +53,17 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+@ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 
     @Autowired
     protected ClinicService clinicService;
+
+    @Mock
+    PetRepository petRepository;
+
+    @InjectMocks
+    ClinicServiceImpl mockService;
 
     @Test
     void shouldFindOwnersByLastName() {
@@ -85,6 +95,7 @@ abstract class AbstractClinicServiceTests {
         owner.setAddress("4, Evans Street");
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
+        owner.setEmail("george.franklin@gamil.com");
         this.clinicService.saveOwner(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
@@ -199,5 +210,63 @@ abstract class AbstractClinicServiceTests {
         assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
     }
 
+    @Test
+    void shouldFindVisitsByOwnerId() throws Exception {
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
+        assertThat(visits.size()).isEqualTo(4);
+        Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
+        assertThat(visitArr[0].getPet()).isNotNull();
+        assertThat(visitArr[0].getDate()).isNotNull();
 
+        // we need this because retrieving visits doesn't fill the pet's owner property.
+        Pet pet = this.clinicService.findPetById(visitArr[0].getPet().getId());
+        assertThat(pet.getOwner().getId()).isEqualTo(6);
+    }
+
+    @Test
+    void shouldFindAllPetInClinic() {
+        Collection<Pet> pets = this.clinicService.findPetById();
+        // Make sure that all the pets is there
+        assertThat(pets.size()).isEqualTo(13);
+
+        // Get the last pet
+        Pet pet = EntityUtils.getById(pets, Pet.class, 13);
+
+        assertThat(pet.getName()).isEqualTo("Sly");
+        assertThat(pet.getBirthDate()).isEqualTo("2012-06-08");
+        assertThat(pet.getType().toString()).isEqualTo("cat");
+        assertThat(pet.getOwner().getId()).isEqualTo(10);
+    }
+
+    @Test
+    void shouldRetrieveOwnerEmail() throws Exception {
+        Owner owner = new Owner();
+        owner.setEmail("antoine.heb@outlook.com");
+
+        String expected = "antoine.heb@outlook.com";
+        String actualResult = owner.getEmail();
+
+        assertThat(actualResult.equals(expected));
+    }
+
+    @Test
+    @Transactional
+    void shouldUpdateOwnerEmail() {
+        Owner owner = this.clinicService.findOwnerById(1);
+        String oldEmail = owner.getEmail();
+        String newEmail = oldEmail + "X";
+
+        owner.setEmail(newEmail);
+        this.clinicService.saveOwner(owner);
+
+        // retrieving new name from database
+        owner = this.clinicService.findOwnerById(1);
+        assertThat(owner.getEmail()).isEqualTo(newEmail);
+    }
+
+    @Test
+    void shouldExceptionFindAllPetInClinic() {
+        when(petRepository.findAll()).thenReturn(null);
+        assertThrows(NullPointerException.class, () -> mockService.findPetById());
+    }
 }

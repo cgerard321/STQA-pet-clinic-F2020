@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.BaseEntity;
@@ -43,7 +44,10 @@ public interface VisitRepository {
 
     List<Visit> findByPetId(Integer petId);
 
-    @Query(value = "SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :ownerId")
+    @Query("SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :ownerId")
     List<Visit> findByOwnerId(@Param("ownerId") Integer ownerId);
 
+    @Modifying
+    @Query("DELETE FROM Visit v WHERE v.id IN (:ids)")
+    void deleteByIdIn(@Param("ids") List<Integer> visitIds);
 }

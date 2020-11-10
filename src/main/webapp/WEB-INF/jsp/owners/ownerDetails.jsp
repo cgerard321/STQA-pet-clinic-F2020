@@ -41,6 +41,13 @@
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Pet</a>
 
+    <c:if test="${hasFutureVisits}">
+        <spring:url value="{ownerId}/appointments/cancel.html" var="cancelAppointmentUrl">
+            <spring:param name="ownerId" value="${owner.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(cancelAppointmentUrl)}" class="btn btn-default">Cancel Appointment</a>
+    </c:if>
+
     <br/>
     <br/>
     <br/>

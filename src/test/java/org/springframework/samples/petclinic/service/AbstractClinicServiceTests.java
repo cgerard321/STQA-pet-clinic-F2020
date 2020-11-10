@@ -28,6 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -268,5 +269,15 @@ abstract class AbstractClinicServiceTests {
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
+    }
+
+    @Test
+    @Transactional
+    void shouldDeleteVisitsById() {
+        this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
+
+        // Note: relying on the fact all visits in the sample database are for owner 6
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
+        assertThat(visits.size()).isEqualTo(2);
     }
 }

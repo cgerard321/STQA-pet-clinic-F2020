@@ -69,4 +69,10 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         return query.getResultList();
     }
 
+    @Override
+    public void deleteByIdIn(List<Integer> visitIds) {
+        Query query = this.em.createQuery("DELETE FROM Visit v WHERE v.id IN (:ids)");
+        query.setParameter("ids", visitIds);
+        query.executeUpdate();
+    }
 }

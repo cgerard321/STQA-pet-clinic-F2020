@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.service;
 import org.springframework.samples.petclinic.model.*;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -53,5 +54,7 @@ public interface ClinicService {
 	Collection<Visit> findVisitsByPetId(int petId);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+
+    void deleteVisitsById(List<Integer> visitIds);
 
 }

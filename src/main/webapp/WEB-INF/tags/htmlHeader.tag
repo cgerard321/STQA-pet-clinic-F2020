@@ -21,6 +21,10 @@ PetClinic :: a Spring Framework demonstration
     <link href="${petclinicCss}" rel="stylesheet"/>
     <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon" />
     <link href="${foundationIcon}" rel="stylesheet">
+    <spring:url value="/resources/css/header.css" var="headerCss" />
+    <link href="${headerCss}" rel="stylesheet">
+    <spring:url value="/resources/css/calendar.css" var="calendarCss" />
+    <link href="${calendarCss}" rel="stylesheet">
     <spring:url value="/resources/css/headerPage.css" var="headerCss" />
     <link href="${headerCss}" rel="stylesheet">
 

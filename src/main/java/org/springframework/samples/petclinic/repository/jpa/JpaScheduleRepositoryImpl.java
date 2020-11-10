@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -16,10 +15,18 @@ public class JpaScheduleRepositoryImpl implements ScheduleRepository {
     private EntityManager em;
 
 
+
+
     @Override
     public List<Schedule> findAll() {
-        return this.em.createQuery("SELECT distinct sched FROM vet_schedule sched ORDER BY sched.vetId").getResultList();
+        return this.em.createQuery("SELECT new vet_schedule (vetId, dayAvailable) FROM vet_schedule").getResultList();
+
     }
+
+//    @Override
+//    public List<Schedule> findAll() {
+//        return this.em.createQuery("SELECT distinct sched FROM vet_schedule sched ORDER BY sched.vetId").getResultList();
+//    }
 
     @Override
     public Schedule findScheduleById(int id) {

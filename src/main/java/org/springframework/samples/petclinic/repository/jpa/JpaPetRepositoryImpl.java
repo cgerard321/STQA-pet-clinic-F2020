@@ -68,4 +68,9 @@ public class JpaPetRepositoryImpl implements PetRepository {
         return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
     }
 
+    @Override
+    public void removePet(int id) {
+
+    }
+
 }

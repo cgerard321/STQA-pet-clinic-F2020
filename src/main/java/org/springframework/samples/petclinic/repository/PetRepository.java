@@ -63,4 +63,6 @@ public interface PetRepository {
      * @return a <code>Collection</code> of <code>Pet</code>s
      */
     Collection<Pet> findAll();
+
+    void removePet(int id);
 }

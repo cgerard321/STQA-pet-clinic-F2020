@@ -134,6 +134,11 @@ public class JdbcPetRepositoryImpl implements PetRepository {
         return new ArrayList<>(jdbcPets);
     }
 
+    @Override
+    public void removePet(int id) {
+
+    }
+
     /**
      * Creates a {@link MapSqlParameterSource} based on data values from the supplied {@link Pet} instance.
      */

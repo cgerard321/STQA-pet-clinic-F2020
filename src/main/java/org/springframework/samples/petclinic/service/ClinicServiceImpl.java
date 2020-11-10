@@ -121,4 +121,9 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
         return visitRepository.findByOwnerId(ownerId);
     }
+
+    @Override
+    public void removePetById(int id) {
+        petRepository.removePet(id);
+    }
 }

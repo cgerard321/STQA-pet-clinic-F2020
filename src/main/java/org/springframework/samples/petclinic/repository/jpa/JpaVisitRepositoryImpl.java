@@ -69,4 +69,10 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Visit> findAll() {
+        Query query = this.em.createQuery("SELECT v FROM Visit v");
+        return query.getResultList();
+    }
+
 }

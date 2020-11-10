@@ -124,4 +124,17 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
         return visits;
     }
 
+    @Override
+    public List<Visit> findAll() {
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets",
+            new JdbcPetRowMapper());
+
+        List<Visit> visits = this.jdbcTemplate.query(
+            "SELECT id as visit_id, visit_date, description, pet_id FROM visits",
+            new JdbcVisitRowMapper(results));
+
+        return visits;
+    }
+
 }

@@ -46,4 +46,6 @@ public interface VisitRepository {
     @Query(value = "SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :ownerId")
     List<Visit> findByOwnerId(@Param("ownerId") Integer ownerId);
 
+    List<Visit> findAll();
+
 }

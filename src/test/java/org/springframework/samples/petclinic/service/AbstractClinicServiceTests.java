@@ -28,6 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,6 +54,7 @@ import static org.mockito.Mockito.when;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
 @ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 
@@ -237,6 +239,21 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getType().toString()).isEqualTo("cat");
         assertThat(pet.getOwner().getId()).isEqualTo(10);
     }
+    @Test
+    void  shouldRemovePetFromPetList(){
+
+        Collection<Pet> pets = this.clinicService.findPetById();
+
+        Pet pet = EntityUtils.getById(
+            pets,
+            Pet.class,
+            1);
+
+        pets.remove(pet);
+
+        assertThat(pets.size()).isEqualTo(12);
+
+    }
 
     @Test
     void shouldRetrieveOwnerEmail() throws Exception {
@@ -269,4 +286,35 @@ abstract class AbstractClinicServiceTests {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
     }
+
+
+    @Test
+    @Transactional
+    void shouldDeleteVisitsById() {
+        this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
+
+        // Note: relying on the fact all visits in the sample database are for owner 6
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
+        assertThat(visits.size()).isEqualTo(2);
+    }
+  
+  
+
+//    @Test
+//    void shouldFindAllSchedulesClinic() {
+//        Collection<Schedule> schedules = this.clinicService.findSchedules();
+//        // Make sure that all the schedules is there
+//        assertThat(schedules.size()).isEqualTo(6);
+//    }
+
+
+//    @Test
+//    void shouldFindScheduleWithCorrectId() {
+//        Schedule sched6 = this.clinicService.findScheduleByVetId(6);
+//        assertThat(sched6.getVetId()).isEqualTo(6);
+//        assertThat(sched6.getDayAvailable()).isEqualTo(5);
+//
+//    }
+
+
 }

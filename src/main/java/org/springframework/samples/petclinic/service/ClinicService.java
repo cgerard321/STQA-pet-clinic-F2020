@@ -15,9 +15,11 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import org.springframework.samples.petclinic.model.*;
 
 import java.util.Collection;
+import java.util.List;
+
+import org.springframework.samples.petclinic.model.*;
 
 
 /**
@@ -50,8 +52,17 @@ public interface ClinicService {
 
     Collection<Owner> findOwnerByLastName(String lastName);
 
-	Collection<Visit> findVisitsByPetId(int petId);
+    Collection<Visit> findVisitsByPetId(int petId);
+
+
+    Collection<Schedule> findSchedules();
+
+    Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+
+    void deleteVisitsById(List<Integer> visitIds);
+  
+    void removePetById(int petId);
 
 }

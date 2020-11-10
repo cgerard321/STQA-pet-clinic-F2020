@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.repository.jpa;
 
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +38,6 @@ public class JpaVetRepositoryImpl implements VetRepository {
 
     @PersistenceContext
     private EntityManager em;
-
 
     @Override
     @SuppressWarnings("unchecked")

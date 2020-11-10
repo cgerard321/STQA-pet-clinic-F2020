@@ -1,4 +1,5 @@
 DROP TABLE vet_specialties IF EXISTS;
+DROP TABLE vet_schedule IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
 DROP TABLE visits IF EXISTS;
@@ -39,7 +40,8 @@ CREATE TABLE owners (
   last_name  VARCHAR_IGNORECASE(30),
   address    VARCHAR(255),
   city       VARCHAR(80),
-  telephone  VARCHAR(20)
+  telephone  VARCHAR(20),
+  email      VARCHAR(30)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
 
@@ -62,3 +64,14 @@ CREATE TABLE visits (
 );
 ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX visits_pet_id ON visits (pet_id);
+
+/*Code added by Maria Carolina Avila for the APPT team*/
+CREATE TABLE vet_schedule (
+    schedule_id INTEGER IDENTITY PRIMARY KEY,
+    vet_ID INTEGER NOT NULL,
+    room_ID VARCHAR(5) NOT NULL,
+    day_available NUMERIC(1,0) NOT NULL,
+    visit_id INTEGER
+);
+ALTER TABLE vet_schedule ADD CONSTRAINT fk_schedule_vets FOREIGN KEY (vet_ID) REFERENCES vets(id);
+ALTER TABLE vet_schedule ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);

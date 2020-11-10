@@ -15,13 +15,6 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -36,6 +29,12 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple JDBC-based implementation of the {@link OwnerRepository} interface.
@@ -66,7 +65,6 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     }
 
-
     /**
      * Loads {@link Owner Owners} from the data store by last name, returning all owners whose last name <i>starts</i> with
      * the given name; also loads the {@link Pet Pets} and {@link Visit Visits} for the corresponding owners, if not
@@ -77,7 +75,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("lastName", lastName + "%");
         List<Owner> owners = this.namedParameterJdbcTemplate.query(
-            "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
+            "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE last_name like :lastName",
             params,
             BeanPropertyRowMapper.newInstance(Owner.class)
         );
@@ -96,7 +94,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             owner = this.namedParameterJdbcTemplate.queryForObject(
-                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
+                "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE id= :id",
                 params,
                 BeanPropertyRowMapper.newInstance(Owner.class)
             );
@@ -131,7 +129,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         } else {
             this.namedParameterJdbcTemplate.update(
                 "UPDATE owners SET first_name=:firstName, last_name=:lastName, address=:address, " +
-                    "city=:city, telephone=:telephone WHERE id=:id",
+                    "city=:city, telephone=:telephone, email=:email WHERE id=:id",
                 parameterSource);
         }
     }
@@ -153,6 +151,4 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             loadPetsAndVisits(owner);
         }
     }
-
-
 }

@@ -10,12 +10,25 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.service.ClinicService;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 
 @Controller
 public class AppointmentController {
 
+
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
+    private final ClinicService clinicService;
+
+
+
+    private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;
 
 
@@ -23,6 +36,7 @@ public class AppointmentController {
     public AppointmentController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
+
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
@@ -45,3 +59,15 @@ public class AppointmentController {
         return VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 }
+
+    /* Controller for the booking appointment page */
+    @GetMapping(value = "/appointments/create")
+    public String initCreationForm(Map<String, Object> vetInfo) {
+        Vets vetList = new Vets();
+        vetList.getVetList().addAll(this.clinicService.findVets());
+        vetInfo.put("vetAppoint", vetList);
+        return APPOINT_FORM;
+    }
+}
+
+

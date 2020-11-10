@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="name" required="true" rtexprvalue="true"
-              description="Name of the active menu: home, owners, vets or error" %>
+              description="Name of the active menu: home, owners, pets, vets, appointments, or error" %>
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-                <span class="sr-only"><os-p>Toggle navigation</os-p></span>
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -28,17 +28,37 @@
                     <span>Find owners</span>
                 </petclinic:menuItem>
 
+
+                <petclinic:menuItem active="${name eq 'pets'}" url="/pets/find.html" title="find pets">
+                    <span aria-hidden="true"><i class="fi-paw" style="font-size:22px; position:relative; top:-1px;"></i></span>
+                    <span class="foundationIconsSpacing"> Find Pets</span>
+
+                    <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span>Find pets</span> -->
+                </petclinic:menuItem>
+
                 <petclinic:menuItem active="${name eq 'vets'}" url="/vets.html" title="veterinarians">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Veterinarians</span>
                 </petclinic:menuItem>
 
+
+                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments/create.html" title="schedule appointments">
+                    <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
+                    <span class="foundationIconsSpacing"> Appointments</span>
+                    
+                </petclinic:menuItem>
+
+                <!--
                 <petclinic:menuItem active="${name eq 'error'}" url="/oups.html"
                             title="trigger a RuntimeException to see how it is handled">
                     <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                     <span>Error</span>
                 </petclinic:menuItem>
+                -->
 
+                <spring:url value="/resources/images/headerImage.png" htmlEscape="true" var="CatAndDogImage"/>
+                <img id="headerImage" class="img-responsive" alt="A cat and a dog" src="${CatAndDogImage}"/>
             </ul>
         </div>
     </div>

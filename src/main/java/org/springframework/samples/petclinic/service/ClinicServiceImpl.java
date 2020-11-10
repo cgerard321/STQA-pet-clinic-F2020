@@ -73,13 +73,11 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
-
     @Override
     @Transactional
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -95,7 +93,6 @@ public class ClinicServiceImpl implements ClinicService {
         if (ret == null || ret.isEmpty()) {
             throw new NullPointerException();
         }
-
         return ret;
     }
 

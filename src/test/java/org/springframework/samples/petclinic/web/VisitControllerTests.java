@@ -77,6 +77,4 @@ class VisitControllerTests {
             .andExpect(view().name("visitList"));
     }
 
-
-
 }

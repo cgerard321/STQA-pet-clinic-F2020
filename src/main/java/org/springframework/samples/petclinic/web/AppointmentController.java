@@ -19,7 +19,7 @@ public class AppointmentController {
         this.clinicService = clinicService;
     }
 
-    /*Controller for the booking appointment page*/
+    /* Controller for the booking appointment page */
     @GetMapping(value = "/appointments/create")
     public String initCreationForm(Map<String, Object> vetInfo) {
         Vets vetList = new Vets();

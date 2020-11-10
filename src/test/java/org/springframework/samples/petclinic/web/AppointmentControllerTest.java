@@ -4,11 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
+import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.Matchers.instanceOf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,9 +37,10 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    void testNavigateToAppointments() throws Exception{
+    void testInitCreationForm() throws Exception {
         mockMvc.perform(get("/appointments/create.html"))
             .andExpect(status().isOk())
+            .andExpect(model().attribute("vetAppoint", instanceOf(Vets.class)))
             .andExpect(view().name("appointments/createAppointments"))
             .andExpect(forwardedUrl("appointments/createAppointments"));
     }

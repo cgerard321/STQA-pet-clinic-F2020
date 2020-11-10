@@ -24,6 +24,11 @@ PetClinic :: a Spring Framework demonstration
     <spring:url value="/resources/css/header.css" var="headerCss" />
     <link href="${headerCss}" rel="stylesheet">
 
+    <%-- Css and JS added for back to top button --%>
+    <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
+    <link href="${goBackToTopCss}" rel="stylesheet">
+    <spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
+    <script src="${backToTopJs}"></script>
 
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>
@@ -36,4 +41,5 @@ PetClinic :: a Spring Framework demonstration
     <link href="${jQueryUiCss}" rel="stylesheet"/>
     <spring:url value="/webjars/jquery-ui/1.11.4/jquery-ui.theme.min.css" var="jQueryUiThemeCss"/>
     <link href="${jQueryUiThemeCss}" rel="stylesheet"/>
+
 </head>

@@ -56,4 +56,8 @@
             </ul>
         </div>
     </div>
+    <!-- The button will be in the nav bar to appear in all pages! -->
+    <button onclick="topFunction()" id="goToTopButton" title="Go to top">Top</button>
 </nav>
+
+

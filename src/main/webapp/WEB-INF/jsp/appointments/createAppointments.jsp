@@ -3,7 +3,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<petclinic:layout pageName="appointment">
+<petclinic:layout pageName="createAppointment">
     <head>
         <title>Title</title>
     </head>

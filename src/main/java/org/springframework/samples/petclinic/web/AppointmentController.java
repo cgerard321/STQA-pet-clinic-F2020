@@ -11,21 +11,21 @@ import java.util.Map;
 @Controller
 public class AppointmentController {
 
-    private static final String appointForm = "appointments/appointments";
+    private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;
 
     @Autowired
     public AppointmentController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
-    
+
     /*Controller for the booking appointment page*/
-    @GetMapping(value = "/appointments")
+    @GetMapping(value = "/appointments/create")
     public String initCreationForm(Map<String, Object> vetInfo) {
         Vets vetList = new Vets();
         vetList.getVetList().addAll(this.clinicService.findVets());
         vetInfo.put("vetAppoint", vetList);
-        return appointForm;
+        return APPOINT_FORM;
     }
 }
 

@@ -123,7 +123,8 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    public void removePetById(int id) {
-        petRepository.removePet(id);
+    public void removePetById(int petId) {
+        petRepository.removePet(petId);
     }
+
 }

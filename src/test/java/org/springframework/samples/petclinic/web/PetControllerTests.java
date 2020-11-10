@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
@@ -146,7 +147,13 @@ class PetControllerTests {
            .andExpect(status().isOk())
            .andExpect(view().name("pets/createOrUpdatePetForm"));
    }
-       
+   @Test
+    void testPetRemovedFromListRedirectSuccess() throws Exception {
+        mockMvc.perform(get("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
+//            .andExpect(status().isOk())
+            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/petList"));
+    }
+
     @Test
     void testListAllPetsDisplaySuccess() throws Exception {
         mockMvc.perform(get("/pets/petList")) // Navigate to the page

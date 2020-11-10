@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
@@ -69,8 +70,12 @@ public class JpaPetRepositoryImpl implements PetRepository {
     }
 
     @Override
-    public void removePet(int id) {
-
+    @Transactional
+    public void removePet(int petId) {
+        // Black magic
+        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
+            .setParameter("petId", petId)
+            .executeUpdate();
     }
 
 }

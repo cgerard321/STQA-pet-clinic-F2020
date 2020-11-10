@@ -64,5 +64,5 @@ public interface PetRepository {
      */
     Collection<Pet> findAll();
 
-    void removePet(int id);
+    void removePet(int petId);
 }

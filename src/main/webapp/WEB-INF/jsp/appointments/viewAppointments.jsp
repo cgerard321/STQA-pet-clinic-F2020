@@ -13,7 +13,7 @@
 
 <h2>View Appointments</h2>
 
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover" id="appointmentsTable">
     <thead class="thead-dark">
     <tr>
         <th>Date</th>

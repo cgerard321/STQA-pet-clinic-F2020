@@ -165,4 +165,11 @@ class PetControllerTests {
                 any(Pet.class)
             )));
     }
+    @Test
+    void testInitViewPetSuccess() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/view", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
+
 }

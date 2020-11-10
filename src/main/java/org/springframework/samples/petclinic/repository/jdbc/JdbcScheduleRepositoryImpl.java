@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Schedule;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -35,18 +36,32 @@ public class JdbcScheduleRepositoryImpl implements ScheduleRepository {
 
 
     @Override
-    public List<Schedule> listSchedules() {
+    public List<Schedule> findAllSchedules() {
         List<Schedule> schedules = new ArrayList<>();
         schedules.addAll(this.jdbcTemplate.query(
-            "SELECT vetId, dayAvailable FROM vet_schedule ORDER BY vetId",
+            "SELECT vet_id, day_available FROM vet_schedule ORDER BY vet_id",
             BeanPropertyRowMapper.newInstance(Schedule.class)));
 
         return schedules;
     }
 
+    //ERROR IN SQL
     @Override
     public Schedule findScheduleById(int id) {
-        return null;
+        Schedule schedule;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("vet_id", id);
+            schedule = this.namedParameterJdbcTemplate.queryForObject(
+                "SELECT vet_id, day_available FROM vet_schedule WHERE vet_id=: id",
+                params,
+                BeanPropertyRowMapper.newInstance(Schedule.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Schedule.class, id);
+        }
+
+        return schedule;
     }
 
 

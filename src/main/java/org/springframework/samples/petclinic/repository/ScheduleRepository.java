@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ScheduleRepository {
 
-    List<Schedule> listSchedules();
+    List<Schedule> findAllSchedules();
 
     Schedule findScheduleById(int id);
 

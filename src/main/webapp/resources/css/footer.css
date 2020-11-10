@@ -2,8 +2,6 @@
     background: #303036;
     color:#d3d3d3;
     height: 300px;
-    width: 100%;
-    margin-top: auto;
 }
 .links{
     width:50%;
@@ -30,6 +28,8 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+=======
 
 /*When Screen is bigger than 900PX, change footer nav list to horizontal*/
 @media only screen and (min-width: 900px) {

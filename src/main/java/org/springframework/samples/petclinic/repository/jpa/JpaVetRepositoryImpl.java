@@ -44,12 +44,13 @@ public class JpaVetRepositoryImpl implements VetRepository {
     @Override
     @SuppressWarnings("unchecked")
     public Collection<Vet> findAll() {
-        return this.em.createQuery("SELECT distinct vet FROM Vet vet left join fetch vet.specialties ORDER BY vet.lastName, vet.firstName").getResultList();
+        Collection <Vet> vets = this.em.createQuery("SELECT distinct vet FROM Vet vet left join fetch vet.specialties left join fetch vet.reminders ORDER BY vet.lastName, vet.firstName").getResultList();
+        return vets;
     }
 
     @Override
     public Vet findById(int id) {
-        return (Vet) this.em.createQuery("SELECT vet FROM Vet vet left join fetch vet.specialties WHERE vet.id =:id").setParameter("id", id).getSingleResult();
+        return (Vet) this.em.createQuery("SELECT vet FROM Vet vet left join fetch vet.specialties left join fetch vet.reminders WHERE vet.id =:id").setParameter("id", id).getSingleResult();
     }
 
 

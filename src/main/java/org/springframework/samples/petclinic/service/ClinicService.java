@@ -47,6 +47,6 @@ public interface ClinicService {
 
 	Collection<Visit> findVisitsByPetId(int petId);
 
-//    Collection<Reminder> findRemindersByVetId(int vetId);
+    Collection<Reminder> findRemindersByVetId(int vetId);
 
 }

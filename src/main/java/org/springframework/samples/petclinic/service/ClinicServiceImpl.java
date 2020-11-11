@@ -110,10 +110,10 @@ public class ClinicServiceImpl implements ClinicService {
 		return visitRepository.findByPetId(petId);
 	}
 
-//    @Override
-//    public Collection<Reminder> findRemindersByVetId(int vetId) {
-//        return reminderRepository.findByVetId(vetId);
-//    }
+    @Override
+    public Collection<Reminder> findRemindersByVetId(int vetId) {
+        return reminderRepository.findByVetId(vetId);
+    }
 
 
 }

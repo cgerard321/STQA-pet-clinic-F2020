@@ -22,11 +22,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -199,5 +195,23 @@ abstract class AbstractClinicServiceTests {
         assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
     }
 
+    @Test
+    void shouldFindVet() throws Exception {
+        Vet vet3 = this.clinicService.findVetById(3);
+        assertThat(vet3.getLastName()).isEqualTo("Douglas");
+        assertThat(vet3.getNrOfSpecialties()).isEqualTo(2);
+        assertThat(vet3.getSpecialties().get(0).getName()).isEqualTo("dentistry");
+        assertThat(vet3.getSpecialties().get(1).getName()).isEqualTo("surgery");
+    }
+
+    @Test
+    void shouldFindRemindersByVetId() throws Exception {
+        Collection<Reminder> reminders = this.clinicService.findRemindersByVetId(1);
+        assertThat(reminders.size()).isEqualTo(1);
+        Reminder[] reinderArr = reminders.toArray(new Reminder[reminders.size()]);
+        assertThat(reinderArr[0].getEventDate()).isNotNull();
+        assertThat(reinderArr[0].getEventDescription()).isNotNull();
+        assertThat(reinderArr[0].getVet().getId()).isEqualTo(1);
+    }
 
 }

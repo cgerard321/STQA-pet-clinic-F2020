@@ -112,6 +112,14 @@ public class PetController {
         }
     }
 
+    @GetMapping (value = "/pets/find.html")
+    public String Yeet(Map<String, Object> model) {
+        Collection<Pet> results = clinicService.findPetById();
+
+        model.put("selections", results);
+        return "/pets/findPets";
+    }
+
 
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")

@@ -59,11 +59,46 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
+    public Collection<Owner> findByFirstName(String firstName) {
+        Query query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.firstName LIKE :firstName");
+        query.setParameter("firstName", firstName + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public Collection<Owner> findByCity(String city) {
+        Query query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.city LIKE :city");
+        query.setParameter("city", city + "%");
+        return query.getResultList();
+    }
+
+    @Override
     public Owner findById(int id) {
         // using 'join fetch' because a single query should load both owners and pets
         // using 'left join fetch' because it might happen that an owner does not have pets yet
         Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id");
         query.setParameter("id", id);
+        return (Owner) query.getSingleResult();
+    }
+
+    @Override
+    public Owner findByAddress(String address) {
+        Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.address =:address");
+        query.setParameter("address", address);
+        return (Owner) query.getSingleResult();
+    }
+
+    @Override
+    public Owner findByTelephone(String telephone) {
+        Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.telephone =:telephone");
+        query.setParameter("telephone", telephone);
+        return (Owner) query.getSingleResult();
+    }
+
+    @Override
+    public Owner findByEmail(String email) {
+        Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.email =:email");
+        query.setParameter("email", email);
         return (Owner) query.getSingleResult();
     }
 

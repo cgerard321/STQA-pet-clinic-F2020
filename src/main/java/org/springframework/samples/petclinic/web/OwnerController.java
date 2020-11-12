@@ -84,7 +84,7 @@ public class OwnerController {
     }
 
     @GetMapping(value = "/owners")
-    public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
+    public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model, @RequestParam(value="dropdownOptions", required = false, defaultValue = "") String dropdownOptions) {
 
         // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {

@@ -227,7 +227,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     void shouldFindAllPetInClinic() {
-        Collection<Pet> pets = this.clinicService.findPetById();
+        Collection<Pet> pets = this.clinicService.findPets();
         // Make sure that all the pets is there
         assertThat(pets.size()).isEqualTo(13);
 
@@ -242,7 +242,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     void  shouldRemovePetFromPetList(){
 
-        Collection<Pet> pets = this.clinicService.findPetById();
+        Collection<Pet> pets = this.clinicService.findPets();
 
         Pet pet = EntityUtils.getById(
             pets,
@@ -284,7 +284,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
-        assertThrows(NullPointerException.class, () -> mockService.findPetById());
+        assertThrows(NullPointerException.class, () -> mockService.findPets());
     }
 
 
@@ -297,8 +297,7 @@ abstract class AbstractClinicServiceTests {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
         assertThat(visits.size()).isEqualTo(2);
     }
-  
-  
+
 
 //    @Test
 //    void shouldFindAllSchedulesClinic() {

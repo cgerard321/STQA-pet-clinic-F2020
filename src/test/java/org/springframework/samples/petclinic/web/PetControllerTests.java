@@ -19,7 +19,6 @@ import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -75,7 +74,7 @@ class PetControllerTests {
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
         // Return stubbed petList
-        given(this.clinicService.findPetById()).willReturn(petList);
+        given(this.clinicService.findPets()).willReturn(petList);
     }
 
 //    @Test

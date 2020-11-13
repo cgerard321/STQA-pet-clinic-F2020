@@ -16,18 +16,10 @@
 package org.springframework.samples.petclinic.service;
 
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
-
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,7 +91,7 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    public Collection<Pet> findPetById() {
+    public Collection<Pet> findPets() {
         Collection<Pet> ret = petRepository.findAll();
 
         // Check if there is pets in the clinic
@@ -150,7 +142,7 @@ public class ClinicServiceImpl implements ClinicService {
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);
     }
-  
+
     public void removePetById(int petId) {
         petRepository.removePet(petId);
     }

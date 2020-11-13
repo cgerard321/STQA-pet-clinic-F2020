@@ -20,7 +20,6 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -116,7 +115,7 @@ public class PetController {
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
-        Collection<Pet> results = clinicService.findPetById();
+        Collection<Pet> results = clinicService.findPets();
 
         // Put the list of all the pets into the model
         // and give it the key "selections"

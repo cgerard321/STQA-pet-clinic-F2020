@@ -42,9 +42,7 @@ import java.util.*;
 @Entity
 @Table(name = "pets")
 public class Pet extends NamedEntity {
-
-    /* Test comment Nichita */
-
+//test change
     /* Test comment from cgerard */
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")

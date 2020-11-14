@@ -28,6 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,6 +54,7 @@ import static org.mockito.Mockito.when;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
 @ExtendWith(MockitoExtension.class)
 abstract class AbstractClinicServiceTests {
 
@@ -225,7 +227,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     void shouldFindAllPetInClinic() {
-        Collection<Pet> pets = this.clinicService.findPetById();
+        Collection<Pet> pets = this.clinicService.findPets();
         // Make sure that all the pets is there
         assertThat(pets.size()).isEqualTo(13);
 
@@ -236,6 +238,21 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getBirthDate()).isEqualTo("2012-06-08");
         assertThat(pet.getType().toString()).isEqualTo("cat");
         assertThat(pet.getOwner().getId()).isEqualTo(10);
+    }
+    @Test
+    void  shouldRemovePetFromPetList(){
+
+        Collection<Pet> pets = this.clinicService.findPets();
+
+        Pet pet = EntityUtils.getById(
+            pets,
+            Pet.class,
+            1);
+
+        pets.remove(pet);
+
+        assertThat(pets.size()).isEqualTo(12);
+
     }
 
     @Test
@@ -267,6 +284,36 @@ abstract class AbstractClinicServiceTests {
     @Test
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
-        assertThrows(NullPointerException.class, () -> mockService.findPetById());
+        assertThrows(NullPointerException.class, () -> mockService.findPets());
     }
+
+
+    @Test
+    @Transactional
+    void shouldDeleteVisitsById() {
+        this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
+
+        // Note: relying on the fact all visits in the sample database are for owner 6
+        Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
+        assertThat(visits.size()).isEqualTo(2);
+    }
+
+
+//    @Test
+//    void shouldFindAllSchedulesClinic() {
+//        Collection<Schedule> schedules = this.clinicService.findSchedules();
+//        // Make sure that all the schedules is there
+//        assertThat(schedules.size()).isEqualTo(6);
+//    }
+
+
+//    @Test
+//    void shouldFindScheduleWithCorrectId() {
+//        Schedule sched6 = this.clinicService.findScheduleByVetId(6);
+//        assertThat(sched6.getVetId()).isEqualTo(6);
+//        assertThat(sched6.getDayAvailable()).isEqualTo(5);
+//
+//    }
+
+
 }

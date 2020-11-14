@@ -52,5 +52,11 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO vet_schedule VALUES(1, 2,'A-102', 2,NULL);
-INSERT INTO vet_schedule VALUES(2, 2,'A-102', 0,NULL);
+INSERT INTO vet_schedule VALUES(1, 1,'A-102', 2);
+INSERT INTO vet_schedule VALUES(2, 2,'A-103', 2);
+INSERT INTO vet_schedule VALUES(3, 3,'A-104', 3);
+INSERT INTO vet_schedule VALUES(4, 4,'A-105', 4);
+INSERT INTO vet_schedule VALUES(5, 5,'A-106', 1);
+INSERT INTO vet_schedule VALUES(6, 6,'A-107', 5);
+
+

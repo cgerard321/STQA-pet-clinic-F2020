@@ -4,14 +4,14 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -182,14 +182,34 @@ class OwnerControllerTests {
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(model().attribute("owner", hasProperty("email", is("george.franklin@gmail.com"))))
+            .andExpect(model().attribute("hasFutureVisits", is(false)))
             .andExpect(view().name("owners/ownerDetails"));
     }
 
     @Test
-    void testNavigateToFindOwners() throws Exception{
+    void testNavigateToFindOwners() throws Exception {
         mockMvc.perform(get("/owners/find.html"))
             .andExpect(status().isOk())
             .andExpect(view().name("owners/findOwners"))
             .andExpect(forwardedUrl("owners/findOwners"));
+    }
+
+    @Test
+    void testInitCancelOwnerAppointmentForm() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/appointments/cancel", TEST_OWNER_ID))
+            .andExpect(status().isOk())
+            .andExpect(model().attribute("visits", empty()))
+            .andExpect(model().attribute("showWarning", instanceOf(boolean.class)))
+            .andExpect(view().name("appointments/cancelAppointment"));
+    }
+
+    @Test
+    void testProcessCancelOwnerAppointmentForm() throws Exception {
+        mockMvc.perform(post("/owners/{ownerId}/appointments/cancel", TEST_OWNER_ID)
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            .param("1", "on")
+            .param("2", "off")
+        )
+            .andExpect(status().is3xxRedirection());
     }
 }

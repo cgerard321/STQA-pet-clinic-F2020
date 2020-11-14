@@ -92,8 +92,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             Number newKey = this.insertPet.executeAndReturnKey(
                 createPetParameterSource(pet));
             pet.setId(newKey.intValue());
-        }
-        else {
+        } else {
             this.namedParameterJdbcTemplate.update(
                 "UPDATE pets SET name=:name, birth_date=:birth_date, type_id=:type_id, " +
                     "owner_id=:owner_id WHERE id=:id",
@@ -132,6 +131,20 @@ public class JdbcPetRepositoryImpl implements PetRepository {
         }
 
         return new ArrayList<>(jdbcPets);
+    }
+
+    /**
+     * This needs to be implemented in the next Sprint
+     */
+    @Override
+    public void removePet(int id) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        Pet pet = this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM Pet WHERE id=:id", params ,Pet.class);
+
+        String DELETE_PET = "delete from Pet p WHERE p.id =: id";
+       this.namedParameterJdbcTemplate.update(DELETE_PET, createPetParameterSource(pet));
     }
 
     /**

@@ -15,17 +15,16 @@
  */
 package org.springframework.samples.petclinic.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.model.*;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Mostly used as a facade for all Petclinic controllers
@@ -36,17 +35,21 @@ import java.util.Collection;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
-    private final PetRepository petRepository;
-    private final VetRepository vetRepository;
-    private final OwnerRepository ownerRepository;
-    private final VisitRepository visitRepository;
+
+    private PetRepository petRepository;
+    private VetRepository vetRepository;
+    private OwnerRepository ownerRepository;
+    private VisitRepository visitRepository;
+    private ScheduleRepository scheduleRepository;
+
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Override
@@ -73,11 +76,13 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
+
     @Override
     @Transactional
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -86,13 +91,14 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    public Collection<Pet> findPetById() {
+    public Collection<Pet> findPets() {
         Collection<Pet> ret = petRepository.findAll();
 
         // Check if there is pets in the clinic
         if (ret == null || ret.isEmpty()) {
             throw new NullPointerException();
         }
+
         return ret;
     }
 
@@ -109,9 +115,21 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+
     @Override
     public Collection<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Schedule> findSchedules() {
+        return scheduleRepository.findAll();
+    }
+
+    @Override
+    public Schedule findScheduleByVetId(int id) {
+        return scheduleRepository.findScheduleById(id);
     }
 
     @Override
@@ -125,4 +143,13 @@ public class ClinicServiceImpl implements ClinicService {
         return visitRepository.findAll();
 
     }
+    @Transactional
+    public void deleteVisitsById(List<Integer> visitIds) {
+        visitRepository.deleteByIdIn(visitIds);
+    }
+
+    public void removePetById(int petId) {
+        petRepository.removePet(petId);
+    }
+
 }

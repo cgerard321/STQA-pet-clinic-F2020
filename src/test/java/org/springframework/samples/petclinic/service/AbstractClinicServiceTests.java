@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -239,8 +240,9 @@ abstract class AbstractClinicServiceTests {
         assertThat(pet.getType().toString()).isEqualTo("cat");
         assertThat(pet.getOwner().getId()).isEqualTo(10);
     }
+
     @Test
-    void  shouldRemovePetFromPetList(){
+    void shouldRemovePetFromPetList() {
 
         Collection<Pet> pets = this.clinicService.findPets();
 
@@ -253,6 +255,22 @@ abstract class AbstractClinicServiceTests {
 
         assertThat(pets.size()).isEqualTo(12);
 
+    }
+
+    // Remove George
+    @Test
+    void shouldRemoveGeorgeFromPetList() {
+        int id = 6;
+        // Arrange
+        Collection<Pet> actualPetList;
+
+        // Act
+        this.clinicService.removePetById(id);
+        actualPetList = this.clinicService.findPets();
+
+        // Assert
+        assertThat(actualPetList.size()).isEqualTo(12);
+        assertFalse(actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("George")));
     }
 
     @Test

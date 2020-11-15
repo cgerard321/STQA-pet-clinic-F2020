@@ -141,10 +141,10 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Pet pet = this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM Pet WHERE id=:id", params ,Pet.class);
+//        Pet pet = this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM Pet WHERE id=:id", params ,Pet.class);
 
-        String DELETE_PET = "delete from Pet p WHERE p.id =: id";
-       this.namedParameterJdbcTemplate.update(DELETE_PET, createPetParameterSource(pet));
+        String DELETE_PET = "delete from pets p WHERE p.id =:id";
+        this.namedParameterJdbcTemplate.update(DELETE_PET, params);
     }
 
     /**

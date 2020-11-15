@@ -15,14 +15,16 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import java.util.List;
-
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Spring Data JPA specialization of the {@link PetRepository} interface
@@ -36,7 +38,8 @@ public interface SpringDataPetRepository extends PetRepository, Repository<Pet, 
     @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
     List<PetType> findPetTypes();
 
-    @Override
+    @Modifying
+    @Transactional
     @Query("DELETE FROM Pet pet WHERE pet.id=:id")
-    void removePet(@Param("id") int petId);
+    void removePet(@Param("id") int id);
 }

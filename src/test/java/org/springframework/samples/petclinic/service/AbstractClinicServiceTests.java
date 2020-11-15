@@ -27,6 +27,7 @@ import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
@@ -271,6 +272,12 @@ abstract class AbstractClinicServiceTests {
         // Assert
         assertThat(actualPetList.size()).isEqualTo(12);
         assertFalse(actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("George")));
+    }
+
+    @Test
+    void shouldExceptionWithPetNotExist() {
+        int id = 69;
+        assertThrows(SQLException.class, () -> this.clinicService.removePetById(id));
     }
 
     @Test

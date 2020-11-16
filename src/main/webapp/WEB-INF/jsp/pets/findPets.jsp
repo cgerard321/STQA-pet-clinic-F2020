@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <!-- -->
@@ -13,10 +14,10 @@
     <table id="petsTable" class="table table-striped" aria-describedby="pets">
         <thead>
         <tr>
-            <th scope="col" >Name</th>
-            <th scope="col" >Birth Day</th>
-            <th scope="col" >Owner</th>
-            <th scope="col" >Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Birth Day</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Type</th>
             <th></th>
         </tr>
         </thead>
@@ -30,30 +31,33 @@
                     </spring:url>
                     <a href="${fn:escapeXml(petUrl)}"><c:out value="${pet.name}"/></a>
                 </td>
-                <td >
+                <td>
                     <c:out value="${pet.birthDate}"/>
                 </td>
                 <td>
                     <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
                 </td>
-
-                <td style = "text-transform:capitalize;">
+                <td style="text-transform:capitalize;">
                     <c:out value="${pet.type.name}"/>
                 </td>
-
-                <td>
-                    <button type="button" name="deletePet">Delete Pet</button><!--remove the new pet -->
-                </td>
+                <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
+                    <td>
+                        <button type="submit" name="deletePet" value="${pet.id}">Delete Pet</button>
+                        <!--remove the new pet -->
+                    </td>
+                </form:form>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 
 
-        <div class="col-sm-3">
-            <a href ="${fn:escapeXml(petUrl)}"> <button type="button" name="addPet" >Add Pet</button></a>
-            <input type ="text" id="addPet" name="addPet"><!--add the new pet -->
-</div>
+    <div class="col-sm-3">
+        <a href="${fn:escapeXml(petUrl)}">
+            <button type="button" name="addPet">Add Pet</button>
+        </a>
+        <input type="text" id="addPet" name="addPet"><!--add the new pet -->
+    </div>
 
 </petclinic:layout>
 

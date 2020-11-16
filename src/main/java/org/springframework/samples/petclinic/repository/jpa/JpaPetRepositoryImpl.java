@@ -68,13 +68,18 @@ public class JpaPetRepositoryImpl implements PetRepository {
         return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
     }
 
+//    @Override
+//    @Transactional
+//    public void removePet(int petId) {
+//        // Black magic
+//        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
+//            .setParameter("petId", petId)
+//            .executeUpdate();
+//    }
+
     @Override
     @Transactional
-    public void removePet(int petId) {
-        // Black magic
-        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
-            .setParameter("petId", petId)
-            .executeUpdate();
+    public void removePet(Pet pet) {
+        this.em.remove(this.em.contains(pet) ? pet : this.em.merge(pet));
     }
-
 }

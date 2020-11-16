@@ -150,7 +150,7 @@ public class ClinicServiceImpl implements ClinicService {
             throw new ObjectRetrievalFailureException("Pet not found", ObjectRetrievalFailureException.class);
         }
 
-        petRepository.removePet(petId);
+        petRepository.removePet(pet);
     }
 
 }

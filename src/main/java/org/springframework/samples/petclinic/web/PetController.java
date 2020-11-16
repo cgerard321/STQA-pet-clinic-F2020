@@ -123,8 +123,15 @@ public class PetController {
         return "pets/petList";
     }
 
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        Collection<Pet> results = clinicService.findPets();
+        model.put("selections", results);
+        return "pets/findPets";
+    }
+
     // DELETE REQUEST
-    @GetMapping (value = "/pets/{petId}/remove")
+    @GetMapping(value = "/pets/{petId}/remove")
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
         return "redirect:/pets/petList";

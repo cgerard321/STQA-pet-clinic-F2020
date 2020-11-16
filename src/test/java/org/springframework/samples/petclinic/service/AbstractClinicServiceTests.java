@@ -21,13 +21,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
@@ -277,7 +277,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     void shouldExceptionWithPetNotExist() {
         int id = 69;
-        assertThrows(SQLException.class, () -> this.clinicService.removePetById(id));
+        assertThrows(ObjectRetrievalFailureException.class, () -> this.clinicService.removePetById(id));
     }
 
     @Test

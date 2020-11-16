@@ -110,7 +110,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
         // Retrieve the list of all pets
         List<JdbcPet> jdbcPets = this.namedParameterJdbcTemplate.query(
-            "SELECT * FROM pets ORDER BY name",
+            "SELECT * FROM pets ORDER BY id",
             new BeanPropertyRowMapper<JdbcPet>() {
                 int ownerId;
 

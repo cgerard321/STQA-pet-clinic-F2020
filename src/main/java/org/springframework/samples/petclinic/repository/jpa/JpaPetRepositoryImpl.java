@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.jpa;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
@@ -36,6 +37,7 @@ import java.util.List;
  * @since 22.4.2006
  */
 @Repository
+@Profile("jpa")
 public class JpaPetRepositoryImpl implements PetRepository {
 
     @PersistenceContext
@@ -80,6 +82,11 @@ public class JpaPetRepositoryImpl implements PetRepository {
     @Override
     @Transactional
     public void removePet(Pet pet) {
-        this.em.remove(this.em.contains(pet) ? pet : this.em.merge(pet));
+        String petId = pet.getId().toString();
+        this.em.createQuery("DELETE FROM Visit visit WHERE pet_id=" + petId).executeUpdate();
+        this.em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
+        if (em.contains(pet)) {
+            em.remove(pet);
+        }
     }
 }

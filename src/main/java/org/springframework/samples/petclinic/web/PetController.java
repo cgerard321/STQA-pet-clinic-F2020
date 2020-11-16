@@ -130,8 +130,8 @@ public class PetController {
         return "pets/findPets";
     }
 
-    // DELETE REQUEST
-    @GetMapping(value = "/pets/{petId}/remove")
+    // POST /pets/2/remove
+    @PostMapping(value = "/pets/{petId}/remove")
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
         return "redirect:/pets/find";

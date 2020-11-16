@@ -134,6 +134,6 @@ public class PetController {
     @GetMapping(value = "/pets/{petId}/remove")
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
-        return "redirect:/pets/petList";
+        return "redirect:/pets/find";
     }
 }

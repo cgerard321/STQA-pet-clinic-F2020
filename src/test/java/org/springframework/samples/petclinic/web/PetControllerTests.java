@@ -150,7 +150,7 @@ class PetControllerTests {
     void testPetRemovedFromListRedirectSuccess() throws Exception {
         mockMvc.perform(get("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
 //            .andExpect(status().isOk())
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/petList"));
+            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/find"));
     }
 
     @Test

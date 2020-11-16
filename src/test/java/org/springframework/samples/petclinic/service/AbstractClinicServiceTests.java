@@ -258,10 +258,10 @@ abstract class AbstractClinicServiceTests {
 
     }
 
-    // Remove George
+    // Remove Samantha
     @Test
-    void shouldRemoveGeorgeFromPetList() {
-        int id = 6;
+    void shouldRemoveSamanthaFromPetList() {
+        int id = 7;
         // Arrange
         Collection<Pet> actualPetList;
 
@@ -271,7 +271,7 @@ abstract class AbstractClinicServiceTests {
 
         // Assert
         assertThat(actualPetList.size()).isEqualTo(12);
-        assertFalse(actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("George")));
+        assertFalse(actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("Samantha")));
     }
 
     @Test

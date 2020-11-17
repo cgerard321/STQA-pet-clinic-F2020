@@ -125,7 +125,12 @@ public class PetController {
 
     @GetMapping(value = "/pets/find")
     public String initFindForm(Map<String, Object> model) {
-        Collection<Pet> results = clinicService.findPets();
+        Collection<Pet> results;
+        try {
+            results = clinicService.findPets();
+        } catch (Exception ex) {
+            results = null;
+        }
         model.put("selections", results);
         return "pets/findPets";
     }

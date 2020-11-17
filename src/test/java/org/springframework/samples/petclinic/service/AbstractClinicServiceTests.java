@@ -285,8 +285,6 @@ abstract class AbstractClinicServiceTests {
         Collection<Pet> actualPetList;
 
         // Act
-
-        Collection<Pet> yeet = this.clinicService.findPets();
         this.clinicService.removePetById(id);
         actualPetList = this.clinicService.findPets();
 

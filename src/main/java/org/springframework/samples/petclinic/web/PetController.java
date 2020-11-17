@@ -128,7 +128,7 @@ public class PetController {
         Collection<Pet> results;
         try {
             results = clinicService.findPets();
-        } catch (Exception ex) {
+        } catch (Exception ex) { // When there's no pet in the clinic, it will go here
             results = null;
         }
         model.put("selections", results);

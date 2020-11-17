@@ -146,6 +146,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     public void removePetById(int petId) {
         Pet pet = petRepository.findById(petId);
+        // Check if the petId is associated to a valid pet
         if (pet == null) {
             throw new ObjectRetrievalFailureException("Pet not found", ObjectRetrievalFailureException.class);
         }

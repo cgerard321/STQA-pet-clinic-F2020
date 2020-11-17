@@ -11,7 +11,9 @@
 <petclinic:layout pageName="pets">
     <h2 id="pets">Pets</h2>
 
+<%--    Check if there's pets in the petclinic--%>
     <c:choose>
+        <%--        There's at least one pet--%>
         <c:when test="${selections.toArray()[0] != null}">
             <table id="petsTable" class="table table-striped" aria-describedby="pets">
                 <thead>
@@ -56,6 +58,7 @@
                 </tbody>
             </table>
         </c:when>
+        <%--        No pet found--%>
         <c:otherwise>
             <p class="container" style="margin: 2em 0em;font-weight: bold;">There is no pet registered in the Pet Clinic
                 right now.</p>

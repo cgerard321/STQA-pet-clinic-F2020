@@ -111,7 +111,6 @@ public class PetController {
         }
     }
 
-
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {

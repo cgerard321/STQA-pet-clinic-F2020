@@ -1,0 +1,90 @@
+details[open]#hallOfFame summary ~ * {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeIn {
+    0%    {opacity: 0; margin-left: -10px}
+    100%  {opacity: 1; margin-left: 0px}
+}
+
+#hallOfFame summary{
+    padding-left: 0.5%;
+    background-color: #6db33f;
+    color: #FFFFFF;
+    box-shadow: 5px 5px 5px #555;
+    width: 12%;
+    min-width: 220px;
+    margin-top: 5%;
+    font-size: 2em;
+    font-weight: 100;
+    text-align: left;
+}
+
+#hallOfFame summary:hover{
+    padding-left: 0.5%;
+    background-color: #555;
+    box-shadow: 5px 5px 5px #6db33f;
+}
+
+#hallOfFame table{
+    margin-top: 2%;
+    width: 100%;
+}
+
+#hallOfFame th{
+    font-size: 130%;
+    color: #555;
+}
+
+#ranking{
+    font-size: 160%;
+}
+
+#hallOfFame thead th:hover{
+    color: #6db33f;
+}
+
+#hallOfFame td{
+    padding: 3%;
+}
+
+#HOF1st{
+    border: 6em solid transparent;
+    border-radius: 50%;
+    border-image-source: url(../images/HOF1st.png);
+    border-image-slice: 45%;
+    border-image-width: 5 8 5 8;
+    width: 80%;
+}
+#HOF1st:hover{
+    border-radius: 0%;
+    width: 100%;
+}
+
+#HOF2nd{
+    border: 3em solid transparent;
+    border-radius: 50%;
+    border-image-source: url(../images/HOF2nd.png);
+    border-image-slice: 45%;
+    border-image-width: 5;
+    width: 80%;
+}
+#HOF2nd:hover{
+    border-radius: 0%;
+    width: 100%;
+}
+
+#HOF3rd{
+    border: 3em solid transparent;
+    border-radius: 50%;
+    border-image-source: url(../images/HOF3rd.png);
+    border-image-slice: 45%;
+    border-image-width: 5;
+    width: 80%;
+}
+#HOF3rd:hover{
+    border-radius: 0%;
+    width: 100%;
+}

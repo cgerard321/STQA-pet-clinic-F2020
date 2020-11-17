@@ -8,6 +8,7 @@ public class CalendarHelper {
     private int year;
     private int days[][];
     private int numberOfWeeks;
+    private HashMap events = new HashMap();
     private static HashMap months = new HashMap();
 
     private CalendarHelper() {
@@ -74,5 +75,9 @@ public class CalendarHelper {
 
     public int getNumberOfWeeks() {
         return numberOfWeeks + 1;
+    }
+
+    public HashMap getEvents() {
+        return null;
     }
 }

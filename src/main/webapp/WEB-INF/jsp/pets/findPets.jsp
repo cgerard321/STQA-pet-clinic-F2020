@@ -44,7 +44,10 @@
                         </td>
                         <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
                             <td>
-                                <button type="submit" name="deletePet" value="${pet.id}">Delete Pet</button>
+                                <button type="submit" name="deletePet" value="${pet.id}"
+                                        onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
+                                    Delete Pet
+                                </button>
                                 <!--remove the new pet -->
                             </td>
                         </form:form>

@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.jpa;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
@@ -36,6 +37,7 @@ import java.util.List;
  * @since 22.4.2006
  */
 @Repository
+@Profile("jpa")
 public class JpaPetRepositoryImpl implements PetRepository {
 
     @PersistenceContext
@@ -68,13 +70,25 @@ public class JpaPetRepositoryImpl implements PetRepository {
         return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
     }
 
+//    @Override
+//    @Transactional
+//    public void removePet(int petId) {
+//        // Black magic
+//        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
+//            .setParameter("petId", petId)
+//            .executeUpdate();
+//    }
+
     @Override
     @Transactional
-    public void removePet(int petId) {
-        // Black magic
-        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
-            .setParameter("petId", petId)
-            .executeUpdate();
-    }
+    public void removePet(Pet pet) {
+        String petId = pet.getId().toString();
+        // Cascade delete visit
+        this.em.createQuery("DELETE FROM Visit visit WHERE pet_id=" + petId).executeUpdate();
 
+        this.em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
+        if (em.contains(pet)) {
+            em.remove(pet);
+        }
+    }
 }

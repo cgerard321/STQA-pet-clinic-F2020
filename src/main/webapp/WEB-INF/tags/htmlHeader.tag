@@ -31,8 +31,6 @@ PetClinic :: a Spring Framework demonstration
     <%-- Css and JS added for back to top button --%>
     <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
     <link href="${goBackToTopCss}" rel="stylesheet">
-    <spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
-    <script src="${backToTopJs}"></script>
     <link href="${headerCss}" rel="stylesheet">
 
 

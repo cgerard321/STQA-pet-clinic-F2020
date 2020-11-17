@@ -39,9 +39,9 @@ public interface VisitRepository {
     void save(Visit visit);
 
     List<Visit> findByPetId(Integer petId);
-  
+
     List<Visit> findByOwnerId(Integer ownerId);
-  
+
     List<Visit> findAll();
 
     void deleteByIdIn(List<Integer> visitIds);

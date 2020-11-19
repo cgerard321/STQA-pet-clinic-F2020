@@ -22,19 +22,20 @@ PetClinic :: a Spring Framework demonstration
     <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon"/>
     <link href="${foundationIcon}" rel="stylesheet">
 
-
-    <spring:url value="/resources/css/calendar.css" var="calendarCss" />
-    <link href="${calendarCss}" rel="stylesheet">
-    <spring:url value="/resources/css/headerPage.css" var="headerCss" />
-    <link href="${headerCss}" rel="stylesheet">
-
     <%-- Css added for back to top button --%>
     <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
     <link href="${goBackToTopCss}" rel="stylesheet">
 
-    <%-- Css for Hall of Fame --%>
-    <spring:url value="/resources/css/hallOfFame.css" var="HOFCss" />
-    <link href="${HOFCss}" rel="stylesheet">
+    <%-- Css added for calendar --%>
+    <spring:url value="/resources/css/calendar.css" var="calendarCss" />
+    <link href="${calendarCss}" rel="stylesheet">
+
+    <%-- Css added for hall of fame --%>
+    <spring:url value="/resources/css/hallOfFame.css" var="hallOfFame" />
+    <link href="${hallOfFame}" rel="stylesheet">
+
+    <spring:url value="/resources/css/headerPage.css" var="headerCss" />
+    <link href="${headerCss}" rel="stylesheet">
 
     <spring:url value="/resources/css/footer.css" var="footerCss" />
     <link href="${footerCss}" rel="stylesheet">

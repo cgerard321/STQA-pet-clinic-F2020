@@ -11,13 +11,16 @@ import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -73,6 +76,7 @@ class PetControllerTests {
         given(this.clinicService.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
+        given(this.clinicService.findPetById(2)).willReturn(new Pet());
         // Return stubbed petList
         given(this.clinicService.findPets()).willReturn(petList);
     }
@@ -81,8 +85,8 @@ class PetControllerTests {
     void testNavigateToFindPets() throws Exception{
         mockMvc.perform(get("/pets/find.html"))
             .andExpect(status().isOk())
-            .andExpect(view().name("/pets/findPets"))
-            .andExpect(forwardedUrl("/pets/findPets"));
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
     }
 
    @Test
@@ -170,5 +174,26 @@ class PetControllerTests {
                 hasProperty("id", equalTo(1)),
                 any(Pet.class)
             )));
+    }
+
+    @Test
+    void testGetAllPets() throws Exception{
+        mockMvc.perform(get("/pets/getPets"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(startsWith("[")))
+            .andExpect(content().string(containsString("name")))
+            .andExpect(content().string(containsString("birthdate")))
+            .andExpect(content().string(containsString("type")))
+            .andExpect(content().string(containsString("imageURL")))
+            .andExpect(content().string(containsString("totalRating")))
+            .andExpect(content().string(containsString("timesRated")))
+            .andExpect(content().string(endsWith("]")));
+    }
+
+    @Test
+    void testGetPetCount() throws Exception{
+        mockMvc.perform(get("/pets/getPetCount"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("2")); // Pet List size
     }
 }

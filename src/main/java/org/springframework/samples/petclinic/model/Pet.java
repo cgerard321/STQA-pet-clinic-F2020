@@ -20,14 +20,7 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -59,6 +52,9 @@ public class Pet extends NamedEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
+    private String imageURL;
+    private int totalRating;
+    private int timesRated;
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -95,8 +91,6 @@ public class Pet extends NamedEntity {
         this.visits = visits;
     }
 
-    /* Test comment from Ryan */
-
     public List<Visit> getVisits() {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
         PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
@@ -106,5 +100,16 @@ public class Pet extends NamedEntity {
     public void addVisit(Visit visit) {
         getVisitsInternal().add(visit);
         visit.setPet(this);
+    }
+
+    public String toJsonString() {
+        return "{" +
+               "\"name\":\"" + getName() + "\", " +
+               "\"birthdate\":\"" + birthDate + "\", " +
+               "\"type\":\"" + type + "\"" +
+               "\"imageURL\":\"" + imageURL + "\"" +
+               "\"totalRating\":\"" + totalRating + "\"" +
+               "\"timesRated\":\"" + timesRated +"\"" +
+               "}";
     }
 }

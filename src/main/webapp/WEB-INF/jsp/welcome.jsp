@@ -20,6 +20,7 @@
         </div>
     </div>
     -->
+
     <details id="hallOfFame">
     <summary><strong>Hall of Fame</strong></summary>
     <!-- Ryan L. -->

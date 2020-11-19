@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -139,5 +141,21 @@ public class PetController {
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
         return "redirect:/pets/find";
+    }
+
+    @GetMapping(value="/pets/getPets")
+    @ResponseBody
+    public String[] getAllPets() throws JsonProcessingException {
+        String[] pets = new String[getPetCount()];
+        for(int i = 1; i <= pets.length; i++){
+            pets[i-1] = this.clinicService.findPetById(i).toJsonString();
+        }
+        return pets;
+    }
+
+    @GetMapping(value="/pets/getPetCount")
+    @ResponseBody
+    public int getPetCount() throws JsonProcessingException {
+        return this.clinicService.findPets().size();
     }
 }

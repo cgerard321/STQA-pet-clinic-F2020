@@ -19,7 +19,6 @@ import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -75,7 +74,7 @@ class PetControllerTests {
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
         // Return stubbed petList
-        given(this.clinicService.findPetById()).willReturn(petList);
+        given(this.clinicService.findPets()).willReturn(petList);
     }
 
     @Test
@@ -149,9 +148,9 @@ class PetControllerTests {
    }
    @Test
     void testPetRemovedFromListRedirectSuccess() throws Exception {
-        mockMvc.perform(get("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
+       mockMvc.perform(post("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
 //            .andExpect(status().isOk())
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/petList"));
+           .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/find"));
     }
 
     @Test

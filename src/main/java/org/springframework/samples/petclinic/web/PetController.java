@@ -20,7 +20,6 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -124,7 +123,7 @@ public class PetController {
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
-        Collection<Pet> results = clinicService.findPetById();
+        Collection<Pet> results = clinicService.findPets();
 
         // Put the list of all the pets into the model
         // and give it the key "selections"
@@ -132,10 +131,22 @@ public class PetController {
         return "pets/petList";
     }
 
-    // DELETE REQUEST
-    @GetMapping (value = "/pets/{petId}/remove")
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        Collection<Pet> results;
+        try {
+            results = clinicService.findPets();
+        } catch (Exception ex) { // When there's no pet in the clinic, it will go here
+            results = null;
+        }
+        model.put("selections", results);
+        return "pets/findPets";
+    }
+
+    // POST /pets/2/remove
+    @PostMapping(value = "/pets/{petId}/remove")
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
-        return "redirect:/pets/petList";
+        return "redirect:/pets/find";
     }
 }

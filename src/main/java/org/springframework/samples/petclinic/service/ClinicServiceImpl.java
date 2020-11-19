@@ -16,22 +16,16 @@
 package org.springframework.samples.petclinic.service;
 
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
-
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Mostly used as a facade for all Petclinic controllers
@@ -98,7 +92,7 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    public Collection<Pet> findPetById() {
+    public Collection<Pet> findPets() {
         Collection<Pet> ret = petRepository.findAll();
 
         // Check if there is pets in the clinic
@@ -145,8 +139,19 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    @Transactional
+    public void deleteVisitsById(List<Integer> visitIds) {
+        visitRepository.deleteByIdIn(visitIds);
+    }
+
     public void removePetById(int petId) {
-        petRepository.removePet(petId);
+        Pet pet = petRepository.findById(petId);
+        // Check if the petId is associated to a valid pet
+        if (pet == null) {
+            throw new ObjectRetrievalFailureException("Pet not found", ObjectRetrievalFailureException.class);
+        }
+
+        petRepository.removePet(pet);
     }
 
 }

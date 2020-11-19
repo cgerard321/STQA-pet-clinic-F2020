@@ -41,6 +41,15 @@ public class Pet extends NamedEntity {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate birthDate;
 
+    @Column(name = "image_url")
+    private String imageURL;
+
+    @Column
+    private int totalRating;
+
+    @Column
+    private int timesRated;
+
     @ManyToOne
     @JoinColumn(name = "type_id")
     private PetType type;
@@ -51,10 +60,6 @@ public class Pet extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
-
-    private String imageURL;
-    private int totalRating;
-    private int timesRated;
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -78,6 +83,30 @@ public class Pet extends NamedEntity {
 
     protected void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public int getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(int totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    public int getTimesRated() {
+        return timesRated;
+    }
+
+    public void setTimesRated(int timesRated) {
+        this.timesRated = timesRated;
     }
 
     protected Set<Visit> getVisitsInternal() {
@@ -106,9 +135,9 @@ public class Pet extends NamedEntity {
         return "{" +
                "\"name\":\"" + getName() + "\", " +
                "\"birthdate\":\"" + birthDate + "\", " +
-               "\"type\":\"" + type + "\"" +
-               "\"imageURL\":\"" + imageURL + "\"" +
-               "\"totalRating\":\"" + totalRating + "\"" +
+               "\"type\":\"" + type + "\", " +
+               "\"imageURL\":\"" + imageURL + "\", " +
+               "\"totalRating\":\"" + totalRating + "\", " +
                "\"timesRated\":\"" + timesRated +"\"" +
                "}";
     }

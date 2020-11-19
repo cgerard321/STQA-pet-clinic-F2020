@@ -17,7 +17,9 @@ $("#hallOfFame").click(function(){
             petArray = data;
             for (var i = 0; i < petArray.length; i++) {
                 var pet = JSON.parse(petArray[i]);
-                console.log(pet.name);
+                console.log(pet.imageURL);
+                console.log("" + pet.totalRating);
+                console.log("" + pet.timesRated);
             }
         },
         error: function (response) {

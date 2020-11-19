@@ -131,6 +131,15 @@ public class Pet extends NamedEntity {
         visit.setPet(this);
     }
 
+    public double getAverageRating(){
+        if (totalRating == 0){
+            return 0;
+        }
+        else {
+            return (double) totalRating / timesRated;
+        }
+    }
+
     public String toJsonString() {
         return "{" +
                "\"name\":\"" + getName() + "\", " +

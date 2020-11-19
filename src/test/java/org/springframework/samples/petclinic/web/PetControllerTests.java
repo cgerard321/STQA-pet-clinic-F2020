@@ -196,4 +196,11 @@ class PetControllerTests {
             .andExpect(status().isOk())
             .andExpect(content().string("2")); // Pet List size
     }
+
+    @Test
+    void testGetHighestRatingById() throws Exception{
+        mockMvc.perform(get("/pets/getHighestRatings"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
+    }
 }

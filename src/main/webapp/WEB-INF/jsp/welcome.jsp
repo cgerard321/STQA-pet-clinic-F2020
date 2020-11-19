@@ -21,7 +21,7 @@
     </div>
     -->
 
-    <details id="hallOfFame">
+    <details id="hallOfFame" style="display:none">
     <summary><strong>Hall of Fame</strong></summary>
     <!-- Ryan L. -->
     <table>
@@ -32,19 +32,19 @@
                 <th class="text-center">3rd</th>
             </tr>
             <tr>
-                <th class="text-center">[Pet name]</th>
-                <th class="text-center">[Pet name]</th>
-                <th class="text-center">[Pet name]</th>
+                <th id="HOF1Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF2Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF3Name" class="text-center">Pet name [Pet average rating]</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
-                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1st" src="${firstPlace}" alt="1st place"></a></td>
+                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a></td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
-                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2nd" src="${secondPlace}" alt="2nd place"></a></td>
+                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="2nd place"></a></td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
-                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3rd" src="${thirdPlace}" alt="3rd place"></a></td>
+                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="3rd place"></a></td>
             </tr>
         </tbody>
     </table>

@@ -50,7 +50,7 @@ details[open]#hallOfFame summary ~ * {
     padding: 3%;
 }
 
-#HOF1st{
+#HOF1Img{
     border: 6em solid transparent;
     border-radius: 50%;
     border-image-source: url(../images/HOF1st.png);
@@ -58,12 +58,12 @@ details[open]#hallOfFame summary ~ * {
     border-image-width: 5 8 5 8;
     width: 80%;
 }
-#HOF1st:hover{
+#HOF1Img:hover{
     border-radius: 0%;
     width: 100%;
 }
 
-#HOF2nd{
+#HOF2Img{
     border: 3em solid transparent;
     border-radius: 50%;
     border-image-source: url(../images/HOF2nd.png);
@@ -71,12 +71,12 @@ details[open]#hallOfFame summary ~ * {
     border-image-width: 5;
     width: 80%;
 }
-#HOF2nd:hover{
+#HOF2Img:hover{
     border-radius: 0%;
     width: 100%;
 }
 
-#HOF3rd{
+#HOF3Img{
     border: 3em solid transparent;
     border-radius: 50%;
     border-image-source: url(../images/HOF3rd.png);
@@ -84,7 +84,7 @@ details[open]#hallOfFame summary ~ * {
     border-image-width: 5;
     width: 80%;
 }
-#HOF3rd:hover{
+#HOF3Img:hover{
     border-radius: 0%;
     width: 100%;
 }

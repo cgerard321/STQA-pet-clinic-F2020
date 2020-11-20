@@ -43,7 +43,8 @@ CREATE TABLE owners
     address    VARCHAR(255),
     city       VARCHAR(80),
     telephone  VARCHAR(20),
-    email      VARCHAR(30)
+    email      VARCHAR(30),
+    comment    VARCHAR(255)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
 

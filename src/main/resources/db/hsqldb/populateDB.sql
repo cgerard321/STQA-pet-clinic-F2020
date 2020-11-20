@@ -59,4 +59,6 @@ INSERT INTO vet_schedule VALUES(4, 4,'A-105', 4);
 INSERT INTO vet_schedule VALUES(5, 5,'A-106', 1);
 INSERT INTO vet_schedule VALUES(6, 6,'A-107', 5);
 
-
+INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
+INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
+INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');

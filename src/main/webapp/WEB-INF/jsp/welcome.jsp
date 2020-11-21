@@ -44,7 +44,7 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="card-front">
-                                <a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a>
+                                <img id="HOF1Img" src="${firstPlace}" alt="1st place">
                             </div>
                             <div class="card-back">
                                 <h1>John Doe</h1>
@@ -59,7 +59,7 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="card-front">
-                                <a href="" alt="1st placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="1st place"></a>
+                                <img id="HOF2Img" src="${secondPlace}" alt="1st place">
                             </div>
                             <div class="card-back">
                                 <h1>John Doe</h1>
@@ -74,7 +74,7 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="card-front">
-                                <a href="" alt="1st placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="1st place"></a>
+                                <img id="HOF3Img" src="${thirdPlace}" alt="1st place">
                             </div>
                             <div class="card-back">
                                 <h1>John Doe</h1>

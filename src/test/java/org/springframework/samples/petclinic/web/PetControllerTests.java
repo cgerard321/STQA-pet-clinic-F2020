@@ -171,4 +171,14 @@ class PetControllerTests {
                 any(Pet.class)
             )));
     }
+    @Test
+    void testGoBackToPetPage() throws Exception{
+        // test case
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
+    }
+
 }

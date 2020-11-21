@@ -53,6 +53,9 @@ CREATE TABLE pets
     id         INTEGER IDENTITY PRIMARY KEY,
     name       VARCHAR(30),
     birth_date DATE,
+    image_url  VARCHAR(255),
+    totalRating INTEGER,
+    timesRated INTEGER,
     type_id    INTEGER NOT NULL,
     owner_id   INTEGER NOT NULL
 );

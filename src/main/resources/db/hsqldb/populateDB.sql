@@ -52,11 +52,32 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO vet_schedule VALUES(1, 1,'A-102', 2);
-INSERT INTO vet_schedule VALUES(2, 2,'A-103', 2);
-INSERT INTO vet_schedule VALUES(3, 3,'A-104', 3);
-INSERT INTO vet_schedule VALUES(4, 4,'A-105', 4);
-INSERT INTO vet_schedule VALUES(5, 5,'A-106', 1);
-INSERT INTO vet_schedule VALUES(6, 6,'A-107', 5);
 
+INSERT INTO schedules VALUES (1, 'Monday');
+INSERT INTO schedules VALUES (2, 'Tuesday');
+INSERT INTO schedules VALUES (3, 'Wednesday');
+INSERT INTO schedules VALUES (4, 'Thursday');
+INSERT INTO schedules VALUES (5, 'Friday');
+INSERT INTO schedules VALUES (6, 'Saturday');
+INSERT INTO schedules VALUES (7, 'Sunday');
+
+
+INSERT INTO vet_schedule VALUES (1, 1);
+INSERT INTO vet_schedule VALUES (1, 2);
+INSERT INTO vet_schedule VALUES (1, 3);
+INSERT INTO vet_schedule VALUES (1, 4);
+INSERT INTO vet_schedule VALUES (1, 5);
+
+INSERT INTO vet_schedule VALUES (2, 1);
+INSERT INTO vet_schedule VALUES (2, 3);
+INSERT INTO vet_schedule VALUES (2, 5);
+
+
+INSERT INTO vet_schedule VALUES (3, 6);
+INSERT INTO vet_schedule VALUES (3, 7);
+
+
+INSERT INTO vet_schedule VALUES (6, 1);
+INSERT INTO vet_schedule VALUES (6, 4);
+INSERT INTO vet_schedule VALUES (6, 6);
 

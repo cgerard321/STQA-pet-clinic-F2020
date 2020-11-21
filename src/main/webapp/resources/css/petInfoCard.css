@@ -3,6 +3,10 @@
    It will animate the card so on hover it shows the necessary pet information
 */
 
+.card {
+    height: 300px;
+}
+
 .card:hover .card-inner {
     transform: rotateY(180deg);
 }

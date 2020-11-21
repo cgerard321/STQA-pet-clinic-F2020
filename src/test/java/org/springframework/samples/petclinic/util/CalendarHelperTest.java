@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.samples.petclinic.repository.jdbc.JdbcEventRepository;
 
 import java.util.HashMap;
 
@@ -16,11 +15,11 @@ import static org.mockito.Mockito.when;
 class CalendarHelperTest {
     // Louis Choiniere
 
-    @Mock
-    JdbcEventRepository jdbcEventRepository;
+//    @Mock
+//    JdbcEventRepository jdbcEventRepository;
 
-    @InjectMocks
-    CalendarHelper calendarHelper;
+//    @InjectMocks
+//    CalendarHelper calendarHelper;
 
     @Test
     void getCalendar() {
@@ -50,19 +49,19 @@ class CalendarHelperTest {
         assertNotNull(events);
     }
 
-    @Test
-    void getEvents_mock() {
-        // Arrange
-        HashMap<Integer, String> mockData = new HashMap<>();
-        mockData.put(10, "Event on the 10th");
-        mockData.put(15, "Event on the 15");
-        when(jdbcEventRepository.getEvents(10)).thenReturn(mockData);
-
-        // Act
-        HashMap events = calendarHelper.getEvents();
-
-        // Assert
-        assertEquals("Event on the 10th", events.get(10));
-        assertEquals("Event on the 15", events.get(15));
-    }
+//    @Test
+//    void getEvents_mock() {
+//        // Arrange
+//        HashMap<Integer, String> mockData = new HashMap<>();
+//        mockData.put(10, "Event on the 10th");
+//        mockData.put(15, "Event on the 15");
+//        when(jdbcEventRepository.getEvents(10)).thenReturn(mockData);
+//
+//        // Act
+//        HashMap events = calendarHelper.getEvents();
+//
+//        // Assert
+//        assertEquals("Event on the 10th", events.get(10));
+//        assertEquals("Event on the 15", events.get(15));
+//    }
 }

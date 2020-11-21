@@ -78,6 +78,13 @@ public class CalendarHelper {
     }
 
     public HashMap getEvents() {
-        return null;
+
+        // Temporary static values
+        HashMap<Integer, String> events = new HashMap<>();
+        events.put(02, "Veteran day");
+        events.put(11, "Open house");
+        events.put(27, "Adoption day");
+
+        return events;
     }
 }

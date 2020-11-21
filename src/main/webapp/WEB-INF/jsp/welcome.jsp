@@ -8,6 +8,7 @@
 
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
+<c:set var = "events" value = "${calendar.getEvents()}"/>
 
 <petclinic:layout pageName="home">
     <h1><fmt:message key="welcome"/></h1>
@@ -97,6 +98,9 @@
     <br/>
 
     <%-- Calendar -Louis C. --%>
+
+    <%-- For anyone that wants to work on this here is the origin of the calendar --%>
+    <%-- https://bootsnipp.com/snippets/v200E --%>
     <div class="row">
         <div class="col-md-12">
             <div id="calendar">
@@ -133,7 +137,16 @@
                                             <td>
                                         </c:otherwise>
                                     </c:choose>
-                                        <span class="date">${days[i.index][j.index]}</span>
+                                        <span class="date">${days[i.index][j.index]}
+                                            <c:if test = "${events.containsKey(days[i.index][j.index])}">
+                                                 <ul>
+                                                    <li>
+                                                        <span class="event">${events.get(days[i.index][j.index])}</span>
+                                                        <%--<span class="time">6:30 pm</span>--%>
+                                                    </li>
+                                                </ul>
+                                            </c:if>
+                                        </span>
                                     </td>
                                 </c:otherwise>
                             </c:choose>

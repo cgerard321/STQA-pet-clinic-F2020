@@ -40,11 +40,50 @@
         <tbody>
             <tr>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
-                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a></td>
+                <td class="text-center" style="width:45%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a>
+                            </div>
+                            <div class="card-back">
+                                <h1>John Doe</h1>
+                                <p>Architect & Engineer</p>
+                                <p>We love that guy</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
-                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="2nd place"></a></td>
+                <td class="text-center" style="width:45%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <a href="" alt="1st placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="1st place"></a>
+                            </div>
+                            <div class="card-back">
+                                <h1>John Doe</h1>
+                                <p>Architect & Engineer</p>
+                                <p>We love that guy</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
-                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="3rd place"></a></td>
+                <td class="text-center" style="width:45%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <a href="" alt="1st placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="1st place"></a>
+                            </div>
+                            <div class="card-back">
+                                <h1>John Doe</h1>
+                                <p>Architect & Engineer</p>
+                                <p>We love that guy</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

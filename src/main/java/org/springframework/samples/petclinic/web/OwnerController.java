@@ -20,10 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
@@ -207,12 +204,14 @@ public class OwnerController {
     public String addMultipleOwnersFake() throws FileNotFoundException {
 
         // Obviously, the goal is to have the user supply the JSON file and not simply fetching it from our resources folder.
-        final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+        final String FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
 
         Gson gson = new Gson();
 
-        Object object = gson.fromJson(new FileReader(GOOD_FILE_PATH), Object.class);
-        System.err.println(object.toString());
+        Owner[] owners = gson.fromJson(new FileReader(FILE_PATH), Owner[].class);
+
+        for (Owner owner : owners)
+            clinicService.saveOwner(owner);
 
         return "redirect:/owners";
     }

@@ -42,5 +42,7 @@ public interface VisitRepository {
 
     List<Visit> findByOwnerId(Integer ownerId);
 
+    List<Visit> findAll();
+
     void deleteByIdIn(List<Integer> visitIds);
 }

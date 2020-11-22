@@ -129,6 +129,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Collection<Visit> findAllVisits(){
+
+        return visitRepository.findAll();
+
+    }
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);

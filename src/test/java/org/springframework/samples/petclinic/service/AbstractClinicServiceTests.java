@@ -365,5 +365,13 @@ abstract class AbstractClinicServiceTests {
 //
 //    }
 
+    @Test
+    void shouldFindAllAppointments(){
+
+        Collection<Visit> visits = this.clinicService.findAllVisits();
+        assertThat(visits.size()==4);
+
+    }
+
 
 }

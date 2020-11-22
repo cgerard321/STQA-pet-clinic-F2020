@@ -41,4 +41,21 @@ public class AppointmentControllerTest {
             .andExpect(view().name("appointments/createAppointments"))
             .andExpect(forwardedUrl("appointments/createAppointments"));
     }
+
+    @Test
+    void testViewAllAppointments() throws Exception {
+        mockMvc.perform(get("/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("appointments/viewAppointments"))
+            .andExpect(model().attributeExists("visits"));
+
+    }
+
+    @Test
+    void testViewOwnerAppointments() throws Exception {
+        mockMvc.perform(get("/owners/6/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("visits"));
+
+    }
 }

@@ -139,6 +139,11 @@ public class ClinicServiceImpl implements ClinicService {
         visitRepository.deleteByIdIn(visitIds);
     }
 
+    @Transactional
+    public void deleteVisitById(int visitId) {
+        visitRepository.deleteById(visitId);
+    }
+
     public void removePetById(int petId) {
         Pet pet = petRepository.findById(petId);
         // Check if the petId is associated to a valid pet

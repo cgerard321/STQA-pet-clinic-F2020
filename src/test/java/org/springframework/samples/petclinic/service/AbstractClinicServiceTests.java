@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -370,6 +372,21 @@ abstract class AbstractClinicServiceTests {
 
         Collection<Visit> visits = this.clinicService.findAllVisits();
         assertThat(visits.size()==4);
+
+    }
+
+    @Test
+    @Transactional
+    void testCancelFunctionality() throws Exception{
+
+        int oldRows = this.clinicService.findAllVisits().size();
+        MatcherAssert.assertThat(oldRows, is(4));
+
+        this.clinicService.deleteVisitById(4);
+
+        int newRows = this.clinicService.findAllVisits().size();
+        MatcherAssert.assertThat(newRows, is(3));
+
 
     }
 

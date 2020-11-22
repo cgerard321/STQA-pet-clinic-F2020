@@ -5,9 +5,7 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -64,6 +62,13 @@ public class AppointmentController {
         vetList.getVetList().addAll(this.clinicService.findVets());
         vetInfo.put("vetAppoint", vetList);
         return APPOINT_FORM;
+    }
+
+    @PostMapping(value = "/appointments/{appointmentId}/cancel")
+    public String initViewFormCancel(@PathVariable("appointmentId") int appointmentId, Map<String, Object> model) throws Exception{
+
+        this.clinicService.deleteVisitById(appointmentId);
+        return "redirect:/appointments/viewForm";
     }
 }
 

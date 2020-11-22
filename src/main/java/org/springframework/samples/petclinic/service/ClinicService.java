@@ -60,6 +60,7 @@ public interface ClinicService {
     Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+    Collection<Visit> findAllVisits();
 
     void deleteVisitsById(List<Integer> visitIds);
 

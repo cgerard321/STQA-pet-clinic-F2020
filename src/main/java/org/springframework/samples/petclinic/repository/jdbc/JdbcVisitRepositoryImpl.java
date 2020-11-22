@@ -124,10 +124,25 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
     }
 
     @Override
+
+    public List<Visit> findAll() {
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets",
+            new JdbcPetRowMapper());
+
+        List<Visit> visits = this.jdbcTemplate.query(
+            "SELECT id as visit_id, visit_date, description, pet_id FROM visits",
+            new JdbcVisitRowMapper(results));
+
+        return visits;
+    }
+
+
     public void deleteByIdIn(List<Integer> visitIds) {
         Map<String, Object> params = new HashMap<>();
         params.put("ids", visitIds);
 
         this.jdbcTemplate.execute("DELETE FROM visits WHERE id IN (:ids)", params, PreparedStatement::execute);
     }
+
 }

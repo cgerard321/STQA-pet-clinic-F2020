@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -268,5 +269,11 @@ abstract class AbstractClinicServiceTests {
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPetById());
+    }
+
+    @Test
+    void shouldFindAllAppointments() {
+        Collection<Visit> visits = this.clinicService.findAllVisits();
+        assertThat(visits.size() == 4);
     }
 }

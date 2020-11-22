@@ -15,6 +15,9 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,9 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Visit;
@@ -33,6 +39,7 @@ import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +63,10 @@ public class OwnerController {
     public OwnerController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
+
+    @Qualifier("servletContext")
+    @Autowired
+    ServletContext context;
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
@@ -179,7 +190,7 @@ public class OwnerController {
         return "redirect:/owners/{ownerId}";
     }
 
-    // Since multipart support is not enabled on the server, I will focus on the JSON parsing for now...
+    // Since multipart support is not enabled on the server, this endpoint is not working as it should.
     @RequestMapping(value = "/owners/addMultipleOwners", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public String addMultipleOwners(@RequestParam("file") MultipartFile file) throws IOException {
         if (file == null)
@@ -191,8 +202,18 @@ public class OwnerController {
         return "redirect:/owners";
     }
 
-   /* @PostMapping
-    public String addMultipleOwnersFake(String filePath) {
+    // The JSON parsing logic is contained within that endpoint until I figure out a way to enable multipart support on Spring.
+    @PostMapping(value = "/owners/addMultipleOwnersFake")
+    public String addMultipleOwnersFake() throws FileNotFoundException {
 
-    }*/
+        // Obviously, the goal is to have the user supply the JSON file and not simply fetching it from our resources folder.
+        final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+
+        Gson gson = new Gson();
+
+        Object object = gson.fromJson(new FileReader(GOOD_FILE_PATH), Object.class);
+        System.err.println(object.toString());
+
+        return "redirect:/owners";
+    }
 }

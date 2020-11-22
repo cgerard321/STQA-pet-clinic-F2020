@@ -32,4 +32,9 @@
             </div>
         </div>
     </form:form>
+
+    <form:form action="http://localhost:8080/spring_framework_petclinic_war/owners/addMultipleOwners" enctype="multipart/form-data">
+        <input type="file" name="upload_file"/>
+        <button class="btn btn-default" type="submit">Send file</button>
+    </form:form>
 </petclinic:layout>

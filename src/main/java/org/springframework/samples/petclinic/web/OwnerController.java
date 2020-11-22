@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +36,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -176,4 +178,21 @@ public class OwnerController {
 
         return "redirect:/owners/{ownerId}";
     }
+
+    // Since multipart support is not enabled on the server, I will focus on the JSON parsing for now...
+    @RequestMapping(value = "/owners/addMultipleOwners", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    public String addMultipleOwners(@RequestParam("file") MultipartFile file) throws IOException {
+        if (file == null)
+            System.err.println("file is null");
+        else
+            System.err.println("Output: " + file.getName());
+
+
+        return "redirect:/owners";
+    }
+
+   /* @PostMapping
+    public String addMultipleOwnersFake(String filePath) {
+
+    }*/
 }

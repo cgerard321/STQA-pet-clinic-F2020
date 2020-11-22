@@ -342,7 +342,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     @Transactional
     @Order(7)
-    void shouldDeleteVisitsById() {
+    void shouldDeleteVisitsByIdIn() {
         this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
 
          //Note: relying on the fact all visits in the sample database are for owner 6
@@ -378,7 +378,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     @Transactional
     @Order(21)
-    void testCancelFunctionality() throws Exception{
+    void shouldDeleteVisitById() throws Exception{
 
         int oldRows = this.clinicService.findAllVisits().size();
         MatcherAssert.assertThat(oldRows, is(4));

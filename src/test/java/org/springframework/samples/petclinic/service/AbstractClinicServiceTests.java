@@ -377,6 +377,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
+    @Order(21)
     void testCancelFunctionality() throws Exception{
 
         int oldRows = this.clinicService.findAllVisits().size();

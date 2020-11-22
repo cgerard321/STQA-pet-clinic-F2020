@@ -13,11 +13,13 @@ import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.ResourceUtils;
 
 import javax.print.attribute.standard.Media;
 import javax.servlet.ServletContext;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import static org.hamcrest.Matchers.*;
@@ -249,7 +251,9 @@ class OwnerControllerTests {
     }
 
     @Test
-    void testAddMultipleOwnersFake_UseExistingFileSuccessful() {
+    void testAddMultipleOwnersFake_UseExistingFileSuccessful() throws Exception {
+        final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
 
+        mockMvc.perform(post("/owners/addMultipleOwnersFake")).andExpect(status().is3xxRedirection());
     }
 }

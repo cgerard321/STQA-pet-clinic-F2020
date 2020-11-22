@@ -1,5 +1,6 @@
 DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vet_schedule IF EXISTS;
+DROP TABLE schedules IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
 DROP TABLE visits IF EXISTS;
@@ -77,15 +78,30 @@ CREATE INDEX visits_pet_id ON visits (pet_id);
 
 
 /*Code added by Maria Carolina Avila for the APPT team*/
+-- CREATE TABLE vet_schedule
+-- (
+--     schedule_id   INTEGER IDENTITY PRIMARY KEY,
+--     vet_id        INTEGER       NOT NULL,
+--     room_id       VARCHAR(5)    NOT NULL,
+--     day_available NUMERIC(1, 0) NOT NULL
+-- );
+-- ALTER TABLE vet_schedule
+--     ADD CONSTRAINT fk_schedule_vets FOREIGN KEY (vet_id) REFERENCES vets (id);
+-- ALTER TABLE vet_schedule
+--     ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);
+
+
+CREATE TABLE schedules
+(
+    id   INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(80)
+);
+CREATE INDEX schedules_name ON specialties (name);
+
 CREATE TABLE vet_schedule
 (
-    schedule_id   INTEGER IDENTITY PRIMARY KEY,
-    vet_id        INTEGER       NOT NULL,
-    room_id       VARCHAR(5)    NOT NULL,
-    day_available NUMERIC(1, 0) NOT NULL
+    vet_id INTEGER NOT NULL,
+    day_id INTEGER NOT NULL
 );
-ALTER TABLE vet_schedule
-    ADD CONSTRAINT fk_schedule_vets FOREIGN KEY (vet_id) REFERENCES vets (id);
-ALTER TABLE vet_schedule
-    ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);
-
+ALTER TABLE vet_schedule ADD CONSTRAINT fk_vet_schedules_vets FOREIGN KEY (vet_id) REFERENCES vets (id);
+ALTER TABLE vet_schedule ADD CONSTRAINT fk_vet_schedule_days FOREIGN KEY (day_id) REFERENCES schedules (id);

@@ -54,10 +54,10 @@ public interface ClinicService {
 
     Collection<Visit> findVisitsByPetId(int petId);
 
-
-    Collection<Schedule> findSchedules();
-
-    Schedule findScheduleByVetId(int id);
+//
+//    Collection<Schedule> findSchedules();
+//
+//    Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
     Collection<Visit> findAllVisits();

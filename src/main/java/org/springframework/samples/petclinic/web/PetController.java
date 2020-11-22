@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -28,8 +30,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
  * @author Juergen Hoeller
@@ -111,7 +116,6 @@ public class PetController {
         }
     }
 
-
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
@@ -123,10 +127,87 @@ public class PetController {
         return "pets/petList";
     }
 
-    // DELETE REQUEST
-    @GetMapping (value = "/pets/{petId}/remove")
+    @GetMapping(value = "/pets/find")
+    public String initFindForm(Map<String, Object> model) {
+        Collection<Pet> results;
+        try {
+            results = clinicService.findPets();
+        } catch (Exception ex) { // When there's no pet in the clinic, it will go here
+            results = null;
+        }
+        model.put("selections", results);
+        return "pets/findPets";
+    }
+
+    // POST /pets/2/remove
+    @PostMapping(value = "/pets/{petId}/remove")
     public String removePetFromList(@PathVariable("petId") int petId, Map<String, Object> model) {
         clinicService.removePetById(petId);
-        return "redirect:/pets/petList";
+        return "redirect:/pets/find";
+    }
+
+    @GetMapping(value="/pets/getPets")
+    @ResponseBody
+    public String[] getAllPetsInJsonFormat() throws JsonProcessingException {
+        String[] pets = new String[getPetCount()];
+        for(int i = 1; i <= pets.length; i++){
+            pets[i-1] = this.clinicService.findPetById(i).toJsonString();
+        }
+        return pets;
+    }
+
+    @GetMapping(value="/pets/getPetCount")
+    @ResponseBody
+    public int getPetCount() throws JsonProcessingException {
+        return this.clinicService.findPets().size();
+    }
+
+    @GetMapping(value="/pets/getHighestRatings")
+    @ResponseBody
+    public int[] getHighestRatingById() throws JsonProcessingException {
+        // Get all pets
+        ArrayList<Pet> pets = new ArrayList<>(this.clinicService.findPets());
+
+        // Set array size accordingly
+        int[] top3HighestAverage;
+        if (pets.size() < 3){
+            top3HighestAverage = new int[pets.size()];
+        }
+        else {
+            top3HighestAverage = new int[3];
+        }
+
+        // Sort the Pet list in a descending order according to the Average Rating
+        double highestRating;
+        int highestIndex;
+        for (int i = 0; i < pets.size(); i++){
+            highestIndex = i;
+            highestRating = pets.get(i).getAverageRating();
+            for (int j = i + 1; j < pets.size(); j++){
+                double averageRating = pets.get(j).getAverageRating();
+                if (averageRating > highestRating){
+                    highestRating = averageRating;
+                    highestIndex = j;
+                }
+                else if (averageRating == highestRating){
+                    if (pets.get(j).getTimesRated() > pets.get(highestIndex).getTimesRated()){
+                        highestRating = averageRating;
+                        highestIndex = j;
+                    }
+                }
+            }
+            Pet tempPet = pets.get(i);
+            pets.set(i, pets.get(highestIndex));
+            pets.set(highestIndex, tempPet);
+        }
+        // Insert the Highest Average Ratings into the array
+        for (int i = 0; i < top3HighestAverage.length; i++){
+            top3HighestAverage[i] = pets.get(i).getId();
+        }
+        return top3HighestAverage;
+    }
+
+    public double getAverageRating(int totalRating, int timesRated){
+        return (double)totalRating / timesRated;
     }
 }

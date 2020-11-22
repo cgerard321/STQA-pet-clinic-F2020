@@ -25,6 +25,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
@@ -109,7 +110,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
         // Retrieve the list of all pets
         List<JdbcPet> jdbcPets = this.namedParameterJdbcTemplate.query(
-            "SELECT * FROM pets ORDER BY name",
+            "SELECT * FROM pets ORDER BY id",
             new BeanPropertyRowMapper<JdbcPet>() {
                 int ownerId;
 
@@ -133,18 +134,22 @@ public class JdbcPetRepositoryImpl implements PetRepository {
         return new ArrayList<>(jdbcPets);
     }
 
-    /**
-     * This needs to be implemented in the next Sprint
-     */
     @Override
-    public void removePet(int id) {
-
+    public void removePet(Pet pet) {
+        int id = pet.getId();
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Pet pet = this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM Pet WHERE id=:id", params ,Pet.class);
 
-        String DELETE_PET = "delete from Pet p WHERE p.id =: id";
-       this.namedParameterJdbcTemplate.update(DELETE_PET, createPetParameterSource(pet));
+        // Cascade Delete visits
+        List<Visit> visits = pet.getVisits();
+        for (Visit visit : visits) {
+            Map<String, Object> visit_params = new HashMap<>();
+            visit_params.put("id", visit.getId());
+            this.namedParameterJdbcTemplate.update("DELETE FROM visits WHERE id=:id", visit_params);
+        }
+
+        String DELETE_PET = "delete from pets p WHERE p.id =:id";
+        this.namedParameterJdbcTemplate.update(DELETE_PET, params);
     }
 
     /**

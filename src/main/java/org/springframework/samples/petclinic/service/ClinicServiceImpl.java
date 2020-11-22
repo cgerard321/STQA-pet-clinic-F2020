@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
@@ -149,7 +150,13 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     public void removePetById(int petId) {
-        petRepository.removePet(petId);
+        Pet pet = petRepository.findById(petId);
+        // Check if the petId is associated to a valid pet
+        if (pet == null) {
+            throw new ObjectRetrievalFailureException("Pet not found", ObjectRetrievalFailureException.class);
+        }
+
+        petRepository.removePet(pet);
     }
 
 }

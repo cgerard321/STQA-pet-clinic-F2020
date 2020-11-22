@@ -279,22 +279,22 @@ abstract class AbstractClinicServiceTests {
     }
 
     // Remove Samantha
-    @Test
-    @Order(19)
-    void shouldRemoveSamanthaFromPetList() {
-        int id = 7;
-        // Arrange
-        Collection<Pet> actualPetList;
+   // @Test
+    //@Order(19)
+    //void shouldRemoveSamanthaFromPetList() {
+    //    int id = 7;
+    //    // Arrange
+     //   Collection<Pet> actualPetList;
 
         // Act
-        this.clinicService.removePetById(id);
-        actualPetList = this.clinicService.findPets();
+     //   this.clinicService.removePetById(id);
+     //   actualPetList = this.clinicService.findPets();
 
         // Assert
-        assertThat(actualPetList.size()).isEqualTo(12);
-        boolean result = actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("Samantha"));
-        assertFalse(result);
-    }
+     //   assertThat(actualPetList.size()).isEqualTo(12);
+     //   boolean result = actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("Samantha"));
+    //    assertFalse(result);
+   // }
 
     @Test
     @Order(20)

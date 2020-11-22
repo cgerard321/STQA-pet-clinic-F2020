@@ -43,16 +43,5 @@
     </c:forEach>
     </table>
 </body>
+
 </petclinic:layout>
-<%!
-    @PersistenceContext
-    private EntityManager em;
-
-    private void deleteByIdIn(int visitId) {
-
-        Query query = this.em.createQuery("DELETE FROM Visit v WHERE v.id IN (:ids)");
-        query.setParameter("ids", visitId);
-        query.executeUpdate();
-
-    }
-%>

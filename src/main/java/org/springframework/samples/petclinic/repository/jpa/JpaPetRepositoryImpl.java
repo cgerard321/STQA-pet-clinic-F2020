@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,8 +56,7 @@ public class JpaPetRepositoryImpl implements PetRepository {
     public void save(Pet pet) {
         if (pet.getId() == null) {
             this.em.persist(pet);
-        }
-        else {
+        } else {
             this.em.merge(pet);
         }
     }
@@ -66,6 +66,15 @@ public class JpaPetRepositoryImpl implements PetRepository {
     public Collection<Pet> findAll() {
         // Select all the pet in the db
         return this.em.createQuery("SELECT distinct pet FROM Pet pet ORDER BY pet.id").getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void removePet(int petId) {
+        // Black magic
+        this.em.createQuery("DELETE FROM Pet p WHERE p.id=:petId")
+            .setParameter("petId", petId)
+            .executeUpdate();
     }
 
 }

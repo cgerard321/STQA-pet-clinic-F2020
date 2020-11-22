@@ -41,6 +41,13 @@
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Pet</a>
 
+    <c:if test="${hasFutureVisits}">
+        <spring:url value="{ownerId}/appointments/cancel.html" var="cancelAppointmentUrl">
+            <spring:param name="ownerId" value="${owner.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(cancelAppointmentUrl)}" class="btn btn-default">Cancel Appointment</a>
+    </c:if>
+
     <br/>
     <br/>
     <br/>
@@ -53,7 +60,11 @@
                 <th scope="col">
                     <dl class="dl-horizontal">
                         <dt>Name</dt>
-                        <dd><c:out value="${pet.name}"/></dd>
+                        <dd><spring:url value="/owners/{ownerId}/pets/{petId}/view" var="petUrl">
+                            <spring:param name="ownerId" value="${owner.id}"/>
+                            <spring:param name="petId" value="${pet.id}"/>
+                        </spring:url>
+                            <a href="${fn:escapeXml(petUrl)}"><c:out value="${pet.name}"/></a></dd>
                         <dt>Birth Date</dt>
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt>Type</dt>

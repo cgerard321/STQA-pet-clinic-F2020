@@ -66,7 +66,7 @@ class VetControllerTests {
         actions.andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.vetList[0].id").value(1));
     }
-
+	// yeet
     @Test
     void testShowVetListXml() throws Exception {
         mockMvc.perform(get("/vets.xml").accept(MediaType.APPLICATION_XML))
@@ -77,7 +77,7 @@ class VetControllerTests {
 
 
     @Test
-    void testNavigateToVets() throws Exception{
+    void testNavigateToVets() throws Exception {
         mockMvc.perform(get("/vets.html"))
             .andExpect(status().isOk())
             .andExpect(view().name("vets/vetList"))

@@ -11,13 +11,45 @@
 <c:set var = "days" value = "${calendar.getDays()}"/>
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
+    <h1><fmt:message key="welcome"/></h1>
+
+    <!--
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
             <img class="img-responsive" alt="A cat and a dog" src="${petsImage}"/>
         </div>
     </div>
+    -->
+
+    <details id="hallOfFame" style="display:none">
+    <summary><strong>Hall of Fame</strong></summary>
+    <!-- Ryan L. -->
+    <table>
+        <thead class="thead">
+            <tr id="ranking">
+                <th class="text-center">1st</th>
+                <th class="text-center">2nd</th>
+                <th class="text-center">3rd</th>
+            </tr>
+            <tr>
+                <th id="HOF1Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF2Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF3Name" class="text-center">Pet name [Pet average rating]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
+                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a></td>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
+                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="2nd place"></a></td>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
+                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="3rd place"></a></td>
+            </tr>
+        </tbody>
+    </table>
+    </details>
 
     <br/>
 <%--    Rating Related Buttons - Nichita--%>

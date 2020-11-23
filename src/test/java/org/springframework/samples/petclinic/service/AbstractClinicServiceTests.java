@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -278,7 +280,7 @@ abstract class AbstractClinicServiceTests {
 
     // Remove Samantha
     @Test
-    @Order(19)
+    @Order(22)
     void shouldRemoveSamanthaFromPetList() {
         int id = 7;
         // Arrange
@@ -295,7 +297,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(20)
+    @Order(23)
     void shouldExceptionWithPetNotExist() {
         int id = 69;
         assertThrows(ObjectRetrievalFailureException.class, () -> this.clinicService.removePetById(id));
@@ -340,7 +342,7 @@ abstract class AbstractClinicServiceTests {
     @Test
     @Transactional
     @Order(7)
-    void shouldDeleteVisitsById() {
+    void shouldDeleteVisitsByIdIn() {
         this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
 
         // Note: relying on the fact all visits in the sample database are for owner 6
@@ -367,7 +369,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(21)
+    @Order(24)
     public void shouldInsertRating() {
         Rating rating = new Rating();
         rating.setUsername("Nick");
@@ -379,13 +381,35 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(22)
+    @Order(25)
     void shouldFindRatings() {
         Collection<Rating> ratings = this.clinicService.findRatings();
         Rating rating = EntityUtils.getById(ratings, Rating.class, 1);
         assertThat(rating.getUsername()).isEqualTo("Johny");
         assertThat(rating.getRating()).isEqualTo(5);
         assertThat(ratings.size()).isEqualTo(1);
+
+    @Test
+    @Order(21)
+    void shouldFindAllAppointments(){
+
+        Collection<Visit> visits = this.clinicService.findAllVisits();
+        assertThat(visits.size()==4);
+
+    }
+
+    @Test
+    @Transactional
+    @Order(19)
+    void shouldDeleteVisitById() throws Exception{
+
+        int oldRows = this.clinicService.findAllVisits().size();
+        MatcherAssert.assertThat(oldRows, is(4));
+
+        this.clinicService.deleteVisitById(4);
+
+        int newRows = this.clinicService.findAllVisits().size();
+        MatcherAssert.assertThat(newRows, is(3));
     }
 
 

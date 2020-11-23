@@ -70,15 +70,19 @@ CREATE TABLE IF NOT EXISTS ratings
 )engine=InnoDB;
 
 
-/*Code added by Maria Carolina Avila for the APPT team*/
+CREATE TABLE IF NOT EXISTS schedules (
+    id INT(4) NOT NULL PRIMARY KEY,
+    name VARCHAR(68) NOT NULL,
+
+) engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS vet_schedule (
-    schedule_id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    vet_ID INT(4) NOT NULL,
-    room_ID VARCHAR(5) NOT NULL,
-    day_available NUMERIC(1,0) NOT NULL CHECK ( day_available BETWEEN 0 AND 6),
+    vet_id INT(4) NOT NULL,
+    day_id VARCHAR(5) NOT NULL,
 
 
-    FOREIGN KEY(vet_ID) REFERENCES vets(id),
+    FOREIGN KEY(vet_id) REFERENCES vets(id),
+    FOREIGN KEY(day_id) REFERENCES schedules(id)
 ) engine=InnoDB;
 
 

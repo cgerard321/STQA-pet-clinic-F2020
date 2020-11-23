@@ -141,8 +141,9 @@
                                             <c:if test = "${events.containsKey(days[i.index][j.index])}">
                                                  <ul>
                                                     <li>
-                                                        <span class="event">${events.get(days[i.index][j.index])}</span>
-                                                        <%--<span class="time">6:30 pm</span>--%>
+                                                        <c:set var = "event" value = "${events.get(days[i.index][j.index])}"/>
+                                                        <span class="event">${event.getDescription()}</span>
+                                                        <span class="time">${event.getTime()}</span>
                                                     </li>
                                                 </ul>
                                             </c:if>

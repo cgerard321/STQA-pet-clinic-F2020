@@ -388,6 +388,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(rating.getUsername()).isEqualTo("Johny");
         assertThat(rating.getRating()).isEqualTo(5);
         assertThat(ratings.size()).isEqualTo(1);
+    }
 
     @Test
     @Order(21)

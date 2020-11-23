@@ -75,12 +75,30 @@ class VetControllerTests {
             .andExpect(content().node(hasXPath("/vets/vet[id=1]/id")));
     }
 
+
     @Test
     void testNavigateToVets() throws Exception {
         mockMvc.perform(get("/vets.html"))
             .andExpect(status().isOk())
             .andExpect(view().name("vets/vetList"))
             .andExpect(forwardedUrl("vets/vetList"));
+    }
+
+    @Test
+    void testNavigateToVetSchedules() throws Exception {
+        mockMvc.perform(get("/scheduleList"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("vets/scheduleList"))
+            .andExpect(forwardedUrl("vets/scheduleList"));
+    }
+
+
+    @Test
+    void testShowVetScheduleList() throws Exception {
+        mockMvc.perform(get("/scheduleList"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("vets"))
+            .andExpect(view().name("vets/scheduleList"));
     }
 
 }

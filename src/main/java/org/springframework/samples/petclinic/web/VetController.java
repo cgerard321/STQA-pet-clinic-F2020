@@ -66,4 +66,16 @@ public class VetController {
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
     }
+
+
+    @GetMapping(value = { "/scheduleList"})
+    public String showVetScheduleList(Map<String, Object> model) {
+        Vets vets = new Vets();
+        vets.getVetList().addAll(this.clinicService.findVets());
+        model.put("vets", vets);
+        return "vets/scheduleList";
+    }
+
+
+
 }

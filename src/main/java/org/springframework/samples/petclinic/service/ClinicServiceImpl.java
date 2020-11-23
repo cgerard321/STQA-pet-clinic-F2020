@@ -41,16 +41,16 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
-    private ScheduleRepository scheduleRepository;
+
 
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
-        this.scheduleRepository = scheduleRepository;
+
     }
 
     @Override
@@ -122,16 +122,6 @@ public class ClinicServiceImpl implements ClinicService {
         return visitRepository.findByPetId(petId);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Schedule> findSchedules() {
-        return scheduleRepository.findAll();
-    }
-
-    @Override
-    public Schedule findScheduleByVetId(int id) {
-        return scheduleRepository.findScheduleById(id);
-    }
 
     @Override
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
@@ -139,9 +129,19 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Collection<Visit> findAllVisits(){
+
+        return visitRepository.findAll();
+
+    }
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);
+    }
+
+    @Transactional
+    public void deleteVisitById(int visitId) {
+        visitRepository.deleteById(visitId);
     }
 
     public void removePetById(int petId) {

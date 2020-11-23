@@ -113,4 +113,7 @@ VALUES (5, 5, 'A-106', 1);
 INSERT INTO vet_schedule
 VALUES (6, 6, 'A-107', 5);
 
+INSERT INTO ratings
+VALUES(1,1,'Johny',5);
+
 

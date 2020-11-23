@@ -65,4 +65,8 @@ public interface ClinicService {
 
     void removePetById(int petId);
 
+    void saveRating(Rating rating);
+
+    Collection<Rating> findRatings();
+
 }

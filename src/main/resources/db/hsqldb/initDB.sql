@@ -86,3 +86,13 @@ ALTER TABLE vet_schedule
 ALTER TABLE vet_schedule
     ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);
 
+CREATE TABLE ratings
+(
+    id          INTEGER IDENTITY PRIMARY KEY,
+    pet_id      INTEGER NOT NULL,
+    username   VARCHAR(30),
+    rating      INTEGER
+);
+ALTER TABLE ratings
+    ADD CONSTRAINT fk_ratings_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
+CREATE INDEX ratings_pet_id ON ratings (pet_id);

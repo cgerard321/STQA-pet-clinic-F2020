@@ -365,5 +365,28 @@ abstract class AbstractClinicServiceTests {
 //
 //    }
 
+    @Test
+    @Transactional
+    @Order(21)
+    public void shouldInsertRating() {
+        Rating rating = new Rating();
+        rating.setUsername("Nick");
+        Collection<Pet> pets = this.clinicService.findPets();
+        rating.setPet(EntityUtils.getById(pets, Pet.class, 2));
+        rating.setRating(5);
+        this.clinicService.saveRating(rating);
+        assertThat(rating.getUsername()).isEqualTo("Nick");
+    }
+
+    @Test
+    @Order(22)
+    void shouldFindRatings() {
+        Collection<Rating> ratings = this.clinicService.findRatings();
+        Rating rating = EntityUtils.getById(ratings, Rating.class, 1);
+        assertThat(rating.getUsername()).isEqualTo("Johny");
+        assertThat(rating.getRating()).isEqualTo(5);
+        assertThat(ratings.size()).isEqualTo(1);
+    }
+
 
 }

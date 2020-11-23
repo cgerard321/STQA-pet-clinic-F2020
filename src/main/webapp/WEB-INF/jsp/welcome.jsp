@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
@@ -18,7 +19,13 @@
         </div>
     </div>
 
-    <%-- Calendar -Louis C. --%>
+    <br/>
+<%--    Rating Related Buttons - Nichita--%>
+    <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
+    <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+    <br/>
+<%--   Calendar -Louis C.--%>
     <div class="row">
         <div class="col-md-12">
             <div id="calendar">

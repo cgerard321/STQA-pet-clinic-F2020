@@ -42,15 +42,17 @@ public class ClinicServiceImpl implements ClinicService {
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
     private ScheduleRepository scheduleRepository;
+    private  RatingRepository ratingRepository;
 
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository, RatingRepository ratingRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.scheduleRepository = scheduleRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Override
@@ -152,6 +154,18 @@ public class ClinicServiceImpl implements ClinicService {
         }
 
         petRepository.removePet(pet);
+    }
+
+    @Override
+    @Transactional
+    public void saveRating(Rating rating) {
+        ratingRepository.save(rating);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Rating> findRatings() {
+        return ratingRepository.findAll();
     }
 
 }

@@ -60,6 +60,15 @@ CREATE TABLE IF NOT EXISTS visits (
   FOREIGN KEY (pet_id) REFERENCES pets(id)
 ) engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS ratings
+(
+    id          INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pet_id      INT(4) UNSIGNED NOT NULL,
+    username   VARCHAR(30),
+    rating      INT(2),
+    FOREIGN KEY (pet_id) REFERENCES pets(id)
+)engine=InnoDB;
+
 
 /*Code added by Maria Carolina Avila for the APPT team*/
 CREATE TABLE IF NOT EXISTS vet_schedule (

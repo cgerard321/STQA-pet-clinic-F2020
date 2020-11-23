@@ -45,10 +45,10 @@
                 </div>
             </div>
 
-            <petclinic:menuItem active="${name eq 'pets'}" url="/pets/find.html" title="find pets">
-                <button type="button"  class="btn btn-default" name="addPet">Go to Pet Page</button>
-            </petclinic:menuItem>
-            <!--Go to back to pet page -->
+            <petclinic:menuItem active="${'pets'}" url="/pets/find.html" title="find pets">
+               <button type="button"  class="btn btn-default" name="petPage">Go to Pet Page</button>
+        </petclinic:menuItem>
+            <!--  Go to back to pet page -->
         </form:form>
         <c:if test="${!pet['new']}">
         </c:if>

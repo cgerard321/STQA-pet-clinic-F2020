@@ -132,6 +132,7 @@ public class PetController {
             results = null;
         }
         model.put("selections", results);
+     model.put("pet", results);
         return "pets/findPets";
     }
 

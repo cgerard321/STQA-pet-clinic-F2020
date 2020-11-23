@@ -23,6 +23,8 @@
                     <th scope="col">Owner</th>
                     <th scope="col">Type</th>
                     <th></th>
+                    <th></th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -46,7 +48,7 @@
                         </td>
                         <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
                             <td><a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
-                                <!--Go to edit pet page -->
+                            <!--    Go to edit pet page -->
                             </td>
                             <td>
                                 <button type="submit" name="deletePet" value="${pet.id}"

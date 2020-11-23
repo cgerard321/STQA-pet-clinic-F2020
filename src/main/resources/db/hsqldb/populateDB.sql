@@ -81,3 +81,4 @@ INSERT INTO vet_schedule VALUES (6, 1);
 INSERT INTO vet_schedule VALUES (6, 4);
 INSERT INTO vet_schedule VALUES (6, 6);
 
+INSERT INTO ratings VALUES(1,1,'Johny',5);

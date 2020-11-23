@@ -89,6 +89,13 @@
     </table>
     </details>
 
+    <br/>
+    <%--    Rating Related Buttons - Nichita--%>
+    <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
+    <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+    <br/>
+
     <%-- Calendar -Louis C. --%>
     <div class="row">
         <div class="col-md-12">

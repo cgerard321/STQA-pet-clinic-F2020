@@ -68,4 +68,3 @@
     <button onclick="topFunction()" id="goToTopButton" title="Go to top">Top</button>
 </nav>
 
-

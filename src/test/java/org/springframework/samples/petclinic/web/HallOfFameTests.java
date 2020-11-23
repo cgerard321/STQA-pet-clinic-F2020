@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.web;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -31,13 +32,14 @@ public class HallOfFameTests {
         driver.manage().window().maximize();
 
         // Act
-        driver.findElementById("hallOfFame").click();
+//        driver.findElementById("hallOfFame").click();
 
-        String firstPetName = driver.findElementById("HOF1Name").getText();
+        WebElement elemetn = driver.findElement(By.id("HOF1Name"));
+        String firstPetName = driver.findElement(By.id("HOF1Name")).getAttribute("innerHTML");
         firstPetName = firstPetName.split(" ")[0];
-        WebElement hoverElement = driver.findElementByClassName("card");
+//        WebElement hoverElement = driver.findElement(By.className("card"));
 
-        String firstPetNameInfo = driver.findElementById("Name1").getText();
+        String firstPetNameInfo = driver.findElement(By.id("Name1")).getAttribute("innerHTML");
 
         // Assert
         assertThat(firstPetName, is(firstPetNameInfo));

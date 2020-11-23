@@ -43,7 +43,5 @@ public class HallOfFameTests {
 
         // Assert
         assertThat(firstPetName, is(firstPetNameInfo));
-
-        driver.quit();
     }
 }

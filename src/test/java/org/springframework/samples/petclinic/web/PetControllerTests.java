@@ -177,6 +177,30 @@ class PetControllerTests {
     }
 
     @Test
+    void testGoToEditPetPage() throws Exception{
+        // test case
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+            .andExpect(view().name("pets/createOrUpdatePetForm"))
+            .andExpect(forwardedUrl("pets/createOrUpdatePetForm"));
+    }
+  
+    @Test
+    void testGoBackToPetPage() throws Exception {
+        // test case
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
+    }
+
+    
+
+
+    @Test
     void testGetAllPets() throws Exception{
         mockMvc.perform(get("/pets/getPets"))
             .andExpect(status().isOk())
@@ -204,3 +228,4 @@ class PetControllerTests {
             .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
     }
 }
+

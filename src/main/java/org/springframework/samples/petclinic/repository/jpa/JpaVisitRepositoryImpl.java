@@ -24,6 +24,7 @@ import javax.persistence.Query;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the ClinicService interface using EntityManager.
@@ -79,6 +80,13 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     public void deleteByIdIn(List<Integer> visitIds) {
         Query query = this.em.createQuery("DELETE FROM Visit v WHERE v.id IN (:ids)");
         query.setParameter("ids", visitIds);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void deleteById(int visitId) {
+        Query query = this.em.createQuery("DELETE FROM Visit v WHERE v.id = :id");
+        query.setParameter("id", visitId);
         query.executeUpdate();
     }
 

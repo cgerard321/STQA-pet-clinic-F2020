@@ -64,6 +64,12 @@ public interface ClinicService {
 
     void deleteVisitsById(List<Integer> visitIds);
 
+    void deleteVisitById(int visitId);
+
     void removePetById(int petId);
+
+    void saveRating(Rating rating);
+
+    Collection<Rating> findRatings();
 
 }

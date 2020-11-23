@@ -41,16 +41,17 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
+    private RatingRepository ratingRepository;
 
 
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
-
+        this.ratingRepository = ratingRepository;
     }
 
     @Override
@@ -139,6 +140,11 @@ public class ClinicServiceImpl implements ClinicService {
         visitRepository.deleteByIdIn(visitIds);
     }
 
+    @Transactional
+    public void deleteVisitById(int visitId) {
+        visitRepository.deleteById(visitId);
+    }
+
     public void removePetById(int petId) {
         Pet pet = petRepository.findById(petId);
         // Check if the petId is associated to a valid pet
@@ -147,6 +153,18 @@ public class ClinicServiceImpl implements ClinicService {
         }
 
         petRepository.removePet(pet);
+    }
+
+    @Override
+    @Transactional
+    public void saveRating(Rating rating) {
+        ratingRepository.save(rating);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Rating> findRatings() {
+        return ratingRepository.findAll();
     }
 
 }

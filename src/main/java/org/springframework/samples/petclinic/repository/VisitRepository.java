@@ -45,4 +45,6 @@ public interface VisitRepository {
     List<Visit> findAll();
 
     void deleteByIdIn(List<Integer> visitIds);
+
+    void deleteById(int visitId);
 }

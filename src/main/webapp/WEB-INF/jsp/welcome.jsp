@@ -41,11 +41,50 @@
         <tbody>
             <tr>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
-                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF1Img" src="${firstPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name1">John Doe</h1>
+                                <p id="owner1"></p>
+                                <p id="timesRated1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
-                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="2nd place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF2Img" src="${secondPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name2">John Doe</h1>
+                                <p id="owner2"></p>
+                                <p id="timesRated2"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
-                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="3rd place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card" id="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF3Img" src="${thirdPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name3">John Doe</h1>
+                                <p id="owner3"></p>
+                                <p id="timesRated3"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

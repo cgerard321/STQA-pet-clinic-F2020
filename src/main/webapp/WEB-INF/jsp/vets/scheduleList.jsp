@@ -17,7 +17,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Availability</th>
-<%--                <th scope="col"></th>--%>
+                    <%--                <th scope="col"></th>--%>
             </tr>
             </thead>
             <tbody>
@@ -28,19 +28,18 @@
                     </td>
 
                     <td>
-                        <ol>
-                            <c:forEach var="day" items="${vet.schedules}">
-
-                                <li style="list-style-type: none"><c:out value="${day.name}"/></li>
-
+                    <table style="border-top: 1px solid black; width: 40%; border-bottom: 1px solid black">
+                    <c:forEach var="day" items="${vet.schedules}">
+                                <tr>
+                                <td style="text-align: center">
+                    <c:out value="${day.name}"/>
+                            </td>
+                                </tr>
                             </c:forEach>
-                            <c:if test="${vet.nrOfDaysAvailable == 0}">N/A</c:if>
-                        </ol>
-                    </td>
 
-<%--                    <td>--%>
-<%--                        <a href="<spring:url value="/vets.html" htmlEscape="true"/>">Edit</a>--%>
-<%--                    </td>--%>
+                            <c:if test="${vet.nrOfDaysAvailable == 0}">N/A</c:if>
+                    </table>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

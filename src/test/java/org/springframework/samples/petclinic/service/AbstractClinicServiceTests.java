@@ -103,13 +103,16 @@ abstract class AbstractClinicServiceTests {
         int found = owners.size();
 
         Owner owner = new Owner();
+        owner.setProfile_picture("images_default");
         owner.setFirstName("Sam");
         owner.setLastName("Schultz");
-        owner.setAddress("4, Evans Street");
+        owner.setAddress("4 Evans Street");
         owner.setCity("Wollongong");
+        owner.setState("WI");
         owner.setTelephone("4444444444");
         owner.setEmail("george.franklin@gamil.com");
-        owner.setComment("This owner found the test error for us");
+        owner.setComment("Please don't crash my pull request or whatever");
+
         this.clinicService.saveOwner(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
@@ -417,5 +420,28 @@ abstract class AbstractClinicServiceTests {
     }
 
 
+    @Test
+    void shouldRetrieveOwnerState() {
+        Owner owner = new Owner();
+        owner.setState("NY");
+
+        String expected = "NY";
+        String actualResult = owner.getState();
+
+        assertThat(actualResult.equals(expected));
+    }
+
+    @Test
+    void shouldUpdateOwnerState() {
+        Owner owner = this.clinicService.findOwnerById(1);
+        String newState = "NY";
+
+        owner.setState(newState);
+        this.clinicService.saveOwner(owner);
+
+        // retrieving new name from database
+        owner = this.clinicService.findOwnerById(1);
+        assertThat(owner.getState()).isEqualTo(newState);
+    }
 
 }

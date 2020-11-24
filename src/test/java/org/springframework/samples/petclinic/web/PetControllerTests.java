@@ -163,6 +163,18 @@ class PetControllerTests {
             .andExpect(status().isOk()) // Make sure the status is ok
             .andExpect(view().name("pets/petList")); // Check if controller handle correctly
     }
+    @Test
+    void testInitViewPetSuccess() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/view", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
+    @Test
+    void testInitViewPet2Success() throws Exception {
+        mockMvc.perform(post("/pets/{petId}/view", TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
 
     @Test
     void testListAllPetsCorrectInfo() throws Exception {

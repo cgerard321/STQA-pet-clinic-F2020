@@ -99,14 +99,16 @@
 
     <%-- Calendar -Louis C. --%>
 
-    <%-- For anyone that wants to work on this here is the origin of the calendar --%>
+    <%-- For anyone that wants to work on this here is the origin of the css for the calendar that has been modified to show a dinamic calendar --%>
     <%-- https://bootsnipp.com/snippets/v200E --%>
     <div class="row">
         <div class="col-md-12">
             <div id="calendar">
                 <table>
-                    <summary><strong><c:out value="${LocalDate.now().getMonth()}"/></strong> <c:out
-                            value="${LocalDate.now().getYear()}"/></summary>
+                    <summary>
+                        <strong><c:out value="${LocalDate.now().getMonth()}"/></strong>
+                        <c:out value="${LocalDate.now().getYear()}"/>
+                    </summary>
                     <thead>
                     <tr>
                         <th>Sun</th>
@@ -126,7 +128,7 @@
                         <%-- Loop for day in the week --%>
                         <c:forEach begin="0" end="6" varStatus="j">
 
-                            <%-- Check if there is a day puts empty cell --%>
+                            <%-- Check if there is a day if not puts empty cell --%>
                             <c:choose>
                                 <c:when test="${days[i.index][j.index]=='0'}">
                                     <td></td>
@@ -134,15 +136,11 @@
                                 <c:otherwise>
 
                                     <%-- Check if the day is the current day to add css --%>
-                                    <c:choose>
-                                        <c:when test="${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
-                                            <td class="current-day">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td>
-                                        </c:otherwise>
-                                    </c:choose>
-
+                                    <td class="
+                                        <c:if test = "${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
+                                            current-day
+                                        </c:if>
+                                    ">
                                         <%-- Content of the cell for the day --%>
                                         <span class="date">${days[i.index][j.index]}
 

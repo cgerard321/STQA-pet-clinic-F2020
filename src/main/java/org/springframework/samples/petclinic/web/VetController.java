@@ -17,17 +17,19 @@ package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Schedule;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,6 +78,79 @@ public class VetController {
         return "vets/scheduleList";
     }
 
+    /*Added by the APPT team, returns the schedule of a vet based on their specialty*/
+    @GetMapping(value ="/vetProfile.html")
+    public String showVetProfile(Map<String, Object> model, @RequestParam int id)
+    {
+        Vet selectedVet;
+
+         List<Vet> allvets = this.showResourcesVetList().getVetList();
+            //model.put("vet", selectedVet);
+
+        Collection<Visit> allVisits = this.clinicService.findAllVisits();
+        ArrayList<Visit> generalVisits = new ArrayList<>();
+        ArrayList<Visit> surgeryVisits = new ArrayList<>();
+        ArrayList<Visit> dentistryVisits = new ArrayList<>();
+        ArrayList<Visit> radiologyVisits = new ArrayList<>();
+        ArrayList<Visit> miscVisits = new ArrayList<>();
+
+        //Loop through all the vets in the db, associate the id that's passed through with the corresponding vet
+        for(int i = 0; i < allvets.size(); i++)
+        {
+            if(allvets.get(i).getId() == id)
+            {
+                selectedVet = allvets.get(i);
+                model.put("vet", selectedVet);
+                //Loop through all the visits, sort them through the categories in arraylists listed above.
+                for (Visit visit : allVisits) {
+                    if (visit.getDescription().contains("neutered") || visit.getDescription().contains("spayed") ||
+                        visit.getDescription().contains("surgery")) {
+                        surgeryVisits.add(visit);
+                    } else if (visit.getDescription().contains("grooming") || visit.getDescription().contains("trimming") ||
+                        visit.getDescription().contains("shot")) {
+                        generalVisits.add(visit);
+                    } else if (visit.getDescription().contains("receding gums") ||
+                        visit.getDescription().contains("tartar control") || visit.getDescription().contains("gingivitis")
+                        || visit.getDescription().contains("teeth")) {
+                        dentistryVisits.add(visit);
+                    } else if (visit.getDescription().contains("X Ray") || visit.getDescription().contains("broken") ||
+                        visit.getDescription().contains("bone")) {
+                        radiologyVisits.add(visit);
+                    }
+                    //Other reasons get also assigned to the general veterinarians for an initial evaluation.
+                    else {
+                        miscVisits.add(visit);
+                    }
+                }
+
+                //Look through the specializations of the veterinarians and add the corresponding appointments
+                //into their schedules
+                if(selectedVet.getSpecialties().size() == 0 )
+                {
+                    generalVisits.addAll(miscVisits);
+
+                    model.put("schedule", generalVisits);
+                }
+
+                else if(selectedVet.getSpecialties().toString().contains("surgery"))
+                {
+                    model.put("schedule", surgeryVisits);
+                }
+
+                else if(selectedVet.getSpecialties().toString().contains("dentistry"))
+                {
+                    model.put("schedule", dentistryVisits);
+                }
+
+                else if(selectedVet.getSpecialties().toString().contains("radiology"))
+                {
+                    model.put("schedule",radiologyVisits);
+                }
+            }
+        }
+
+        return "vets/vetProfile";
+    }
 
 
 }

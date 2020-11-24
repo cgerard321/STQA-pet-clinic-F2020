@@ -70,6 +70,14 @@ public class AppointmentController {
         this.clinicService.deleteVisitById(appointmentId);
         return "redirect:/appointments/viewForm";
     }
+
+    /*Cancel an appointment through the vet profile page*/
+    @PostMapping(value="/vets/{appointmentId}/cancel")
+    public String initVetFormCancel(@PathVariable("appointmentId") int appointmentId, Map<String, Object> model) throws Exception
+    {
+        this.clinicService.deleteVisitById(appointmentId);
+        return "redirect:/vets/vetProfile";
+    }
 }
 
 

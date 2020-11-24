@@ -1,5 +1,6 @@
 var petArray;
 
+
 // Set the Hall of Fame
 $.ajax({
     type: "GET",

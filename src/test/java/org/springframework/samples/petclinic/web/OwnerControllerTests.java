@@ -230,7 +230,7 @@ class OwnerControllerTests {
             .andExpect(status().is3xxRedirection());
     }
 
-    // We must comment this test out until I have figured out a way to enable multipart support.
+    // We must comment this test out until I have figured out a way to enable multipart support. - William
     //@Test
     void testAddMultipleOwners_SendFileSuccessful() throws Exception {
 
@@ -250,6 +250,7 @@ class OwnerControllerTests {
                             .andExpect(status().is3xxRedirection());
     }
 
+    // Actual test used to test the JSON parsing - William
     @Test
     void testAddMultipleOwnersFake_UseExistingFileSuccessful() throws Exception {
         final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();

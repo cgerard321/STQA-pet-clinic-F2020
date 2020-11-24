@@ -103,6 +103,7 @@ abstract class AbstractClinicServiceTests {
         int found = owners.size();
 
         Owner owner = new Owner();
+        owner.setProfile_picture("images_default");
         owner.setFirstName("Sam");
         owner.setLastName("Schultz");
         owner.setAddress("4, Evans Street");

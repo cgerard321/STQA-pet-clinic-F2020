@@ -10,6 +10,10 @@
 
     <table class="table table-striped" aria-describedby="ownerInformation">
         <tr>
+            <th id="profile_picture">Profile Picture</th>
+            <td headers="profile_picture"><img src="/STQA_pet_clinic_F2020_war/resources/images/ownersProfilePictures/${owner.profile_picture}.png" alt="owner image"></td>
+        </tr>
+        <tr>
             <th id="name">Name</th>
             <td headers="name"><strong><c:out value="${owner.firstName} ${owner.lastName}"/></strong></td>
         </tr>

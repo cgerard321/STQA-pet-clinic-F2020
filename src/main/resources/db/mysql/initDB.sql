@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS types (
 
 CREATE TABLE IF NOT EXISTS owners (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  profile_picture VARCHAR(255),
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   address VARCHAR(255),

@@ -46,6 +46,7 @@ class OwnerControllerTests {
 
         george = new Owner();
         george.setId(TEST_OWNER_ID);
+        george.setProfile_picture("images (1)");
         george.setFirstName("George");
         george.setLastName("Franklin");
         george.setAddress("110 W. Liberty St.");
@@ -68,6 +69,7 @@ class OwnerControllerTests {
     @Test
     void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/new")
+            .param("profile_picture", "images (1)")
             .param("firstName", "Joe")
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
@@ -92,6 +94,7 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(model().attributeHasFieldErrors("owner", "comment"))
+            .andExpect(model().attributeHasFieldErrors("owner", "profile_picture"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 
@@ -139,6 +142,7 @@ class OwnerControllerTests {
         mockMvc.perform(get("/owners/{ownerId}/edit", TEST_OWNER_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("owner"))
+            .andExpect(model().attribute("owner", hasProperty("profile_picture", is("images (1)"))))
             .andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
@@ -152,6 +156,7 @@ class OwnerControllerTests {
     @Test
     void testProcessUpdateOwnerFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
+            .param("profile_picture", "images (1)")
             .param("firstName", "Joe")
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
@@ -173,6 +178,7 @@ class OwnerControllerTests {
         )
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
+            .andExpect(model().attributeHasFieldErrors("owner", "profile_picture"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
@@ -184,6 +190,7 @@ class OwnerControllerTests {
     void testShowOwner() throws Exception {
         mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
             .andExpect(status().isOk())
+            .andExpect(model().attribute("owner", hasProperty("profile_picture", is("images (1)"))))
             .andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))

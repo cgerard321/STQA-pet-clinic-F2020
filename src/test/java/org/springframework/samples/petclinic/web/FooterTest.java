@@ -15,10 +15,10 @@ import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PR
 
 // Test may break depending on TomcatPort.
 @ExtendWith(SeleniumExtension.class)
-public class FooterTests {
+public class FooterTest {
     ChromeDriver driver;
 
-    public FooterTests(ChromeDriver driver) {
+    public FooterTest(ChromeDriver driver) {
         this.driver = driver;
 
     }

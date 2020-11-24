@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitWebConfig(locations = {"classpath:spring/mvc-core-config.xml", "classpath:spring/mvc-test-config.xml"})
-public class AppointmentControllerTest {
+public class AppointmentControllerTests {
 
     @Autowired
     private AppointmentController appointmentController;
@@ -36,9 +36,26 @@ public class AppointmentControllerTest {
 
     @Test
     void testNavigateToAppointments() throws Exception{
-        mockMvc.perform(get("/appointments.html"))
+        mockMvc.perform(get("/appointments/create"))
             .andExpect(status().isOk())
-            .andExpect(view().name("appointments/appointments"))
-            .andExpect(forwardedUrl("appointments/appointments"));
+            .andExpect(view().name("appointments/createAppointments"))
+            .andExpect(forwardedUrl("appointments/createAppointments"));
+    }
+
+    @Test
+    void testViewAllAppointments() throws Exception {
+        mockMvc.perform(get("/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("appointments/viewAppointments"))
+            .andExpect(model().attributeExists("visits"));
+
+    }
+
+    @Test
+    void testViewOwnerAppointments() throws Exception {
+        mockMvc.perform(get("/owners/6/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("visits"));
+
     }
 }

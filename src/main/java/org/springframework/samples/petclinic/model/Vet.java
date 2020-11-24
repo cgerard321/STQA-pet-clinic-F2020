@@ -44,6 +44,11 @@ public class Vet extends Person {
         inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "vet_schedule", joinColumns = @JoinColumn(name = "vet_id"),
+        inverseJoinColumns = @JoinColumn(name = "day_id"))
+    private Set<Schedule> schedules;
+
 
     protected Set<Specialty> getSpecialtiesInternal() {
         if (this.specialties == null) {
@@ -52,8 +57,20 @@ public class Vet extends Person {
         return this.specialties;
     }
 
+    protected Set<Schedule> getScheduleInternal() {
+        if (this.schedules == null) {
+            this.schedules = new HashSet<>();
+        }
+        return this.schedules;
+    }
+
+
     protected void setSpecialtiesInternal(Set<Specialty> specialties) {
         this.specialties = specialties;
+    }
+
+    protected void setScheduleInternal(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     @XmlElement
@@ -63,12 +80,27 @@ public class Vet extends Person {
         return Collections.unmodifiableList(sortedSpecs);
     }
 
+    @XmlElement
+    public List<Schedule> getSchedules() {
+        List<Schedule> sortedSpecs = new ArrayList<>(getScheduleInternal());
+        PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
+        return Collections.unmodifiableList(sortedSpecs);
+    }
+
     public int getNrOfSpecialties() {
         return getSpecialtiesInternal().size();
     }
 
+    public int getNrOfDaysAvailable() {
+        return getScheduleInternal().size();
+    }
+
     public void addSpecialty(Specialty specialty) {
         getSpecialtiesInternal().add(specialty);
+    }
+
+    public void addDayToSchedule(Schedule schedule) {
+        getScheduleInternal().add(schedule);
     }
 
 }

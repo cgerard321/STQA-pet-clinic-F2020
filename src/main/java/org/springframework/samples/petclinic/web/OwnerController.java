@@ -163,21 +163,26 @@ public class OwnerController {
     }
 
     @PostMapping(value = "/owners/{ownerId}/appointments/cancel", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String processCancelOwnerAppointmentForm(@RequestBody MultiValueMap<String, String> formData) {
+    public String processCancelOwnerAppointmentForm(@PathVariable int ownerId, @RequestBody MultiValueMap<String, String> formData) {
+        Collection<Visit> ownerVisits = clinicService.findVisitsByOwnerId(ownerId);
+
         List<Integer> visits = new ArrayList<>();
         formData.forEach((k, v) -> {
-            int visit;
+            int visitId;
             try {
-                visit = Integer.parseInt(k);
+                visitId = Integer.parseInt(k);
             } catch (NumberFormatException e) {
                 return;
             }
 
-            v.stream().findAny().ifPresent(answer -> {
-                if (answer.equals("on")) {
-                    visits.add(visit);
-                }
-            });
+            // only delete visits which actually belong to that owner
+            if (ownerVisits.stream().anyMatch(visit -> visit.getId() == visitId)) {
+                v.stream().findAny().ifPresent(answer -> {
+                    if (answer.equals("on")) {
+                        visits.add(visitId);
+                    }
+                });
+            }
         });
 
         if (!visits.isEmpty()) {

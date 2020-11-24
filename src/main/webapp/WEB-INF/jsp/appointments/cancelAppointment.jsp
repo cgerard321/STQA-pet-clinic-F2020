@@ -35,5 +35,6 @@
         </table>
 
         <button class="btn btn-default" type="submit">Cancel appointment</button>
+        <button class="btn btn-default" onclick="event.preventDefault(); history.back();">Go back</button>
     </form:form>
 </petclinic:layout>

@@ -58,6 +58,7 @@ public class Visit extends BaseEntity {
     private Pet pet;
 
 
+
     /**
      * Creates a new instance of Visit for the current date
      */

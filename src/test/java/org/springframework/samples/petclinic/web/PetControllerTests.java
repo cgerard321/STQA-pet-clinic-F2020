@@ -11,13 +11,16 @@ import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -73,17 +76,18 @@ class PetControllerTests {
         given(this.clinicService.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
+        given(this.clinicService.findPetById(2)).willReturn(new Pet());
         // Return stubbed petList
         given(this.clinicService.findPets()).willReturn(petList);
     }
 
-//    @Test
-//    void testNavigateToFindPets() throws Exception{
-//        mockMvc.perform(get("/pets/find.html"))
-////            .andExpect(status().isOk())
-//            .andExpect(view().name("pets/findPets"))
-//            .andExpect(forwardedUrl("pets/findPets"));
-//    }
+    @Test
+    void testNavigateToFindPets() throws Exception{
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
+    }
 
    @Test
    void testInitCreationForm() throws Exception {
@@ -148,9 +152,9 @@ class PetControllerTests {
    }
    @Test
     void testPetRemovedFromListRedirectSuccess() throws Exception {
-        mockMvc.perform(get("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
+       mockMvc.perform(post("/pets/1/remove")) //This is the page that calls my remove method "1" stands for the pet id
 //            .andExpect(status().isOk())
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/petList"));
+           .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/find"));
     }
 
     @Test
@@ -158,6 +162,18 @@ class PetControllerTests {
         mockMvc.perform(get("/pets/petList")) // Navigate to the page
             .andExpect(status().isOk()) // Make sure the status is ok
             .andExpect(view().name("pets/petList")); // Check if controller handle correctly
+    }
+    @Test
+    void testInitViewPetSuccess() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/view", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
+    @Test
+    void testInitViewPet2Success() throws Exception {
+        mockMvc.perform(post("/pets/{petId}/view", TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
     }
 
     @Test
@@ -171,4 +187,57 @@ class PetControllerTests {
                 any(Pet.class)
             )));
     }
+
+    @Test
+    void testGoToEditPetPage() throws Exception{
+        // test case
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+            .andExpect(view().name("pets/createOrUpdatePetForm"))
+            .andExpect(forwardedUrl("pets/createOrUpdatePetForm"));
+    }
+  
+    @Test
+    void testGoBackToPetPage() throws Exception {
+        // test case
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
+    }
+
+    
+
+
+    @Test
+    void testGetAllPets() throws Exception{
+        mockMvc.perform(get("/pets/getPets"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(startsWith("[")))
+            .andExpect(content().string(containsString("name")))
+            .andExpect(content().string(containsString("birthdate")))
+            .andExpect(content().string(containsString("type")))
+            .andExpect(content().string(containsString("imageURL")))
+            .andExpect(content().string(containsString("totalRating")))
+            .andExpect(content().string(containsString("timesRated")))
+            .andExpect(content().string(endsWith("]")));
+    }
+
+    @Test
+    void testGetPetCount() throws Exception{
+        mockMvc.perform(get("/pets/getPetCount"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("2")); // Pet List size
+    }
+
+    @Test
+    void testGetHighestRatingById() throws Exception{
+        mockMvc.perform(get("/pets/getHighestRatings"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
+    }
 }
+

@@ -79,7 +79,7 @@ public class Vet extends Person {
     @XmlElement
     public List<Schedule> getSchedules() {
         List<Schedule> sortedSpecs = new ArrayList<>(getScheduleInternal());
-        PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
+        PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("id", true, true));
         return Collections.unmodifiableList(sortedSpecs);
     }
 

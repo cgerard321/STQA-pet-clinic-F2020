@@ -29,6 +29,10 @@
             <th id="email">Email</th>
             <td headers="email"><c:out value="${owner.email}"/></td>
         </tr>
+        <tr>
+            <th id="comment">Comment</th>
+            <td headers="comment"><c:out value="${owner.comment}"/></td>
+        </tr>
     </table>
 
     <spring:url value="{ownerId}/edit.html" var="editUrl">

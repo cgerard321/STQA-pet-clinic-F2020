@@ -118,17 +118,22 @@
                         <th>Sat</th>
                     </tr>
                     </thead>
+
+                    <%-- Loop for weeks --%>
                     <c:forEach begin="0" end="${calendar.getNumberOfWeeks()}" varStatus="i">
-                        <c:choose>
-                            <c:when test=""></c:when>
-                        </c:choose>
                         <tr>
+
+                        <%-- Loop for day in the week --%>
                         <c:forEach begin="0" end="6" varStatus="j">
+
+                            <%-- Check if there is a day puts empty cell --%>
                             <c:choose>
                                 <c:when test="${days[i.index][j.index]=='0'}">
                                     <td></td>
                                 </c:when>
                                 <c:otherwise>
+
+                                    <%-- Check if the day is the current day to add css --%>
                                     <c:choose>
                                         <c:when test="${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
                                             <td class="current-day">
@@ -137,7 +142,11 @@
                                             <td>
                                         </c:otherwise>
                                     </c:choose>
+
+                                        <%-- Content of the cell for the day --%>
                                         <span class="date">${days[i.index][j.index]}
+
+                                            <%-- Check if there is an event for that day --%>
                                             <c:if test = "${events.containsKey(days[i.index][j.index])}">
                                                  <ul>
                                                     <li>
@@ -151,9 +160,12 @@
                                     </td>
                                 </c:otherwise>
                             </c:choose>
+
                         </c:forEach>
+
                         </tr>
                     </c:forEach>
+
                 </table>
                 <script>
                     // wait for the page to load to make sure JQuery is fully loaded

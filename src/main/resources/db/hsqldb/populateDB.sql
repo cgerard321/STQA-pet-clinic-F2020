@@ -53,7 +53,6 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
-
 INSERT INTO schedules VALUES (1, 'Monday');
 INSERT INTO schedules VALUES (2, 'Tuesday');
 INSERT INTO schedules VALUES (3, 'Wednesday');
@@ -73,13 +72,16 @@ INSERT INTO vet_schedule VALUES (2, 1);
 INSERT INTO vet_schedule VALUES (2, 3);
 INSERT INTO vet_schedule VALUES (2, 5);
 
-
 INSERT INTO vet_schedule VALUES (3, 6);
 INSERT INTO vet_schedule VALUES (3, 7);
-
 
 INSERT INTO vet_schedule VALUES (6, 1);
 INSERT INTO vet_schedule VALUES (6, 4);
 INSERT INTO vet_schedule VALUES (6, 6);
 
 INSERT INTO ratings VALUES(1,1,'Johny',5);
+
+
+-- INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
+-- INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
+-- INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');

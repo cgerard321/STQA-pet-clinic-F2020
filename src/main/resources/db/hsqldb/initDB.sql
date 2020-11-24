@@ -120,3 +120,10 @@ CREATE TABLE ratings
 ALTER TABLE ratings
     ADD CONSTRAINT fk_ratings_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX ratings_pet_id ON ratings (pet_id);
+
+/* Events for the calendar on the welcome page */
+CREATE TABLE events (
+    id          INTEGER IDENTITY PRIMARY KEY,
+    date        DATE,
+    description VARCHAR(255)
+);

@@ -3,19 +3,31 @@ package org.springframework.samples.petclinic.web;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.ResourceUtils;
+
+import javax.print.attribute.standard.Media;
+import javax.servlet.ServletContext;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,6 +52,11 @@ class OwnerControllerTests {
     @Autowired
     private ClinicService clinicService;
 
+
+    @Qualifier("servletContext")
+    @Autowired
+    ServletContext context;
+
     private MockMvc mockMvc;
 
     private Owner george;
@@ -54,6 +71,7 @@ class OwnerControllerTests {
         george.setLastName("Franklin");
         george.setAddress("110 W. Liberty St.");
         george.setCity("Madison");
+        george.setState("NY");
         george.setTelephone("6085551023");
         george.setEmail("george.franklin@gmail.com");
         george.setComment("This owner is hard of hearing");
@@ -76,7 +94,8 @@ class OwnerControllerTests {
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
-            .param("telephone", "01316761638")
+            .param("state", "NY")
+            .param("telephone", "0131676163")
             .param("email", "george.franklin@gmail.com")
             .param("comment", "This owner is hard of hearing")
         )
@@ -93,6 +112,7 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(model().attributeHasFieldErrors("owner", "comment"))
@@ -147,6 +167,7 @@ class OwnerControllerTests {
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
+            .andExpect(model().attribute("owner", hasProperty("state", is("NY"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(model().attribute("owner", hasProperty("email", is("george.franklin@gmail.com"))))
             .andExpect(model().attribute("owner", hasProperty("comment", is("This owner is hard of hearing"))))
@@ -160,7 +181,8 @@ class OwnerControllerTests {
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
-            .param("telephone", "01616291589")
+            .param("state", "NY")
+            .param("telephone", "0161629158")
             .param("email", "joe.bloggs@gmail.com")
             .param("comment", "This owner is hard of hearing")
         )
@@ -178,6 +200,7 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(model().attributeHasFieldErrors("owner", "comment"))
@@ -192,6 +215,7 @@ class OwnerControllerTests {
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
+            .andExpect(model().attribute("owner", hasProperty("state", is("NY"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(model().attribute("owner", hasProperty("email", is("george.franklin@gmail.com"))))
             .andExpect(model().attribute("owner", hasProperty("comment", is("This owner is hard of hearing"))))
@@ -234,5 +258,56 @@ class OwnerControllerTests {
             .andExpect(status().is3xxRedirection());
 
         then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
+    }
+
+    // We must comment this test out until I have figured out a way to enable multipart support.
+    //@Test
+    void testAddMultipleOwners_SendFileSuccessful() throws Exception {
+
+        final String GOOD_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/uploads/success.json";
+
+        FileInputStream fs = new FileInputStream(GOOD_FILE_PATH);
+        MockMultipartFile file = new MockMultipartFile("file", fs);
+
+        HashMap<String, String> mediaTypeParams = new HashMap<>();
+        mediaTypeParams.put("boundary", "265001916915724");
+
+        MediaType mediaType = new MediaType("multipart", "form-data", mediaTypeParams);
+
+        mockMvc.perform(post("/owners/addMultipleOwners")
+                            .content(file.getBytes())
+                            .contentType(mediaType))
+                            .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void testAddMultipleOwnersFake_UseExistingFileSuccessful() throws Exception {
+        final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+
+        mockMvc.perform(post("/owners/addMultipleOwnersFake")).andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void testProcessNewOwnerFormHasErrorMessage() throws Exception {
+        mockMvc.perform(post("/owners/new")
+            .param("firstName", "12124")
+            .param("lastName", "anr@")
+            .param("address", "48 Theberge")
+            .param("city", "1442.")
+            .param("state", "1234")
+            .param("telephone", "514229178a")
+            .param("email", "antoine.heboutlook")
+        )
+            //This test is supposed to pass if error messages are been displayed on screen when the owner name does not contain only letter
+            .andExpect(status().isOk())
+            .andExpect(model().attributeHasErrors("owner"))
+            .andExpect(model().attributeHasFieldErrors("owner", "firstName"))
+            .andExpect(model().attributeHasFieldErrors("owner", "lastName"))
+            .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "city"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
+            .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
+            .andExpect(model().attributeHasFieldErrors("owner", "email"))
+            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 }

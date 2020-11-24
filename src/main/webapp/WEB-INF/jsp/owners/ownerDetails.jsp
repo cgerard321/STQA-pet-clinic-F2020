@@ -22,6 +22,10 @@
             <td headers="city"><c:out value="${owner.city}"/></td>
         </tr>
         <tr>
+            <th id="state">State</th>
+            <td headers="state"><c:out value="${owner.state}"/></td>
+        </tr>
+        <tr>
             <th id="telephone">Telephone</th>
             <td headers="telephone"><c:out value="${owner.telephone}"/></td>
         </tr>

@@ -16,6 +16,7 @@
             <petclinic:inputField label="Last Name" name="lastName"/>
             <petclinic:inputField label="Address" name="address"/>
             <petclinic:inputField label="City" name="city"/>
+            <petclinic:inputField label="State Code" name="state"/>
             <petclinic:inputField label="Telephone" name="telephone"/>
             <petclinic:inputField label="Email" name="email"/>
             <petclinic:inputField label="Comment" name="comment"/>
@@ -32,5 +33,10 @@
                 </c:choose>
             </div>
         </div>
+    </form:form>
+
+    <form:form action="http://localhost:8080/spring_framework_petclinic_war/owners/addMultipleOwnersFake" enctype="multipart/form-data">
+        <input type="file" name="upload_file"/>
+        <button class="btn btn-default" type="submit">Send file</button>
     </form:form>
 </petclinic:layout>

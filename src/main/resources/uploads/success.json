@@ -1,0 +1,38 @@
+[
+    {
+        "firstName": "Joseph",
+        "lastName": "Smith",
+        "address": "123 A road",
+        "city": "Montreal",
+        "telephone": "6085555418",
+        "email": "joseph.smith@gmail.com",
+        "comment": "Does not like green"
+    },
+    {
+        "firstName": "James",
+        "lastName": "Blaese",
+        "address": "123 B road",
+        "city": "Brossard",
+        "telephone": "6085544418",
+        "email": "james.blaese@gmail.com",
+        "comment": "Does not like red"
+    },
+    {
+        "firstName": "Daniel",
+        "lastName": "Williams",
+        "address": "123 C road",
+        "city": "Saint-Mathias",
+        "telephone": "6085544418",
+        "email": "daniel.williams@gmail.com",
+        "comment": "Does not like blue"
+    },
+    {
+        "firstName": "Joshua",
+        "lastName": "Davis",
+        "address": "123 D road",
+        "city": "New-York",
+        "telephone": "6083344418",
+        "email": "joshua.davis@gmail.com",
+        "comment": "Does not like red"
+    }
+]

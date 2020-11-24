@@ -14,8 +14,10 @@
             <th scope="col" style="width: 150px;">Name</th>
             <th scope="col" style="width: 200px;">Address</th>
             <th scope="col">City</th>
+            <th scope="col">State</th>
             <th scope="col" style="width: 120px">Telephone</th>
             <th scope="col" style="width: 120px">Email</th>
+            <th scope="col" style="width: 120px">Comment</th>
             <th scope="col">Pets</th>
         </tr>
         </thead>
@@ -35,10 +37,16 @@
                     <c:out value="${owner.city}"/>
                 </td>
                 <td>
+                    <c:out value="${owner.state}"/>
+                </td>
+                <td>
                     <c:out value="${owner.telephone}"/>
                 </td>
                 <td>
                     <c:out value="${owner.email}"/>
+                </td>
+                <td>
+                    <c:out value="${owner.comment}"/>
                 </td>
                 <td>
                     <c:forEach var="pet" items="${owner.pets}">

@@ -163,6 +163,18 @@ class PetControllerTests {
             .andExpect(status().isOk()) // Make sure the status is ok
             .andExpect(view().name("pets/petList")); // Check if controller handle correctly
     }
+    @Test
+    void testInitViewPetSuccess() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/view", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
+    @Test
+    void testInitViewPet2Success() throws Exception {
+        mockMvc.perform(post("/pets/{petId}/view", TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("pets/petDetails"));
+    }
 
     @Test
     void testListAllPetsCorrectInfo() throws Exception {
@@ -175,6 +187,30 @@ class PetControllerTests {
                 any(Pet.class)
             )));
     }
+
+    @Test
+    void testGoToEditPetPage() throws Exception{
+        // test case
+        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+            .andExpect(view().name("pets/createOrUpdatePetForm"))
+            .andExpect(forwardedUrl("pets/createOrUpdatePetForm"));
+    }
+  
+    @Test
+    void testGoBackToPetPage() throws Exception {
+        // test case
+        mockMvc.perform(get("/pets/find.html"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("pet"))
+
+            .andExpect(view().name("pets/findPets"))
+            .andExpect(forwardedUrl("pets/findPets"));
+    }
+
+    
+
 
     @Test
     void testGetAllPets() throws Exception{
@@ -204,3 +240,4 @@ class PetControllerTests {
             .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
     }
 }
+

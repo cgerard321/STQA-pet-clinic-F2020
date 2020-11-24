@@ -16,11 +16,13 @@
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,4 +43,5 @@ public interface SpringDataPetRepository extends PetRepository, Repository<Pet, 
 //    @Transactional
 //    @Query("DELETE FROM Pet pet WHERE pet.id=:id")
 //    void removePet(@Param("id") int id);
+
 }

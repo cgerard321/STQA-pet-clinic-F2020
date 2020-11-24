@@ -115,5 +115,12 @@ public class AppointmentControllerTest {
 
     }
 
+    @Test
+    void testAppointmentsNavigationPage() throws Exception {
+        mockMvc.perform(get("/appointments"))
+            .andExpect(status().isOk());
+
+    }
+
 
 }

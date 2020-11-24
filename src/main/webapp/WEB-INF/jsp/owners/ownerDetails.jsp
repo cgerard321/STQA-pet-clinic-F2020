@@ -104,6 +104,14 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                             </td>
+                            <td>
+                                <!--Last minute Appointments link-->
+                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/lastMin" var="lastMinuteAppointment">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(lastMinuteAppointment)}">Last Minute Visit</a>
+                            </td>
                         </tr>
                     </table>
                 </td>

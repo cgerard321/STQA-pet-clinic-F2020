@@ -1,18 +1,20 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
@@ -20,12 +22,10 @@ import java.util.Map;
 @Controller
 public class AppointmentController {
 
-
+    private final ClinicService clinicService;
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
     private static final String APPOINT_FORM = "appointments/createAppointments";
-    private final ClinicService clinicService;
-
-
+    private static final String LAST_MIN_VISIT = "/appointments/lastMinuteAppointments";
 
     @Autowired
     public AppointmentController(ClinicService clinicService) {
@@ -78,6 +78,90 @@ public class AppointmentController {
         this.clinicService.deleteVisitById(appointmentId);
         return "redirect:/vets/vetProfile";
     }
+
+
+    @GetMapping(value = "/owners/*/pets/{petId}/visits/lastMin")
+    public String showLastMinuteVisits(Map<String, Object> vetInfo) {
+        Vets vet = new Vets();
+        vet.getVetList().addAll(this.clinicService.findVets());
+        vetInfo.put("vets", vet);
+        return LAST_MIN_VISIT;
+    }
+
+    @PostMapping(value = "/owners/{ownerId}/pets/{petId}/visits/lastMin")
+    public String processLastMinuteVisits(@RequestParam("result") int id, @PathVariable("petId") int petId)
+    {
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        Vets vet = new Vets();
+        vet.getVetList().addAll(this.clinicService.findVets());
+        ArrayList<Schedule> holder = new ArrayList<Schedule>();
+
+        for(Vet v : vet.getVetList())
+        {
+            for(Schedule sched: v.getSchedulesLastMinute())
+            {
+                if(sched.getId() <= dayOfWeek+1 && sched.getId() >= dayOfWeek-1)
+                    holder.add(sched);
+            }
+        }
+
+        int chosenDay = holder.get(id-1).getId();
+
+        LocalDate visitDate = LocalDate.now();
+        LocalDate newDate = LocalDate.now();
+
+        switch(chosenDay)
+        {
+            case 2:
+                if(calendar.get(Calendar.DAY_OF_WEEK) == 1) // tuesday
+                    visitDate = LocalDate.now();
+                else
+                    visitDate = newDate.plusDays(1);
+                break;
+            case 3:
+                if(calendar.get(Calendar.DAY_OF_WEEK) == 1)
+                    visitDate = newDate.plusDays(2);
+                else if (calendar.get(Calendar.DAY_OF_WEEK) == 2)
+                    visitDate = newDate.plusDays(1);
+                else if(calendar.get(Calendar.DAY_OF_WEEK) == 3)
+                    visitDate = LocalDate.now();
+                break;
+            case 4:
+                if(calendar.get(Calendar.DAY_OF_WEEK) == 2)
+                    visitDate = newDate.plusDays(2);
+                else if (calendar.get(Calendar.DAY_OF_WEEK) == 3)
+                    visitDate = newDate.plusDays(1);
+                else if(calendar.get(Calendar.DAY_OF_WEEK) == 4)
+                    visitDate = LocalDate.now();
+                break;
+            case 5:
+                if(calendar.get(Calendar.DAY_OF_WEEK) == 3)
+                    visitDate = newDate.plusDays(2);
+                else if (calendar.get(Calendar.DAY_OF_WEEK) == 4)
+                    visitDate = newDate.plusDays(1);
+                else if(calendar.get(Calendar.DAY_OF_WEEK) == 5)
+                    visitDate = LocalDate.now();
+                break;
+            default:
+                visitDate = LocalDate.now();
+                break;
+
+        }
+
+        Pet p = this.clinicService.findPetById(petId);
+
+        Visit v = new Visit();
+        v.setDate(visitDate);
+        v.setDescription("Last minute appointment.");
+        v.setPet(p);
+
+        this.clinicService.saveVisit(v);
+        return "redirect:/owners/{ownerId}";
+    }
+
+
 }
 
 

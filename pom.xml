@@ -177,6 +177,7 @@
             <version>${spring-framework.version}</version>
         </dependency>
 
+        <!-- used for JSON parsing -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

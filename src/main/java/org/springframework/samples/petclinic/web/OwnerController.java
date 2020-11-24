@@ -210,6 +210,7 @@ public class OwnerController {
 
         Owner[] owners = gson.fromJson(new FileReader(FILE_PATH), Owner[].class);
 
+        // We add each owner object into the database.
         for (Owner owner : owners)
             clinicService.saveOwner(owner);
 

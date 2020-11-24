@@ -16,7 +16,6 @@
             <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Veterinarian Id</th>
                 <th scope="col">Specialties</th>
             </tr>
             </thead>
@@ -24,12 +23,8 @@
             <c:forEach items="${vets.vetList}" var="vet">
                 <tr>
                     <td>
-                        <c:out value="${vet.firstName} ${vet.lastName}"/>
+                     <a href="vetProfile.html?id=${vet.id}" ><c:out value="${vet.firstName} ${vet.lastName}"/></a>
                     </td>
-                    <td>
-                        <c:out value="${vet.id}"/>
-                    </td>
-
 
                     <td>
                         <c:forEach var="specialty" items="${vet.specialties}">
@@ -37,6 +32,7 @@
                         </c:forEach>
                         <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
                     </td>
+
                 </tr>
             </c:forEach>
             </tbody>
@@ -44,22 +40,6 @@
     </div>
 
 
-    <spring:url value="/displaySchedule" var="formUrl"/>
-    <form:form modelAttribute="vets" action="${fn:escapeXml(formUrl)}" method="GET" class="form-horizontal"
-               id="findSchedule">
-
-        <label>Veterinarian ID</label>
-        <select name="vetId">
-            <c:forEach items="${vets.vetList}" var="vet">
-
-                <option><c:out value="${vet.id}"/></option>
-
-            </c:forEach>
-        </select>
-        <br>
-
-        <input type="submit" value="View Schedule">
-    </form:form>
 
     <div class="row">
         <div class="col-md-2">

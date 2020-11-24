@@ -16,6 +16,7 @@
             <th scope="col">City</th>
             <th scope="col" style="width: 120px">Telephone</th>
             <th scope="col" style="width: 120px">Email</th>
+            <th scope="col" style="width: 120px">Comment</th>
             <th scope="col">Pets</th>
         </tr>
         </thead>
@@ -39,6 +40,9 @@
                 </td>
                 <td>
                     <c:out value="${owner.email}"/>
+                </td>
+                <td>
+                    <c:out value="${owner.comment}"/>
                 </td>
                 <td>
                     <c:forEach var="pet" items="${owner.pets}">

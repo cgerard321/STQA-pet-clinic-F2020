@@ -20,14 +20,7 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -48,6 +41,15 @@ public class Pet extends NamedEntity {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate birthDate;
 
+    @Column(name = "image_url")
+    private String imageURL;
+
+    @Column
+    private int totalRating;
+
+    @Column
+    private int timesRated;
+
     @ManyToOne
     @JoinColumn(name = "type_id")
     private PetType type;
@@ -59,6 +61,8 @@ public class Pet extends NamedEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+    private Set<Rating> ratings;
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -84,6 +88,30 @@ public class Pet extends NamedEntity {
         this.owner = owner;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public int getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(int totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    public int getTimesRated() {
+        return timesRated;
+    }
+
+    public void setTimesRated(int timesRated) {
+        this.timesRated = timesRated;
+    }
+
     protected Set<Visit> getVisitsInternal() {
         if (this.visits == null) {
             this.visits = new HashSet<>();
@@ -95,8 +123,6 @@ public class Pet extends NamedEntity {
         this.visits = visits;
     }
 
-    /* Test comment from Ryan */
-
     public List<Visit> getVisits() {
         List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
         PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
@@ -106,5 +132,48 @@ public class Pet extends NamedEntity {
     public void addVisit(Visit visit) {
         getVisitsInternal().add(visit);
         visit.setPet(this);
+    }
+
+    protected Set<Rating> getRatingsInternal() {
+        if (this.ratings == null) {
+            this.ratings = new HashSet<>();
+        }
+        return this.ratings;
+    }
+
+    protected void setRatingsInternal(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public List<Rating> getRatings() {
+        List<Rating> sortedRatings = new ArrayList<>(getRatingsInternal());
+        PropertyComparator.sort(sortedRatings, new MutableSortDefinition("username", false, false));
+        return Collections.unmodifiableList(sortedRatings);
+
+    }
+
+    public void addRating(Rating rating) {
+        getRatingsInternal().add(rating);
+        rating.setPet(this);
+    }
+
+    public double getAverageRating(){
+        if (totalRating == 0){
+            return 0;
+        }
+        else {
+            return (double) totalRating / timesRated;
+        }
+    }
+
+    public String toJsonString() {
+        return "{" +
+               "\"name\":\"" + getName() + "\", " +
+               "\"birthdate\":\"" + birthDate + "\", " +
+               "\"type\":\"" + type + "\", " +
+               "\"imageURL\":\"" + imageURL + "\", " +
+               "\"totalRating\":\"" + totalRating + "\", " +
+               "\"timesRated\":\"" + timesRated +"\"" +
+               "}";
     }
 }

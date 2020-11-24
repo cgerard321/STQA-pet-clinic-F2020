@@ -43,25 +43,25 @@ INSERT IGNORE INTO types
 VALUES (6, 'hamster');
 
 INSERT IGNORE INTO owners
-VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023');
+VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'george.franklin@gamil.com', 'This owner is hard of hearing');
 INSERT IGNORE INTO owners
-VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749');
+VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'betty.davis@gmail.com', 'This owner is a bit impatient');
 INSERT IGNORE INTO owners
-VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763');
+VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'eduardo.rodriquez@gmail.com', 'This owner does not read his emails');
 INSERT IGNORE INTO owners
-VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198');
+VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'harold.davis@gmail.com', 'This owner is not funny');
 INSERT IGNORE INTO owners
-VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765');
+VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'peter.mctavish@gmail.com', 'This owner is always a bit late');
 INSERT IGNORE INTO owners
-VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654');
+VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'jean.coleman@gmail.com', 'This owner is very kind');
 INSERT IGNORE INTO owners
-VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387');
+VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'jeff.black@gmail.com', 'This owner likes pink');
 INSERT IGNORE INTO owners
-VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683');
+VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'maria.escobito@gmail.com.com', 'This owner has peanut allergy');
 INSERT IGNORE INTO owners
-VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435');
+VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'david.schroeder@gmail.com', 'This owner is new to this clinic');
 INSERT IGNORE INTO owners
-VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487');
+VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
 
 INSERT IGNORE INTO pets
 VALUES (1, 'Leo', '2000-09-07', 1, 1);
@@ -100,17 +100,56 @@ INSERT IGNORE INTO visits
 VALUES (4, 7, '2008-09-04', 'spayed');
 
 
+INSERT INTO schedules
+VALUES (1, 'Monday');
+INSERT INTO schedules
+VALUES (2, 'Tuesday');
+INSERT INTO schedules
+VALUES (3, 'Wednesday');
+INSERT INTO schedules
+VALUES (4, 'Thursday');
+INSERT INTO schedules
+VALUES (5, 'Friday');
+INSERT INTO schedules
+VALUES (6, 'Saturday');
+INSERT INTO schedules
+VALUES (7, 'Sunday');
+
+
+
 INSERT INTO vet_schedule
-VALUES (1, 1, 'A-102', 2);
+VALUES (1, 1);
 INSERT INTO vet_schedule
-VALUES (2, 2, 'A-103', 2);
+VALUES (1, 2);
 INSERT INTO vet_schedule
-VALUES (3, 3, 'A-104', 3);
+VALUES (1, 3);
 INSERT INTO vet_schedule
-VALUES (4, 4, 'A-105', 4);
+VALUES (1, 4);
 INSERT INTO vet_schedule
-VALUES (5, 5, 'A-106', 1);
+VALUES (1, 5);
+
 INSERT INTO vet_schedule
-VALUES (6, 6, 'A-107', 5);
+VALUES (2, 1);
+INSERT INTO vet_schedule
+VALUES (2, 3);
+INSERT INTO vet_schedule
+VALUES (2, 5);
+
+
+INSERT INTO vet_schedule
+VALUES (3, 6);
+INSERT INTO vet_schedule
+VALUES (3, 7);
+
+
+INSERT INTO vet_schedule
+VALUES (6, 1);
+INSERT INTO vet_schedule
+VALUES (6, 4);
+INSERT INTO vet_schedule
+VALUES (6, 6);
+
+INSERT INTO ratings
+VALUES(1,1,'Johny',5);
 
 

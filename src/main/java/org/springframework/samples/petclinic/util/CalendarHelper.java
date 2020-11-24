@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.util;
 
+import org.springframework.samples.petclinic.model.Event;
+
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -80,10 +82,11 @@ public class CalendarHelper {
     public HashMap getEvents() {
 
         // Temporary static values
-        HashMap<Integer, String> events = new HashMap<>();
-        events.put(02, "Veteran day");
-        events.put(11, "Open house");
-        events.put(27, "Adoption day");
+        // Because I was not able to implement the repository with sql
+        HashMap<Integer, Event> events = new HashMap<>();
+        events.put(02, new Event("Veteran day"));
+        events.put(11, new Event("Open house", "10h00am"));
+        events.put(27, new Event("Adoption day", "13h00pm"));
 
         return events;
     }

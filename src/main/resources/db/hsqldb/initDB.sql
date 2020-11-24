@@ -86,6 +86,7 @@ ALTER TABLE vet_schedule
 ALTER TABLE vet_schedule
     ADD CONSTRAINT day_availability_range CHECK (day_available BETWEEN 0 AND 6);
 
+/* Events for the calendar on the welcome page */
 CREATE TABLE events (
     id          INTEGER IDENTITY PRIMARY KEY,
     date        DATE,

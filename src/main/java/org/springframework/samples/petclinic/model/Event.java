@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
+// Events for the calendar on the welcome page
+// Louis Choiniere
 public class Event {
 
     private String description;

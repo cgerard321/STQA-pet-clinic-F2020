@@ -22,6 +22,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
@@ -124,10 +125,33 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
     }
 
     @Override
+
+    public List<Visit> findAll() {
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets",
+            new JdbcPetRowMapper());
+
+        List<Visit> visits = this.jdbcTemplate.query(
+            "SELECT id as visit_id, visit_date, description, pet_id FROM visits",
+            new JdbcVisitRowMapper(results));
+
+        return visits;
+    }
+
+
     public void deleteByIdIn(List<Integer> visitIds) {
         Map<String, Object> params = new HashMap<>();
         params.put("ids", visitIds);
 
         this.jdbcTemplate.execute("DELETE FROM visits WHERE id IN (:ids)", params, PreparedStatement::execute);
     }
+
+    @Override
+    public void deleteById(int visitId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", visitId);
+        this.jdbcTemplate.execute("DELETE FROM visits WHERE id = (:id)", params, PreparedStatement::execute);
+
+    }
+
 }

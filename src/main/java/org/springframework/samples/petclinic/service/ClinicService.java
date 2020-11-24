@@ -16,10 +16,10 @@
 package org.springframework.samples.petclinic.service;
 
 
+import org.springframework.samples.petclinic.model.*;
+
 import java.util.Collection;
 import java.util.List;
-
-import org.springframework.samples.petclinic.model.*;
 
 
 /**
@@ -46,7 +46,7 @@ public interface ClinicService {
      *
      * @return a list of all the pets
      */
-    Collection<Pet> findPetById();
+    Collection<Pet> findPets();
 
     void savePet(Pet pet);
 
@@ -64,15 +64,23 @@ public interface ClinicService {
 
     Collection<Visit> findVisitsByPetId(int petId);
 
-
-    Collection<Schedule> findSchedules();
-
-    Schedule findScheduleByVetId(int id);
+//
+//    Collection<Schedule> findSchedules();
+//
+//    Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+    Collection<Visit> findAllVisits();
 
     void deleteVisitsById(List<Integer> visitIds);
 
+
+    void deleteVisitById(int visitId);
+
     void removePetById(int petId);
+
+    void saveRating(Rating rating);
+
+    Collection<Rating> findRatings();
 
 }

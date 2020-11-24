@@ -18,9 +18,13 @@ package org.springframework.samples.petclinic.model;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.samples.petclinic.annotation.ValidAddress;
+import org.springframework.samples.petclinic.annotation.ValidCity;
+import org.springframework.samples.petclinic.annotation.ValidPhoneNumber;
+import org.springframework.samples.petclinic.annotation.ValidState;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
@@ -44,20 +48,32 @@ import java.util.*;
 public class Owner extends Person {
     @Column(name = "address")
     @NotEmpty
+    @ValidAddress
     private String address;
 
     @Column(name = "city")
     @NotEmpty
+    @ValidCity
     private String city;
+
+    @Column(name = "state")
+    @NotEmpty
+    @ValidState
+    private String state;
 
     @Column(name = "telephone")
     @NotEmpty
-    @Digits(fraction = 0, integer = 10)
+    @ValidPhoneNumber
     private String telephone;
 
     @Column(name = "email")
     @NotEmpty
+    @Email
     private String email;
+
+    @Column(name = "comment")
+    @NotEmpty
+    private String comment;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
@@ -79,6 +95,10 @@ public class Owner extends Person {
         this.city = city;
     }
 
+    public String getState() {return this.state; }
+
+    public void setState(String state) {this.state = state;}
+
     public String getTelephone() {
         return this.telephone;
     }
@@ -93,6 +113,14 @@ public class Owner extends Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     protected Set<Pet> getPetsInternal() {
@@ -157,8 +185,10 @@ public class Owner extends Person {
             .append("firstName", this.getFirstName())
             .append("address", this.address)
             .append("city", this.city)
+            .append("state", this.state)
             .append("telephone", this.telephone)
             .append("email", this.email)
+            .append("comment", this.comment)
             .toString();
     }
 }

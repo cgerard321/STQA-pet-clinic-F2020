@@ -1,3 +1,4 @@
+<%@ page import="java.time.DayOfWeek" %>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -6,40 +7,40 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<petclinic:layout pageName="schedules">
-    <html>
-    <head>
-        <title>scheduleList</title>
-    </head>
-    <body>
-    <h1 style="text-align:center">All Vet Schedules</h1>
+<petclinic:layout pageName="vets">
+    <h2 id="veterinarians">Veterinarians</h2>
 
     <div class="row">
         <table id="vetsTable" class="table table-striped" aria-describedby="veterinarians">
             <thead>
             <tr>
-                <th scope="col">Veterinarian Id</th>
-                <th scope="col">Available Day</th>
+                <th scope="col">Name</th>
+                <th scope="col">Availability</th>
+<%--                <th scope="col"></th>--%>
             </tr>
             </thead>
             <tbody>
-
-            <c:forEach items="${schedules.scheduleList}" var="schedule">
+            <c:forEach items="${vets.vetList}" var="vet">
                 <tr>
                     <td>
-                        <c:out value="${schedule.vetId}"/>
+                        <c:out value="${vet.firstName} ${vet.lastName}"/>
                     </td>
-                    <td>
-                            <%--        hardcode--%>
-                        <c:if test="${schedule.dayAvailable == 1}">Monday</c:if>
-                        <c:if test="${schedule.dayAvailable == 2}">Tuesday</c:if>
-                        <c:if test="${schedule.dayAvailable == 3}">Wednesday</c:if>
-                        <c:if test="${schedule.dayAvailable == 4}">Thursday</c:if>
-                        <c:if test="${schedule.dayAvailable == 5}">Friday</c:if>
 
+                    <td>
+                        <ol>
+                            <c:forEach var="day" items="${vet.schedules}">
+
+                                <li style="list-style-type: none"><c:out value="${day.name}"/></li>
+
+                            </c:forEach>
+                            <c:if test="${vet.nrOfDaysAvailable == 0}">N/A</c:if>
+                        </ol>
                     </td>
+
+<%--                    <td>--%>
+<%--                        <a href="<spring:url value="/vets.html" htmlEscape="true"/>">Edit</a>--%>
+<%--                    </td>--%>
                 </tr>
             </c:forEach>
             </tbody>
@@ -47,6 +48,22 @@
     </div>
 
 
-    </body>
-    </html>
+<%--<div>--%>
+<%--    <form>--%>
+<%--<label>Select Veterinarian</label>--%>
+<%--        --%>
+<%--        <select>--%>
+<%--            <c:forEach items="${vets.vetList}" var="vet">--%>
+<%--                <option value="${vet.lastName}">${vet.lastName}</option>--%>
+<%--            </c:forEach>--%>
+<%--        </select>--%>
+<%--    </form>--%>
+<%--</div>--%>
+
+
+    <div class="col-md-2">
+        <a href="<spring:url value="/vets.html" htmlEscape="true" />">Return</a>
+    </div>
+
+
 </petclinic:layout>

@@ -65,4 +65,5 @@ public interface ClinicService {
 
     void removePetById(int petId);
 
+    void removeOwnerById(int ownerId);
 }

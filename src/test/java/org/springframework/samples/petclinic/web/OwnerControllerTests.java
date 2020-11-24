@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,11 +39,19 @@ class OwnerControllerTests {
 
     private Owner george;
 
+
     @BeforeEach
     void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(ownerController).build();
 
         george = new Owner();
+        // STQA 74 - REMOVE OWNER
+        // add dependency to the owner
+        // initialize the pet
+        Pet pet = new Pet();
+        // add pet to the owner
+        george.addPet(pet);
+
         george.setId(TEST_OWNER_ID);
         george.setFirstName("George");
         george.setLastName("Franklin");
@@ -212,4 +221,18 @@ class OwnerControllerTests {
         )
             .andExpect(status().is3xxRedirection());
     }
+
+
+    // STQA 74 - REMOVE OWNER
+    // try to remove owner with dependency
+    // since there's a dependency, it should go to removeOwner.jsp
+    @Test
+    public void testOwnerHasDependency() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/removeOwner"))
+            .andExpect(forwardedUrl("owners/removeOwner"));
+    }
+
+
 }

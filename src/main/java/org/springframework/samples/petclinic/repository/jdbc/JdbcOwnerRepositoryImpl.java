@@ -105,6 +105,16 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         return owner;
     }
 
+    @Override
+    public void removeOwner(Owner owner) {
+            int id = owner.getId();
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", id);
+
+            String SQL_Remove_Owner = "DELETE from owner o WHERE o.id =:id";
+            this.namedParameterJdbcTemplate.update(SQL_Remove_Owner, params);
+    }
+
     public void loadPetsAndVisits(final Owner owner) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", owner.getId());

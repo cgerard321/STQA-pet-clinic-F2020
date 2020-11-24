@@ -44,6 +44,7 @@ CREATE TABLE owners
     last_name  VARCHAR_IGNORECASE(30),
     address    VARCHAR(255),
     city       VARCHAR(80),
+    state      char(2),
     telephone  VARCHAR(20),
     email      VARCHAR(30),
     comment    VARCHAR(255)

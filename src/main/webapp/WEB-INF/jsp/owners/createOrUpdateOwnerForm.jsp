@@ -16,6 +16,7 @@
             <petclinic:inputField label="Last Name" name="lastName"/>
             <petclinic:inputField label="Address" name="address"/>
             <petclinic:inputField label="City" name="city"/>
+            <petclinic:inputField label="State Code" name="state"/>
             <petclinic:inputField label="Telephone" name="telephone"/>
             <petclinic:inputField label="Email" name="email"/>
             <petclinic:inputField label="Comment" name="comment"/>

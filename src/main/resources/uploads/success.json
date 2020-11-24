@@ -6,7 +6,8 @@
         "city": "Montreal",
         "telephone": "6085555418",
         "email": "joseph.smith@gmail.com",
-        "comment": "Does not like green"
+        "comment": "Does not like green",
+        "state": "QC"
     },
     {
         "firstName": "James",
@@ -15,7 +16,8 @@
         "city": "Brossard",
         "telephone": "6085544418",
         "email": "james.blaese@gmail.com",
-        "comment": "Does not like red"
+        "comment": "Does not like red",
+        "state": "QC"
     },
     {
         "firstName": "Daniel",
@@ -24,7 +26,8 @@
         "city": "Saint-Mathias",
         "telephone": "6085544418",
         "email": "daniel.williams@gmail.com",
-        "comment": "Does not like blue"
+        "comment": "Does not like blue",
+        "state": "QC"
     },
     {
         "firstName": "Joshua",
@@ -33,6 +36,7 @@
         "city": "New-York",
         "telephone": "6083344418",
         "email": "joshua.davis@gmail.com",
-        "comment": "Does not like red"
+        "comment": "Does not like red",
+        "state": "QC"
     }
 ]

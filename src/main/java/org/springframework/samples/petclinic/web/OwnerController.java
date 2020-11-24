@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,7 @@ public class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final ClinicService clinicService;
+    private String optionSelected;
 
     @Autowired
     public OwnerController(ClinicService clinicService) {
@@ -84,28 +87,127 @@ public class OwnerController {
     }
 
     @GetMapping(value = "/owners")
-    public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model, @RequestParam(value="dropdownOptions", required = false, defaultValue = "") String dropdownOptions) {
-
+    public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model,
+                                  @RequestParam(value="dropdownOptions", required = false, defaultValue = "") String dropdownOptions) {
         // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {
             owner.setLastName(""); // empty string signifies broadest possible search
         }
 
-        // find owners by last name
-        Collection<Owner> results = this.clinicService.findOwnerByLastName(owner.getLastName());
-        if (results.isEmpty()) {
-            // no owners found
-            result.rejectValue("lastName", "notFound", "not found");
-            return "owners/findOwners";
-        } else if (results.size() == 1) {
-            // 1 owner found
-            owner = results.iterator().next();
-            return "redirect:/owners/" + owner.getId();
-        } else {
-            // multiple owners found
-            model.put("selections", results);
-            return "owners/ownersList";
+        //by lucas-cimino
+        //get the dropdown value option for options that can have multiple results
+        if (dropdownOptions.equals("OptionFirstName") || dropdownOptions.equals("OptionLastName") || dropdownOptions.equals("OptionCity"))
+        {
+            //initialize a Collection of owner and a String
+            Collection<Owner> results = null;
+            String value = "";
+
+            //Check the value
+            if (dropdownOptions.equals("OptionFirstName"))
+            {
+                results = this.clinicService.findOwnerByFirstName(owner.getFirstName());
+                value = "firstName";
+            }
+
+            else if (dropdownOptions.equals("OptionLastName"))
+            {
+                results = this.clinicService.findOwnerByLastName(owner.getLastName());
+                value = "lastName";
+            }
+
+            else if (dropdownOptions.equals("OptionCity"))
+            {
+                results = this.clinicService.findOwnerByCity(owner.getCity());
+                value = "city";
+            }
+
+            //no owner found
+            if (results.isEmpty())
+            {
+                result.rejectValue(value, "notFound", "not found");
+                return "owners/findOwners";
+            }
+
+            //one owner found
+            else if (results.size() == 1)
+            {
+                owner = results.iterator().next();
+                return "redirect:/owners/" + owner.getId();
+            }
+
+            //multiple owners found
+            else
+            {
+                model.put("selections", results);
+                return "owners/ownersList";
+            }
         }
+
+        else if (dropdownOptions.equals("OptionId") || dropdownOptions.equals("OptionAddress") ||
+            dropdownOptions.equals("OptionTelephone") || dropdownOptions.equals("OptionEmail"))
+        {
+            Owner currOwner = null;
+            String value = "";
+            //Check the value
+            if (dropdownOptions.equals("OptionId"))
+            {
+                currOwner = this.clinicService.findOwnerById(owner.getId());
+                value = "Id";
+            }
+
+            else if (dropdownOptions.equals("OptionAddress"))
+            {
+                currOwner = this.clinicService.findOwnerByAddress(owner.getAddress());
+                value = "Address";
+            }
+
+            else if (dropdownOptions.equals("OptionTelephone"))
+            {
+                currOwner = this.clinicService.findOwnerByTelephone(owner.getTelephone());
+                value = "Telephone";
+            }
+
+            else if (dropdownOptions.equals("OptionEmail"))
+            {
+                currOwner = this.clinicService.findOwnerByEmail(owner.getEmail());
+                value = "Email";
+            }
+
+            if (currOwner.equals(owner))
+            {
+                result.rejectValue(value, "notFound", "not found");
+                return "owners/findOwners";
+            }
+
+            //one owner found
+            else
+            {
+                return "redirect:/owners/" + currOwner.getId();
+            }
+        }
+
+        else
+        {
+            return "owners/findOwners";
+        }
+
+
+
+        // find owners by last name
+//        Collection<Owner> results = this.clinicService.findOwnerByLastName(owner.getLastName());
+//        if (results.isEmpty()) {
+//            // no owners found
+//            result.rejectValue("lastName", "notFound", "not found");
+//            return "owners/findOwners";
+//        } else if (results.size() == 1) {
+//            // 1 owner found
+//            owner = results.iterator().next();
+//            return "redirect:/owners/" + owner.getId();
+//        } else {
+//            // multiple owners found
+//            model.put("selections", results);
+//            return "owners/ownersList";
+//        }
     }
 
     @GetMapping(value = "/owners/{ownerId}/edit")

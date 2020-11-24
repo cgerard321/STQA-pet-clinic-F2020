@@ -18,17 +18,19 @@
                 <div class="col-sm-10">
                     <form:input class="form-control" path="lastName" size="30" maxlength="80"/>
                     <span class="help-inline"><form:errors path="*"/></span>
+        <%--<form:select path="*" id="dropdownOptions"> </form:select>--%>
+                    <select id="dropdownOptions" name="dropdownOptions">
+                        <option value="OptionId" label="Id"></option>
+                        <option value="OptionFirstName" label="First Name"></option>
+                        <option value="OptionLastName" label="Last Name"></option>
+                        <option value="OptionAddress" label="Address"></option>
+                        <option value="OptionCity" label="City"></option>
+                        <option value="OptionTelephone" label="Telephone"></option>
+                        <option value="OptionEmail" label="Email"></option>
+                    </select>
                 </div>
             </div>
-            <form:select path="id" id="dropdownOptions">
-                <form:option value="Id" label="id" name="optionID"/>
-                <form:option value="First Name" label="firstName" name="optionFirstName"/>
-                <form:option value="Last Name" label="lastName" name="optionLastName"/>
-                <form:option value="Address" label="address" name="optionAddress"/>
-                <form:option value="City" label="city" name="optionCity"/>
-                <form:option value="Telephone" label="telephone" name="optionTelephone"/>
-                <form:option value="Email" label="email" name="optionEmail"/>
-            </form:select>
+
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

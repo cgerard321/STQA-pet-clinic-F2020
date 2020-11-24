@@ -43,6 +43,7 @@ ALTER SEQUENCE types_id_seq RESTART WITH 100;
 
 CREATE TABLE IF NOT EXISTS owners (
   id SERIAL,
+  profile_picture VARCHAR(255),
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   address VARCHAR(255),

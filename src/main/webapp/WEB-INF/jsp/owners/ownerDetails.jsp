@@ -10,6 +10,11 @@
 
     <table class="table table-striped" aria-describedby="ownerInformation">
         <tr>
+            <th id="profile_picture">Profile Picture</th>
+            <spring:url value="/resources/images/ownersProfilePictures/${owner.profile_picture}.png" var="profilePictureUrl" />
+            <td headers="profile_picture"><img src="${fn:escapeXml(profilePictureUrl)}" alt="owner image"></td>
+        </tr>
+        <tr>
             <th id="name">Name</th>
             <td headers="name"><strong><c:out value="${owner.firstName} ${owner.lastName}"/></strong></td>
         </tr>

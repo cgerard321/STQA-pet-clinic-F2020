@@ -11,6 +11,7 @@
     <table id="ownersTable" class="table table-striped" aria-describedby="owners">
         <thead>
         <tr>
+            <th scope="col" style="width: 150px;">Profile Picture</th>
             <th scope="col" style="width: 150px;">Name</th>
             <th scope="col" style="width: 200px;">Address</th>
             <th scope="col">City</th>
@@ -24,6 +25,8 @@
         <tbody>
         <c:forEach items="${selections}" var="owner">
             <tr>
+                <spring:url value="/resources/images/ownersProfilePictures/${owner.profile_picture}.png" var="profilePictureUrl" />
+                <td headers="profile_picture"><img src="${fn:escapeXml(profilePictureUrl)}" alt="owner image"></td>
                 <td>
                     <spring:url value="/owners/{ownerId}.html" var="ownerUrl">
                         <spring:param name="ownerId" value="${owner.id}"/>

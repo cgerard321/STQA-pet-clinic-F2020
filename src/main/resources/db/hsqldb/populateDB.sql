@@ -22,16 +22,16 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
-INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'george.franklin@gamil.com', 'This owner is hard of hearing');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'betty.davis@gmail.com', 'This owner is a bit impatient');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'eduardo.rodriquez@gmail.com', 'This owner does not read his emails');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'harold.davis@gmail.com', 'This owner is not funny');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'peter.mctavish@gmail.com', 'This owner is always a bit late');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'jean.coleman@gmail.com', 'This owner is very kind');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'jeff.black@gmail.com', 'This owner likes pink');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'maria.escobito@gmail.com.com', 'This owner has peanut allergy');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'david.schroeder@gmail.com', 'This owner is new to this clinic');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
+INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', 'WI', '6085551023', 'george.franklin@gamil.com', 'This owner is hard of hearing');
+INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', 'WI', '6085551749', 'betty.davis@gmail.com', 'This owner is a bit impatient');
+INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', 'NY', '6085558763', 'eduardo.rodriquez@gmail.com', 'This owner does not read his emails');
+INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', 'WI', '6085553198', 'harold.davis@gmail.com', 'This owner is not funny');
+INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', 'NY', '6085552765', 'peter.mctavish@gmail.com', 'This owner is always a bit late');
+INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', 'CA', '6085552654', 'jean.coleman@gmail.com', 'This owner is very kind');
+INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', 'CA', '6085555387', 'jeff.black@gmail.com', 'This owner likes pink');
+INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', 'WI', '6085557683', 'maria.escobito@gmail.com.com', 'This owner has peanut allergy');
+INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', 'WI', '6085559435', 'david.schroeder@gmail.com', 'This owner is new to this clinic');
+INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', 'AK', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
 
 INSERT INTO pets VALUES (1, 'Leo', '2010-09-07', 'https://i.pinimg.com/736x/33/32/6d/33326dcddbf15c56d631e374b62338dc.jpg', 0, 0, 1, 1);
 INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 'https://i.ytimg.com/vi/1BF1kfwAVN4/maxresdefault.jpg', 0, 0, 6, 2);
@@ -46,6 +46,7 @@ INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 'https://cdn5.littlething
 INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 'https://i.ytimg.com/vi/MjEaniGTrx0/maxresdefault.jpg', 0, 0, 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/originals/5c/d7/47/5cd7478e9a6f8893b288512b6181d658.jpg', 0, 0, 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg', 0, 0, 1, 10);
+
 
 INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');

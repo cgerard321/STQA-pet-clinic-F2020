@@ -109,6 +109,7 @@ abstract class AbstractClinicServiceTests {
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
         owner.setEmail("george.franklin@gamil.com");
+        owner.setComment("This owner found the test error for us");
         this.clinicService.saveOwner(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 

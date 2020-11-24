@@ -41,7 +41,8 @@
         </tr>
         </form>
     </c:forEach>
-    </table>
+    </table><br>
+<a href="http://localhost:8080/spring_framework_petclinic_war/">Return</a>
 </body>
 
 </petclinic:layout>

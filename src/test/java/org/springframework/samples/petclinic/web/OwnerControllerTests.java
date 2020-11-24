@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
+<<<<<<< HEAD
 import org.springframework.samples.petclinic.model.Visit;
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
@@ -297,6 +300,7 @@ class OwnerControllerTests {
         mockMvc.perform(post("/owners/addMultipleOwnersFake")).andExpect(status().is3xxRedirection());
     }
 
+<<<<<<< HEAD
     @Test
     void testProcessNewOwnerFormHasErrorMessage() throws Exception {
         mockMvc.perform(post("/owners/new")
@@ -321,6 +325,8 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 =======
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
 
     // STQA 74 - REMOVE OWNER
     // try to remove owner with dependency
@@ -334,5 +340,8 @@ class OwnerControllerTests {
     }
 
 
+<<<<<<< HEAD
 >>>>>>> fbdbd4f (Finished STQA 74 Remove Owner)
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
 }

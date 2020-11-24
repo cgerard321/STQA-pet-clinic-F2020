@@ -22,6 +22,7 @@ public class AppointmentController {
 
 
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
+    private static final String VIEWS_APPOINTMENTS_NAVIGATION = "appointments/navigateAppointments";
     private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;
 
@@ -69,6 +70,11 @@ public class AppointmentController {
 
         this.clinicService.deleteVisitById(appointmentId);
         return "redirect:/appointments/viewForm";
+    }
+
+    @GetMapping(value = "appointments")
+    public String initAppointmentsNavigation(Map<String, Object> model) {
+        return VIEWS_APPOINTMENTS_NAVIGATION;
     }
 }
 

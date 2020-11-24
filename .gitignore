@@ -10,3 +10,6 @@ bin/
 
 # Maven
 target/
+
+# Remove MacOS hidden file
+.DS_Store

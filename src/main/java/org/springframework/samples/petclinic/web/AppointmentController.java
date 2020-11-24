@@ -96,15 +96,12 @@ public class AppointmentController {
 
         Vets vet = new Vets();
         vet.getVetList().addAll(this.clinicService.findVets());
-        ArrayList<Schedule> holder = new ArrayList<Schedule>();
+        ArrayList<Schedule> holder = new ArrayList<>();
 
         for(Vet v : vet.getVetList())
         {
             for(Schedule sched: v.getSchedulesLastMinute())
-            {
-                if(sched.getId() <= dayOfWeek+1 && sched.getId() >= dayOfWeek-1)
                     holder.add(sched);
-            }
         }
 
         int chosenDay = holder.get(id-1).getId();
@@ -112,43 +109,15 @@ public class AppointmentController {
         LocalDate visitDate = LocalDate.now();
         LocalDate newDate = LocalDate.now();
 
-        switch(chosenDay)
+        if(chosenDay+1 == calendar.get(Calendar.DAY_OF_WEEK))
         {
-            case 2:
-                if(calendar.get(Calendar.DAY_OF_WEEK) == 1) // tuesday
-                    visitDate = LocalDate.now();
-                else
-                    visitDate = newDate.plusDays(1);
-                break;
-            case 3:
-                if(calendar.get(Calendar.DAY_OF_WEEK) == 1)
-                    visitDate = newDate.plusDays(2);
-                else if (calendar.get(Calendar.DAY_OF_WEEK) == 2)
-                    visitDate = newDate.plusDays(1);
-                else if(calendar.get(Calendar.DAY_OF_WEEK) == 3)
-                    visitDate = LocalDate.now();
-                break;
-            case 4:
-                if(calendar.get(Calendar.DAY_OF_WEEK) == 2)
-                    visitDate = newDate.plusDays(2);
-                else if (calendar.get(Calendar.DAY_OF_WEEK) == 3)
-                    visitDate = newDate.plusDays(1);
-                else if(calendar.get(Calendar.DAY_OF_WEEK) == 4)
-                    visitDate = LocalDate.now();
-                break;
-            case 5:
-                if(calendar.get(Calendar.DAY_OF_WEEK) == 3)
-                    visitDate = newDate.plusDays(2);
-                else if (calendar.get(Calendar.DAY_OF_WEEK) == 4)
-                    visitDate = newDate.plusDays(1);
-                else if(calendar.get(Calendar.DAY_OF_WEEK) == 5)
-                    visitDate = LocalDate.now();
-                break;
-            default:
-                visitDate = LocalDate.now();
-                break;
-
+            visitDate = LocalDate.now();
         }
+        else if((chosenDay+1) - calendar.get(Calendar.DAY_OF_WEEK) == 1)
+            visitDate = newDate.plusDays(1);
+        else
+            visitDate = newDate.plusDays(2);
+/*Possible bug - Sunday exception case not implemented yet*/
 
         Pet p = this.clinicService.findPetById(petId);
 

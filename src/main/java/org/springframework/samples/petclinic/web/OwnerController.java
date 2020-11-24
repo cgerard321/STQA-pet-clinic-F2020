@@ -93,7 +93,6 @@ public class OwnerController {
         if (owner.getLastName() == null) {
             owner.setLastName(""); // empty string signifies broadest possible search
         }
-
         //by lucas-cimino
         //get the dropdown value option for options that can have multiple results
         if (dropdownOptions.equals("OptionFirstName") || dropdownOptions.equals("OptionLastName") || dropdownOptions.equals("OptionCity"))

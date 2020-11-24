@@ -233,10 +233,9 @@ class OwnerControllerTests {
     @Test
     void testAddMultipleOwners_SendFileSuccessful() throws Exception {
 
-        final String GOOD_FILE_NAME = "success.json";
-        final String GOOD_FILE_PATH = context.getRealPath("resources/uploads");
+        final String GOOD_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/uploads/success.json";
 
-        FileInputStream fs = new FileInputStream(GOOD_FILE_PATH + "/" + GOOD_FILE_NAME);
+        FileInputStream fs = new FileInputStream(GOOD_FILE_PATH);
         MockMultipartFile file = new MockMultipartFile("file", fs);
 
         HashMap<String, String> mediaTypeParams = new HashMap<>();

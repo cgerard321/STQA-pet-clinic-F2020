@@ -11,13 +11,91 @@
 <c:set var = "events" value = "${calendar.getEvents()}"/>
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
+    <h1><fmt:message key="welcome"/></h1>
+
+    <!--
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
             <img class="img-responsive" alt="A cat and a dog" src="${petsImage}"/>
         </div>
     </div>
+    -->
+
+    <details id="hallOfFame" style="display:none">
+    <summary><strong>Hall of Fame</strong></summary>
+    <!-- Ryan L. -->
+    <table>
+        <thead class="thead">
+            <tr id="ranking">
+                <th class="text-center">1st</th>
+                <th class="text-center">2nd</th>
+                <th class="text-center">3rd</th>
+            </tr>
+            <tr>
+                <th id="HOF1Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF2Name" class="text-center">Pet name [Pet average rating]</th>
+                <th id="HOF3Name" class="text-center">Pet name [Pet average rating]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF1Img" src="${firstPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name1">John Doe</h1>
+                                <p id="owner1"></p>
+                                <p id="timesRated1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF2Img" src="${secondPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name2">John Doe</h1>
+                                <p id="owner2"></p>
+                                <p id="timesRated2"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
+                <td class="text-center" style="width:35%">
+                    <div class="card" id="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF3Img" src="${thirdPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name3">John Doe</h1>
+                                <p id="owner3"></p>
+                                <p id="timesRated3"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </details>
+
+    <br/>
+    <%--    Rating Related Buttons - Nichita--%>
+    <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
+    <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+    <br/>
 
     <%-- Calendar -Louis C. --%>
 

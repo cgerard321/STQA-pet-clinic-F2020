@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
@@ -40,16 +41,17 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
-    private ScheduleRepository scheduleRepository;
+    private RatingRepository ratingRepository;
+
 
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ScheduleRepository scheduleRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
-        this.scheduleRepository = scheduleRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Override
@@ -121,16 +123,6 @@ public class ClinicServiceImpl implements ClinicService {
         return visitRepository.findByPetId(petId);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Schedule> findSchedules() {
-        return scheduleRepository.findAll();
-    }
-
-    @Override
-    public Schedule findScheduleByVetId(int id) {
-        return scheduleRepository.findScheduleById(id);
-    }
 
     @Override
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
@@ -138,13 +130,41 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Collection<Visit> findAllVisits(){
+
+        return visitRepository.findAll();
+
+    }
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);
     }
 
+    @Transactional
+    public void deleteVisitById(int visitId) {
+        visitRepository.deleteById(visitId);
+    }
+
     public void removePetById(int petId) {
-        petRepository.removePet(petId);
+        Pet pet = petRepository.findById(petId);
+        // Check if the petId is associated to a valid pet
+        if (pet == null) {
+            throw new ObjectRetrievalFailureException("Pet not found", ObjectRetrievalFailureException.class);
+        }
+
+        petRepository.removePet(pet);
+    }
+
+    @Override
+    @Transactional
+    public void saveRating(Rating rating) {
+        ratingRepository.save(rating);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Rating> findRatings() {
+        return ratingRepository.findAll();
     }
 
 }

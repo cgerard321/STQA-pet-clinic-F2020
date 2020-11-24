@@ -45,18 +45,31 @@
                         <td style="text-transform:capitalize;">
                             <c:out value="${pet.type.name}"/>
                         </td>
-                        <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
-                            <td><a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
+                        <td>
+                        <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl" />
+                        <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}">
+                            
+                              
+                              <a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
                             <!--    Go to edit pet page -->
-                            </td>
-                            <td>
-                                <button type="submit" name="deletePet" value="${pet.id}"
+                              
+                                 <button type="submit" name="deletePet" value="${pet.id}"
                                         onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
                                     Delete Pet
                                 </button>
                                 <!--remove the new pet -->
-                            </td>
+                              
                         </form:form>
+                        <spring:url value="/pets/${pet.id}/view" var="petViewUrl" />
+                        <form:form method="POST" action="${fn:escapeXml(petViewUrl)}">
+                            <button type="submit" name="viewPetDetails" value="${pet.id}">
+                                    View Details
+                                </button>
+                                <!--view details about pet -->
+                          
+                            
+                        </form:form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -69,11 +82,11 @@
         </c:otherwise>
     </c:choose>
 
-    <div class="col-sm-3">
+    <input class="col-sm-3">
         <a href="${fn:escapeXml(petUrl)}">
             <button type="button" name="addPet">Add Pet</button>
         </a>
-        <input type="text" id="addPet" name="addPet"><!--add the new pet -->
+        <input type="text" id="addPet" name="addPet"><!--add the new pet --></input>
     </div>
 
 </petclinic:layout>

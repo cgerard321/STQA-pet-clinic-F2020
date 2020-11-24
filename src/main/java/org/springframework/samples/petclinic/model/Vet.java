@@ -15,11 +15,7 @@
  */
 package org.springframework.samples.petclinic.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -83,6 +79,27 @@ public class Vet extends Person {
     @XmlElement
     public List<Schedule> getSchedules() {
         List<Schedule> sortedSpecs = new ArrayList<>(getScheduleInternal());
+        PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
+        return Collections.unmodifiableList(sortedSpecs);
+    }
+
+    /*Code by Alexandra Mormontoy*/
+    @XmlElement
+    public List<Schedule> getSchedulesLastMinute() {
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        List<Schedule> holder = new ArrayList<>(getScheduleInternal());
+        List<Schedule> sortedSpecs = new ArrayList<>();
+
+        for(Schedule sched: holder)
+        {
+            if(sched.getId() >= dayOfWeek-1 && sched.getId() <= dayOfWeek+1)
+            {
+                sortedSpecs.add(sched);
+            }
+        }
+
         PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
         return Collections.unmodifiableList(sortedSpecs);
     }

@@ -47,6 +47,7 @@ INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 'https://i.ytimg.com/vi/MjE
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/originals/5c/d7/47/5cd7478e9a6f8893b288512b6181d658.jpg', 0, 0, 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg', 0, 0, 1, 10);
 
+
 INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
@@ -81,3 +82,4 @@ INSERT INTO vet_schedule VALUES (6, 1);
 INSERT INTO vet_schedule VALUES (6, 4);
 INSERT INTO vet_schedule VALUES (6, 6);
 
+INSERT INTO ratings VALUES(1,1,'Johny',5);

@@ -101,5 +101,16 @@ class VetControllerTests {
             .andExpect(view().name("vets/scheduleList"));
     }
 
+    //tests for the vet profile -- appointment deletion not included
+    @Test
+    void testShowsVetProfile() throws Exception
+    {
+        mockMvc.perform(get("/vetProfile.html?id=2"))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("vet"))
+        .andExpect(view().name("vets/vetProfile"));
+    }
+
+
 }
 

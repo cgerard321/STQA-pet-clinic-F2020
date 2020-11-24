@@ -53,6 +53,7 @@ INSERT IGNORE INTO owners VALUES (8, 'images (8)','Maria', 'Escobito', '345 Mapl
 INSERT IGNORE INTO owners VALUES (9, 'images (7)','David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'david.schroeder@gmail.com', 'This owner is new to this clinic');
 INSERT IGNORE INTO owners VALUES (10, 'images_default','Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
 
+
 INSERT IGNORE INTO pets
 VALUES (1, 'Leo', '2000-09-07', 1, 1);
 INSERT IGNORE INTO pets
@@ -139,5 +140,7 @@ VALUES (6, 4);
 INSERT INTO vet_schedule
 VALUES (6, 6);
 
+INSERT INTO ratings
+VALUES(1,1,'Johny',5);
 
 

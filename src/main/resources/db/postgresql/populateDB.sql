@@ -22,6 +22,7 @@ INSERT INTO types VALUES (4, 'snake') ON CONFLICT DO NOTHING;
 INSERT INTO types VALUES (5, 'bird') ON CONFLICT DO NOTHING;
 INSERT INTO types VALUES (6, 'hamster') ON CONFLICT DO NOTHING;
 
+
 INSERT INTO owners VALUES (1, 'images (1)','George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'george.franklin@gamil.com', 'This owner is hard of hearing') ON CONFLICT DO NOTHING;
 INSERT INTO owners VALUES (2, 'images (9)','Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'betty.davis@gmail.com', 'This owner is a bit impatient') ON CONFLICT DO NOTHING;
 INSERT INTO owners VALUES (3, 'images (6)','Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'eduardo.rodriquez@gmail.com', 'This owner does not read his emails') ON CONFLICT DO NOTHING;
@@ -32,6 +33,7 @@ INSERT INTO owners VALUES (7, 'images (3)','Jeff', 'Black', '1450 Oak Blvd.', 'M
 INSERT INTO owners VALUES (8, 'images (8)','Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'maria.escobito@gmail.com.com', 'This owner has peanut allergy') ON CONFLICT DO NOTHING;
 INSERT INTO owners VALUES (9, 'images (7)','David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'david.schroeder@gmail.com', 'This owner is new to this clinic') ON CONFLICT DO NOTHING;
 INSERT INTO owners VALUES (10, 'images_default','Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals') ON CONFLICT DO NOTHING;
+
 
 INSERT INTO pets VALUES (1, 'Leo', '2000-09-07', 1, 1) ON CONFLICT DO NOTHING;
 INSERT INTO pets VALUES (2, 'Basil', '2002-08-06', 6, 2) ON CONFLICT DO NOTHING;

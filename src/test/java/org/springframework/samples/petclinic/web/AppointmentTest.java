@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -69,7 +71,7 @@ public class AppointmentTest {
         List<WebElement> cancels = driver.findElements(By.xpath("//input[@type='submit']"));
         assertThat(cancels.get(0), is(cancel));
     }
-
+  
     @Test
     @Order(4)
     void checkGoBackButtonGoesBackCancelAppointment() {
@@ -98,5 +100,15 @@ public class AppointmentTest {
         assertThat(driver.getCurrentUrl(), endsWith("/owners/1"));
     }
 
+    //Used for the vetProfile page. Basically ensure that there's always a cancel
+    //button for the appointments in the schedule. If there's none, there's no appointments.
+    @Test
+    @Order(5)
+    void checkAppointmentsScheduledCanBeCancelled() {
+        driver.get("http://localhost:"+ TOMCAT_PORT+ TOMCAT_PREFIX+ "/vetProfile.html?id=4");
+        driver.manage().window().maximize();
 
+        List<WebElement> hasASchedule = driver.findElements(By.className("btn"));
+        assertThat(hasASchedule.size(), greaterThanOrEqualTo(0));    
+    }
 }

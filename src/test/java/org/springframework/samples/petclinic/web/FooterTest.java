@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
+
 // Test may break depending on TomcatPort.
 @ExtendWith(SeleniumExtension.class)
 public class FooterTest {
@@ -25,7 +28,7 @@ public class FooterTest {
     public void TestGoTo_Home() {
         //assert
         String linkName = "Home";
-        driver.get("http://localhost:8090/spring_framework_petclinic_war/owners/find.html");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/find.html");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
@@ -57,38 +60,39 @@ public class FooterTest {
         //assert
 
         String linkName= "Find owners";
-        driver.get("http://localhost:8090/spring_framework_petclinic_war/");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-    WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
+        WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
         int links =   footer.findElements(By.tagName("a")).size();
 
-    //store all links of footer wihin a list
-    for(int i=0;i<links;i++){
-        List<WebElement> footlinks = footer.findElements(By.tagName("a"));
-        WebElement test = footlinks.get(i);
-        String testText=test.getText();
+        //store all links of footer wihin a list
+        for(int i=0;i<links;i++){
+            List<WebElement> footlinks = footer.findElements(By.tagName("a"));
+            WebElement test = footlinks.get(i);
+            String testText=test.getText();
 
-        if(testText.equals(linkName)){
+            if(testText.equals(linkName)){
                 test.click();
                 break;
             }
         }
 
-    WebElement lastName = driver.findElement(By.id("lastName"));
-    assertThat(lastName.isDisplayed(), is(true)) ;
-    try{
-        Thread.sleep(1000);
-    } catch(InterruptedException e){
-        e.printStackTrace();
+        WebElement lastName = driver.findElement(By.id("lastName"));
+        assertThat(lastName.isDisplayed(), is(true)) ;
+        try{
+            Thread.sleep(1000);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
-    }
+
     @Test
     public void TestGoTo_Veterinarians() {
         //assert
         String linkName = "Veterinarians";
-        driver.get("http://localhost:8090/spring_framework_petclinic_war/");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
@@ -120,7 +124,7 @@ public class FooterTest {
         //assert
 
         String linkName = "Error";
-        driver.get("http://localhost:8090/spring_framework_petclinic_war/");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.

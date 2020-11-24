@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS owners (
   address VARCHAR(255),
   city VARCHAR(80),
   telephone VARCHAR(20),
+  email VARCHAR(30),
+  comment VARCHAR(255)
   INDEX(last_name)
 ) engine=InnoDB;
 
@@ -61,15 +63,28 @@ CREATE TABLE IF NOT EXISTS visits (
 ) engine=InnoDB;
 
 
-/*Code added by Maria Carolina Avila for the APPT team*/
-CREATE TABLE IF NOT EXISTS vet_schedule (
-    schedule_id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    vet_ID INT(4) NOT NULL,
-    room_ID VARCHAR(5) NOT NULL,
-    day_available NUMERIC(1,0) NOT NULL CHECK ( day_available BETWEEN 0 AND 6),
+CREATE TABLE IF NOT EXISTS schedules (
+    id INT(4) NOT NULL PRIMARY KEY,
+    name VARCHAR(68) NOT NULL,
 
-
-    FOREIGN KEY(vet_ID) REFERENCES vets(id),
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS vet_schedule (
+    vet_id INT(4) NOT NULL,
+    day_id VARCHAR(5) NOT NULL,
+
+
+    FOREIGN KEY(vet_id) REFERENCES vets(id),
+    FOREIGN KEY(day_id) REFERENCES schedules(id)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS ratings
+(
+    id          INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pet_id      INT(4) UNSIGNED NOT NULL,
+    username   VARCHAR(30),
+    rating      INT(2),
+    FOREIGN KEY (pet_id) REFERENCES pets(id)
+)engine=InnoDB;
 
 

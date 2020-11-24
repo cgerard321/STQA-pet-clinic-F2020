@@ -6,7 +6,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
 <!-- -->
 <petclinic:layout pageName="pets">
     <h2 id="pets">Pets</h2>
@@ -23,6 +22,8 @@
                     <th scope="col">Owner</th>
                     <th scope="col">Type</th>
                     <th></th>
+                    <th></th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -33,7 +34,7 @@
                                 <spring:param name="ownerId" value="${pet.owner.id}"/>
                                 <spring:param name="petId" value="${pet.id}"/>
                             </spring:url>
-                            <a href="${fn:escapeXml(petUrl)}"><c:out value="${pet.name}"/></a>
+                            <c:out value="${pet.name}"/>
                         </td>
                         <td>
                             <c:out value="${pet.birthDate}"/>
@@ -45,21 +46,29 @@
                             <c:out value="${pet.type.name}"/>
                         </td>
                         <td>
-                        <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
-
-                                <button type="submit" name="deletePet" value="${pet.id}"
+                        <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl" />
+                        <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}">
+                            
+                              
+                              <a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
+                            <!--    Go to edit pet page -->
+                              
+                                 <button type="submit" name="deletePet" value="${pet.id}"
                                         onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
                                     Delete Pet
                                 </button>
                                 <!--remove the new pet -->
+                              
                         </form:form>
                         <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/view">
                             <button type="submit" name="viewPetDetails" value="${pet.id}">
                                     View Details
                                 </button>
-                                <!--remove the new pet -->
-                            </td>
+                                <!--view details about pet -->
+                          
+                            
                         </form:form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -80,5 +89,4 @@
     </div>
 
 </petclinic:layout>
-
 

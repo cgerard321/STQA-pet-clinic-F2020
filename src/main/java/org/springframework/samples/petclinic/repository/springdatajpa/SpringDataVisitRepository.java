@@ -23,6 +23,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Spring Data JPA specialization of the {@link VisitRepository} interface
@@ -39,4 +40,10 @@ public interface SpringDataVisitRepository extends VisitRepository, Repository<V
     @Modifying
     @Query("DELETE FROM Visit v WHERE v.id IN (:ids)")
     void deleteByIdIn(@Param("ids") List<Integer> visitIds);
+
+    @Override
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Visit v WHERE v.id = :id")
+    void deleteById(@Param("id") int visitId);
 }

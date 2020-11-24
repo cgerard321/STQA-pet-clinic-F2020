@@ -145,6 +145,14 @@ public class ClinicServiceImpl implements ClinicService {
         visitRepository.deleteById(visitId);
     }
 
+    public void removeOwnerById(int ownerId) {
+        Owner owner = ownerRepository.findById(ownerId);
+        if (owner == null) {
+            throw new ObjectRetrievalFailureException("Owner not found", ObjectRetrievalFailureException.class);
+        }
+        ownerRepository.removeOwner(owner);
+    }
+
     public void removePetById(int petId) {
         Pet pet = petRepository.findById(petId);
         // Check if the petId is associated to a valid pet

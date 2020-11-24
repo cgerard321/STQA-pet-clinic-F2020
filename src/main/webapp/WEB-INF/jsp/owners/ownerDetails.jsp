@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <petclinic:layout pageName="owners">
 
@@ -48,6 +49,11 @@
         <spring:param name="ownerId" value="${owner.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Pet</a>
+
+    <spring:url value="{ownerId}/remove.html" var="removeOwner">
+        <spring:param name="ownerId" value="${owner.id}"/>
+    </spring:url>
+    <a href="${fn:escapeXml(removeOwner)}" class="btn btn-default" onclick="return confirm('Are you sure you?')">Remove Owner</a>
 
     <c:if test="${hasFutureVisits}">
         <spring:url value="{ownerId}/appointments/cancel.html" var="cancelAppointmentUrl">

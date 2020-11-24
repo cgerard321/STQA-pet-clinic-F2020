@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
-<<<<<<< HEAD
+
 import org.springframework.samples.petclinic.model.Visit;
-=======
+
 import org.springframework.samples.petclinic.model.Pet;
->>>>>>> 1f77d4d (Finished STQA 74 Remove Owner)
+
+
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -327,7 +328,6 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/ownersList"));
     }
 
-
     // STQA 74 - REMOVE OWNER
     // try to remove owner with dependency
     // since there's a dependency, it should go to removeOwner.jsp
@@ -338,6 +338,4 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/removeOwner"))
             .andExpect(forwardedUrl("owners/removeOwner"));
     }
-
-
 }

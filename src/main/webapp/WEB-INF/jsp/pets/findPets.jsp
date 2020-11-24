@@ -60,7 +60,8 @@
                                 <!--remove the new pet -->
                               
                         </form:form>
-                        <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/view">
+                        <spring:url value="/pets/${pet.id}/view" var="petViewUrl" />
+                        <form:form method="POST" action="${fn:escapeXml(petViewUrl)}">
                             <button type="submit" name="viewPetDetails" value="${pet.id}">
                                     View Details
                                 </button>

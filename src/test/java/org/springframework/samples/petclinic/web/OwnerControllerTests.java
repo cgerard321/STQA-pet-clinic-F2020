@@ -50,6 +50,7 @@ class OwnerControllerTests {
         george.setLastName("Franklin");
         george.setAddress("110 W. Liberty St.");
         george.setCity("Madison");
+        george.setState("NY");
         george.setTelephone("6085551023");
         george.setEmail("george.franklin@gmail.com");
         george.setComment("This owner is hard of hearing");
@@ -72,6 +73,7 @@ class OwnerControllerTests {
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
+            .param("state", "NY")
             .param("telephone", "01316761638")
             .param("email", "george.franklin@gmail.com")
             .param("comment", "This owner is hard of hearing")
@@ -89,6 +91,7 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(model().attributeHasFieldErrors("owner", "comment"))
@@ -143,6 +146,7 @@ class OwnerControllerTests {
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
+            .andExpect(model().attribute("owner", hasProperty("state", is("NY"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(model().attribute("owner", hasProperty("email", is("george.franklin@gmail.com"))))
             .andExpect(model().attribute("owner", hasProperty("comment", is("This owner is hard of hearing"))))
@@ -156,6 +160,7 @@ class OwnerControllerTests {
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
+            .param("state", "NY")
             .param("telephone", "01616291589")
             .param("email", "joe.bloggs@gmail.com")
             .param("comment", "This owner is hard of hearing")
@@ -174,6 +179,7 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(model().attributeHasFieldErrors("owner", "comment"))
@@ -188,6 +194,7 @@ class OwnerControllerTests {
             .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
+            .andExpect(model().attribute("owner", hasProperty("state", is("NY"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(model().attribute("owner", hasProperty("email", is("george.franklin@gmail.com"))))
             .andExpect(model().attribute("owner", hasProperty("comment", is("This owner is hard of hearing"))))
@@ -220,5 +227,29 @@ class OwnerControllerTests {
             .param("2", "off")
         )
             .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void testProcessNewOwnerFormHasErrorMessage() throws Exception {
+        mockMvc.perform(post("/owners/new")
+            .param("firstName", "12124")
+            .param("lastName", "anr@")
+            .param("address", "48 Theberge")
+            .param("city", "1442.")
+            .param("state", "1234")
+            .param("telephone", "514229178a")
+            .param("email", "antoine.heboutlook")
+        )
+            //This test is supposed to pass if error messages are been displayed on screen when the owner name does not contain only letter
+            .andExpect(status().isOk())
+            .andExpect(model().attributeHasErrors("owner"))
+            .andExpect(model().attributeHasFieldErrors("owner", "firstName"))
+            .andExpect(model().attributeHasFieldErrors("owner", "lastName"))
+            .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", "city"))
+            .andExpect(model().attributeHasFieldErrors("owner", "state"))
+            .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
+            .andExpect(model().attributeHasFieldErrors("owner", "email"))
+            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 }

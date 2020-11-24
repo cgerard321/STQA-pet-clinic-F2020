@@ -81,6 +81,7 @@ public class CalendarHelper {
 
     public HashMap getEvents() {
 
+
         // Temporary static values
         // Because I was not able to implement the repository with sql
         HashMap<Integer, Event> events = new HashMap<>();

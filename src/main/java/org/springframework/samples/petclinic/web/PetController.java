@@ -118,6 +118,12 @@ public class PetController {
         model.put("pet", pet);
         return VIEWS_PETS_VIEW_DETAILS;
     }
+    @PostMapping(value = "/pets/{petId}/view")
+    public String initViewPet2(@PathVariable("petId") int petId, ModelMap model) {
+        Pet pet = this.clinicService.findPetById(petId);
+        model.put("pet", pet);
+        return VIEWS_PETS_VIEW_DETAILS;
+    }
 
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")

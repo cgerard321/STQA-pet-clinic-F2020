@@ -98,11 +98,11 @@ public class OwnerController {
         //get the dropdown value option for options that can have multiple results
         if (dropdownOptions.equals("OptionFirstName") || dropdownOptions.equals("OptionLastName") || dropdownOptions.equals("OptionCity"))
         {
-            //initialize a Collection of owner and a String
+            //initialize a Collection of owner and a String that will be used if there are no owners found
             Collection<Owner> results = null;
             String value = "";
 
-            //Check the value
+            //Check the value of the option selected
             if (dropdownOptions.equals("OptionFirstName"))
             {
                 results = this.clinicService.findOwnerByFirstName(owner.getFirstName());
@@ -143,12 +143,15 @@ public class OwnerController {
             }
         }
 
+        //get the dropdown value option for options that can have 0 or one result
         else if (dropdownOptions.equals("OptionId") || dropdownOptions.equals("OptionAddress") ||
             dropdownOptions.equals("OptionTelephone") || dropdownOptions.equals("OptionEmail"))
         {
+            //initialize an Owner object and a String that will be used if there are no owners found
             Owner currOwner = null;
             String value = "";
-            //Check the value
+
+            //Check the value of the dropdown option
             if (dropdownOptions.equals("OptionId"))
             {
                 currOwner = this.clinicService.findOwnerById(owner.getId());
@@ -173,6 +176,7 @@ public class OwnerController {
                 value = "Email";
             }
 
+            //no owner found
             if (currOwner.equals(owner))
             {
                 result.rejectValue(value, "notFound", "not found");
@@ -186,6 +190,7 @@ public class OwnerController {
             }
         }
 
+        //if there is an error in the process of getting the dropdown option
         else
         {
             return "owners/findOwners";

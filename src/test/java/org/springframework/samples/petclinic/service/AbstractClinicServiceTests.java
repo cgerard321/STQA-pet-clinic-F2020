@@ -77,6 +77,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     //added test methods by lucas-cimino to test the Owner Class Fields
+    //test the findOwnersByFirstName method
     @Test
     void shouldFindOwnersByFirstName() {
         Collection<Owner> owners = this.clinicService.findOwnerByFirstName("Peter");
@@ -86,6 +87,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(owners.isEmpty()).isTrue();
     }
 
+    //test the findOwnersByCity method
     @Test
     void shouldFindOwnersByCity() {
         Collection<Owner> owners = this.clinicService.findOwnerByCity("Madison");
@@ -95,6 +97,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(owners.isEmpty()).isTrue();
     }
 
+    //test the findOwnerById method
     @Test
     void shouldFindOwnerById()
     {
@@ -104,6 +107,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(George.getTelephone()).isEqualTo("6085551023");
     }
 
+    //test the findOwnerByAddress method
     @Test
     void shouldFindOwnerByAddress()
     {
@@ -113,6 +117,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(Eduardo.getLastName()).isEqualTo("Rodriquez");
     }
 
+    //test the findOwnersByTelephone method
     @Test
     void shouldFindOwnerByTelephone()
     {
@@ -122,6 +127,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(Jeff.getEmail()).isEqualTo("jeff.black@gmail.com");
     }
 
+    //test the findOwnerByEmail method
     @Test
     void shouldFindOwnerByEmail()
     {
@@ -130,6 +136,7 @@ abstract class AbstractClinicServiceTests {
         assertThat(Carlos.getFirstName()).isEqualTo("Carlos");
         assertThat(Carlos.getLastName()).isEqualTo("Estaban");
     }
+    //end of tests by lucas-cimino
 
     //test by Antoine Hebert
     @Test
@@ -142,6 +149,7 @@ abstract class AbstractClinicServiceTests {
 
         assertThat(actualResult.equals(expected));
     }
+
 
 
     @Test

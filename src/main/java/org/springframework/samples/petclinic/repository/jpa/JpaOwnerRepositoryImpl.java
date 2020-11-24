@@ -59,6 +59,8 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         return query.getResultList();
     }
 
+    //methods added by lucas-cimino
+    //used to find Owner attributes in Owner Table
     @Override
     public Collection<Owner> findByFirstName(String firstName) {
         Query query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.firstName LIKE :firstName");
@@ -102,7 +104,7 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         query.setParameter("email", email);
         return (Owner) query.getSingleResult();
     }
-
+    //methods added by lucas-cimino finish here
 
     @Override
     public void save(Owner owner) {

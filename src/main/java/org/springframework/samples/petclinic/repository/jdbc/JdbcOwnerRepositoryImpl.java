@@ -83,6 +83,8 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         return owners;
     }
 
+    //methods added by lucas-cimino
+    //used to find Owner attributes in Owner Table
     @Override
     public Collection<Owner> findByFirstName(String firstName) {
         Map<String, Object> params = new HashMap<>();
@@ -184,6 +186,8 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         loadPetsAndVisits(owner);
         return owner;
     }
+    //methods added by lucas-cimino finish here
+
 
     public void loadPetsAndVisits(final Owner owner) {
         Map<String, Object> params = new HashMap<>();

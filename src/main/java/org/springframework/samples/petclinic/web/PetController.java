@@ -40,12 +40,14 @@ import java.util.stream.IntStream;
  * @author Juergen Hoeller
  * @author Ken Krebs
  * @author Arjen Poutsma
+ *
  */
 @Controller
 //@RequestMapping("/owners/{ownerId}")
 public class PetController {
 // Yu Qiao was here
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
+    private static final String VIEWS_PETS_VIEW_DETAILS = "pets/petDetails";
     private final ClinicService clinicService;
 
     @Autowired
@@ -116,6 +118,19 @@ public class PetController {
         }
     }
 
+    @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
+    public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
+        Pet pet = this.clinicService.findPetById(petId);
+        model.put("pet", pet);
+        return VIEWS_PETS_VIEW_DETAILS;
+    }
+    @PostMapping(value = "/pets/{petId}/view")
+    public String initViewPet2(@PathVariable("petId") int petId, ModelMap model) {
+        Pet pet = this.clinicService.findPetById(petId);
+        model.put("pet", pet);
+        return VIEWS_PETS_VIEW_DETAILS;
+    }
+
     // GET /pets/petList
     @GetMapping(value = "/pets/petList")
     public String processAllPets(Map<String, Object> model) {
@@ -136,6 +151,7 @@ public class PetController {
             results = null;
         }
         model.put("selections", results);
+     model.put("pet", results);
         return "pets/findPets";
     }
 

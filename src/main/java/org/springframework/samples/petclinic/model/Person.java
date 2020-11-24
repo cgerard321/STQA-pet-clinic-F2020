@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.springframework.samples.petclinic.model;
+import org.springframework.samples.petclinic.annotation.ValidName;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +33,12 @@ public class Person extends BaseEntity {
 
     @Column(name = "first_name")
     @NotEmpty
+    @ValidName
     protected String firstName;
 
     @Column(name = "last_name")
     @NotEmpty
+    @ValidName
     protected String lastName;
 
     public String getFirstName() {

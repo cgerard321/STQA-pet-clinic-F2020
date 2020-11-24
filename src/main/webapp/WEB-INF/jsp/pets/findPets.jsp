@@ -45,7 +45,8 @@
                         <td style="text-transform:capitalize;">
                             <c:out value="${pet.type.name}"/>
                         </td>
-                        <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
+                        <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl" />
+                        <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}">
                             <td><a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
                             <!--    Go to edit pet page -->
                             </td>

@@ -19,16 +19,18 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitWebConfig(locations = {"classpath:spring/mvc-core-config.xml", "classpath:spring/mvc-test-config.xml"})
 @ExtendWith(SeleniumExtension.class)
-public class AppointmentControllerTest {
+public class AppointmentControllerTests {
 
-    EdgeDriver driver;
+    ChromeDriver driver;
 
-    public AppointmentControllerTest(EdgeDriver driver) {
+    public AppointmentControllerTests(ChromeDriver driver) {
         this.driver = driver;
 
     }
@@ -81,7 +83,7 @@ public class AppointmentControllerTest {
     void checkForCancelButton() throws Exception{
 
         //assert
-        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/appointments/viewForm");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
@@ -93,7 +95,7 @@ public class AppointmentControllerTest {
     @Test
     void checkNumberOfCancelButtons() throws Exception{
 
-        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/appointments/viewForm");
         driver.manage().window().maximize();
 
         int count = driver.findElements(By.xpath("//input[@type='submit']")).size();
@@ -105,7 +107,7 @@ public class AppointmentControllerTest {
     @Test
     void checkFirstCancelButtonIsID1() throws Exception{
 
-        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/appointments/viewForm");
         driver.manage().window().maximize();
 
         WebElement cancel = driver.findElement(By.xpath("//input[@id='1']"));

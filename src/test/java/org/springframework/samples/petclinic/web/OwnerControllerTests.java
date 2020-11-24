@@ -6,13 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -214,11 +218,21 @@ class OwnerControllerTests {
 
     @Test
     void testProcessCancelOwnerAppointmentForm() throws Exception {
+        Visit visit1 = new Visit();
+        visit1.setId(1);
+        Visit visit3 = new Visit();
+        visit3.setId(3);
+
+        given(this.clinicService.findVisitsByOwnerId(TEST_OWNER_ID)).willReturn(Lists.newArrayList(visit1, visit3));
+
         mockMvc.perform(post("/owners/{ownerId}/appointments/cancel", TEST_OWNER_ID)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
             .param("1", "on")
-            .param("2", "off")
+            .param("2", "on")
+            .param("3", "off")
         )
             .andExpect(status().is3xxRedirection());
+
+        then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
     }
 }

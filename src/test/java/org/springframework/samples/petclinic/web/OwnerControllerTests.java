@@ -3,16 +3,32 @@ package org.springframework.samples.petclinic.web;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.ResourceUtils;
+
+import javax.print.attribute.standard.Media;
+import javax.servlet.ServletContext;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,6 +51,11 @@ class OwnerControllerTests {
 
     @Autowired
     private ClinicService clinicService;
+
+
+    @Qualifier("servletContext")
+    @Autowired
+    ServletContext context;
 
     private MockMvc mockMvc;
 
@@ -221,12 +242,49 @@ class OwnerControllerTests {
 
     @Test
     void testProcessCancelOwnerAppointmentForm() throws Exception {
+        Visit visit1 = new Visit();
+        visit1.setId(1);
+        Visit visit3 = new Visit();
+        visit3.setId(3);
+
+        given(this.clinicService.findVisitsByOwnerId(TEST_OWNER_ID)).willReturn(Lists.newArrayList(visit1, visit3));
+
         mockMvc.perform(post("/owners/{ownerId}/appointments/cancel", TEST_OWNER_ID)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
             .param("1", "on")
-            .param("2", "off")
+            .param("2", "on")
+            .param("3", "off")
         )
             .andExpect(status().is3xxRedirection());
+
+        then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
+    }
+
+    // We must comment this test out until I have figured out a way to enable multipart support.
+    //@Test
+    void testAddMultipleOwners_SendFileSuccessful() throws Exception {
+
+        final String GOOD_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/uploads/success.json";
+
+        FileInputStream fs = new FileInputStream(GOOD_FILE_PATH);
+        MockMultipartFile file = new MockMultipartFile("file", fs);
+
+        HashMap<String, String> mediaTypeParams = new HashMap<>();
+        mediaTypeParams.put("boundary", "265001916915724");
+
+        MediaType mediaType = new MediaType("multipart", "form-data", mediaTypeParams);
+
+        mockMvc.perform(post("/owners/addMultipleOwners")
+                            .content(file.getBytes())
+                            .contentType(mediaType))
+                            .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void testAddMultipleOwnersFake_UseExistingFileSuccessful() throws Exception {
+        final String GOOD_FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+
+        mockMvc.perform(post("/owners/addMultipleOwnersFake")).andExpect(status().is3xxRedirection());
     }
 
     @Test

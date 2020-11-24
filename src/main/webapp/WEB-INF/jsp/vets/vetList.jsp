@@ -23,7 +23,7 @@
             <c:forEach items="${vets.vetList}" var="vet">
                 <tr>
                     <td>
-                        <c:out value="${vet.firstName} ${vet.lastName}"/>
+                     <a href="vetProfile.html?id=${vet.id}" ><c:out value="${vet.firstName} ${vet.lastName}"/></a>
                     </td>
 
                     <td>

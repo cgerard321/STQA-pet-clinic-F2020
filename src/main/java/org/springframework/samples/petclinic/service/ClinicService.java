@@ -72,9 +72,13 @@ public interface ClinicService {
 
     void removePetById(int petId);
 
+<<<<<<< HEAD
     void saveRating(Rating rating);
 
     Collection<Rating> findRatings();
 
     Collection<Rating> findRatingsByPetId(int petId);
+=======
+    void removeOwnerById(int ownerId);
+>>>>>>> 1f77d4d (Finished STQA 74 Remove Owner)
 }

@@ -126,6 +126,18 @@ public class OwnerController {
         return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
     }
 
+    @GetMapping(value = "/owners/{ownerId}/remove")
+    public String removePetFromList(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
+        if (clinicService.findOwnerById(ownerId).getPets().size() > 0) {
+            return "owners/removeOwner";
+        }
+        else {
+            clinicService.removeOwnerById(ownerId);
+        }
+
+        return "redirect:/owners.html?lastName=";
+    }
+
     @PostMapping(value = "/owners/{ownerId}/edit")
     public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId) {
         if (result.hasErrors()) {

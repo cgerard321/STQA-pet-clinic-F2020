@@ -24,7 +24,8 @@
         <tbody>
         <c:forEach items="${selections}" var="owner">
             <tr>
-                <td headers="profile_picture"><img src="/STQA_pet_clinic_F2020_war/resources/images/ownersProfilePictures/${owner.profile_picture}.png" alt="owner image"></td>
+                <spring:url value="/resources/images/ownersProfilePictures/${owner.profile_picture}.png" var="profilePictureUrl" />
+                <td headers="profile_picture"><img src="${fn:escapeXml(profilePictureUrl)}" alt="owner image"></td>
                 <td>
                     <spring:url value="/owners/{ownerId}.html" var="ownerUrl">
                         <spring:param name="ownerId" value="${owner.id}"/>

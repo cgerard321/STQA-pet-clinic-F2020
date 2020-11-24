@@ -1,7 +1,15 @@
 package org.springframework.samples.petclinic.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.samples.petclinic.service.ClinicService;
@@ -9,6 +17,11 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -58,4 +71,42 @@ public class AppointmentControllerTests {
             .andExpect(model().attributeExists("visits"));
 
     }
+
+   /* @Test
+    void checkForCancelButton() throws Exception{
+
+        //assert
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        //get list all elements within footer tag.
+        WebElement cancel= driver.findElement(By.xpath("//input[@type='submit']"));
+        assertThat(cancel.isDisplayed(), is(true)) ;
+
+    }
+
+    @Test
+    void checkNumberOfCancelButtons() throws Exception{
+
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        int count = driver.findElements(By.xpath("//input[@type='submit']")).size();
+
+        assertThat(count, is(4));
+
+    }
+
+    @Test
+    void checkFirstCancelButtonIsID1() throws Exception{
+
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        WebElement cancel = driver.findElement(By.xpath("//input[@id='1']"));
+        List cancels = driver.findElements(By.xpath("//input[@type='submit']"));
+        assertThat(cancels.get(0), is(cancel));
+    }*/
+
+
 }

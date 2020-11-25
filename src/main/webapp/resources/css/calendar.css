@@ -55,7 +55,7 @@
 
 #calendar .date ul {
     text-align: left;
-    font-size: 0.85em;
+    font-size: 0.95em;
     width: 100%;
     overflow: hidden;
     position: absolute;
@@ -87,15 +87,14 @@
 }
 
 #calendar .current-week {
-    border-top: 4px solid #fed6d7;
+    border-top: 4px solid #C7E4B4;
 }
 
 #calendar .current-day {
-    background: #fed6d7;
-    border-top: 4px solid #cb6c6b;
+    background: #C7E4B4;
+    border-top: 4px solid #6db33f;
 }
 
 #calendar .current-day .date {
     font-weight: bold;
-    color: #cb6c6b;
 }

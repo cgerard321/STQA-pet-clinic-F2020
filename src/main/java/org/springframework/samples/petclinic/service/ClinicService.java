@@ -33,6 +33,12 @@ public interface ClinicService {
 
     Owner findOwnerById(int id);
 
+    Owner findOwnerByAddress(String address);
+
+    Owner findOwnerByTelephone(String telephone);
+
+    Owner findOwnerByEmail(String email);
+
     Pet findPetById(int id);
 
     /**
@@ -52,6 +58,10 @@ public interface ClinicService {
 
     Collection<Owner> findOwnerByLastName(String lastName);
 
+    Collection<Owner> findOwnerByFirstName(String firstName);
+
+    Collection<Owner> findOwnerByCity(String city);
+
     Collection<Visit> findVisitsByPetId(int petId);
 
 //
@@ -63,6 +73,7 @@ public interface ClinicService {
     Collection<Visit> findAllVisits();
 
     void deleteVisitsById(List<Integer> visitIds);
+
 
     void deleteVisitById(int visitId);
 

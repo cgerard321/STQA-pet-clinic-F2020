@@ -67,9 +67,34 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Owner findOwnerByAddress(String address) {
+        return ownerRepository.findByAddress(address);
+    }
+
+    @Override
+    public Owner findOwnerByTelephone(String telephone) {
+        return ownerRepository.findByTelephone(telephone);
+    }
+
+    @Override
+    public Owner findOwnerByEmail(String email) {
+        return ownerRepository.findByEmail(email);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Collection<Owner> findOwnerByLastName(String lastName) {
         return ownerRepository.findByLastName(lastName);
+    }
+
+    @Override
+    public Collection<Owner> findOwnerByFirstName(String firstName) {
+        return ownerRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public Collection<Owner> findOwnerByCity(String city) {
+        return ownerRepository.findByCity(city);
     }
 
     @Override

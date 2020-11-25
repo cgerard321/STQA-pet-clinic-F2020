@@ -50,7 +50,14 @@ CREATE TABLE owners
     email      VARCHAR(30),
     comment    VARCHAR(255)
 );
+
 CREATE INDEX owners_last_name ON owners (last_name);
+CREATE INDEX owners_id ON owners (id);
+CREATE INDEX owners_first_name ON owners (first_name);
+CREATE INDEX owners_address ON owners (address);
+CREATE INDEX owners_city ON owners (city);
+CREATE INDEX owners_telephone ON owners (telephone);
+CREATE INDEX owners_email ON owners (email);
 
 CREATE TABLE pets
 (

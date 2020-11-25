@@ -83,6 +83,34 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         return owners;
     }
 
+    //methods added by lucas-cimino
+    //used to find Owner attributes in Owner Table
+    @Override
+    public Collection<Owner> findByFirstName(String firstName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("firstName", firstName + "%");
+        List<Owner> owners = this.namedParameterJdbcTemplate.query(
+            "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE first_name like :firstName",
+            params,
+            BeanPropertyRowMapper.newInstance(Owner.class)
+        );
+        loadOwnersPetsAndVisits(owners);
+        return owners;
+    }
+
+    @Override
+    public Collection<Owner> findByCity(String city) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("city", city + "%");
+        List<Owner> owners = this.namedParameterJdbcTemplate.query(
+            "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE city like :city",
+            params,
+            BeanPropertyRowMapper.newInstance(Owner.class)
+        );
+        loadOwnersPetsAndVisits(owners);
+        return owners;
+    }
+
     /**
      * Loads the {@link Owner} with the supplied <code>id</code>; also loads the {@link Pet Pets} and {@link Visit Visits}
      * for the corresponding owner, if not already loaded.
@@ -104,6 +132,62 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         loadPetsAndVisits(owner);
         return owner;
     }
+
+    @Override
+    public Owner findByAddress(String address) {
+        Owner owner;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("address", address);
+            owner = this.namedParameterJdbcTemplate.queryForObject(
+                "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE address= :address",
+                params,
+                BeanPropertyRowMapper.newInstance(Owner.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Owner.class, address);
+        }
+        loadPetsAndVisits(owner);
+        return owner;
+    }
+
+    @Override
+    public Owner findByTelephone(String telephone) {
+        Owner owner;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("telephone", telephone);
+            owner = this.namedParameterJdbcTemplate.queryForObject(
+                "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE telephone= :telephone",
+                params,
+                BeanPropertyRowMapper.newInstance(Owner.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Owner.class, telephone);
+        }
+        loadPetsAndVisits(owner);
+        return owner;
+    }
+
+    @Override
+    public Owner findByEmail(String email) {
+        Owner owner;
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("email", email);
+            owner = this.namedParameterJdbcTemplate.queryForObject(
+                "SELECT id, first_name, last_name, address, city, telephone, email FROM owners WHERE email= :email",
+                params,
+                BeanPropertyRowMapper.newInstance(Owner.class)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ObjectRetrievalFailureException(Owner.class, email);
+        }
+        loadPetsAndVisits(owner);
+        return owner;
+    }
+    //methods added by lucas-cimino finish here
+
 
     public void loadPetsAndVisits(final Owner owner) {
         Map<String, Object> params = new HashMap<>();

@@ -85,6 +85,82 @@ abstract class AbstractClinicServiceTests {
         assertThat(owners.isEmpty()).isTrue();
     }
 
+    //added test methods by lucas-cimino to test the Owner Class Fields
+    //test the findOwnersByFirstName method
+    @Test
+    void shouldFindOwnersByFirstName() {
+        Collection<Owner> owners = this.clinicService.findOwnerByFirstName("Peter");
+        assertThat(owners.size()).isEqualTo(1);
+
+        owners = this.clinicService.findOwnerByFirstName("Lucas");
+        assertThat(owners.isEmpty()).isTrue();
+    }
+
+    //test the findOwnersByCity method
+    @Test
+    void shouldFindOwnersByCity() {
+        Collection<Owner> owners = this.clinicService.findOwnerByCity("Madison");
+        assertThat(owners.size()).isEqualTo(4);
+
+        owners = this.clinicService.findOwnerByCity("Brossard");
+        assertThat(owners.isEmpty()).isTrue();
+    }
+
+    //test the findOwnerById method
+    @Test
+    void shouldFindOwnerById()
+    {
+        Owner George = this.clinicService.findOwnerById(1);
+        assertThat(George.getId()).isEqualTo(1);
+        assertThat(George.getLastName()).isEqualTo("Franklin");
+        assertThat(George.getTelephone()).isEqualTo("6085551023");
+    }
+
+    //test the findOwnerByAddress method
+    @Test
+    void shouldFindOwnerByAddress()
+    {
+        Owner Eduardo = this.clinicService.findOwnerByAddress("2693 Commerce St.");
+        assertThat(Eduardo.getAddress()).isEqualTo("2693 Commerce St.");
+        assertThat(Eduardo.getId()).isEqualTo(3);
+        assertThat(Eduardo.getLastName()).isEqualTo("Rodriquez");
+    }
+
+    //test the findOwnersByTelephone method
+    @Test
+    void shouldFindOwnerByTelephone()
+    {
+        Owner Jeff = this.clinicService.findOwnerByTelephone("6085555387");
+        assertThat(Jeff.getTelephone()).isEqualTo("6085555387");
+        assertThat(Jeff.getCity()).isEqualTo("Monona");
+        assertThat(Jeff.getEmail()).isEqualTo("jeff.black@gmail.com");
+    }
+
+    //test the findOwnerByEmail method
+    @Test
+    void shouldFindOwnerByEmail()
+    {
+        Owner Carlos = this.clinicService.findOwnerByEmail("carlos.estaban@gmail.com");
+        assertThat(Carlos.getEmail()).isEqualTo("carlos.estaban@gmail.com");
+        assertThat(Carlos.getFirstName()).isEqualTo("Carlos");
+        assertThat(Carlos.getLastName()).isEqualTo("Estaban");
+    }
+    //end of tests by lucas-cimino
+
+    //test by Antoine Hebert
+    @Test
+    void shouldRetrieveOwnerEmail() throws Exception {
+        Owner owner = new Owner();
+        owner.setEmail("antoine.heb@outlook.com");
+
+        String expected = "antoine.heb@outlook.com";
+        String actualResult = owner.getEmail();
+
+        assertThat(actualResult.equals(expected));
+    }
+
+
+
     @Test
     @Order(2)
     void shouldFindSingleOwnerWithPet() {
@@ -308,6 +384,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
+
     @Order(15)
     void shouldRetrieveOwnerEmail() throws Exception {
         Owner owner = new Owner();
@@ -353,7 +430,6 @@ abstract class AbstractClinicServiceTests {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
         assertThat(visits.size()).isEqualTo(2);
     }
-
 
 //    @Test
 //    void shouldFindAllSchedulesClinic() {

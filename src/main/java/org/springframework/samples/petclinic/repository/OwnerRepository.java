@@ -41,6 +41,10 @@ public interface OwnerRepository {
      */
     Collection<Owner> findByLastName(String lastName);
 
+    Collection<Owner> findByFirstName(String firstName);
+
+    Collection<Owner> findByCity(String city);
+
     /**
      * Retrieve an <code>Owner</code> from the data store by id.
      *
@@ -49,6 +53,12 @@ public interface OwnerRepository {
      * @throws org.springframework.dao.DataRetrievalFailureException if not found
      */
     Owner findById(int id);
+
+    Owner findByAddress(String address);
+
+    Owner findByTelephone(String telephone);
+
+    Owner findByEmail(String email);
 
 
     /**

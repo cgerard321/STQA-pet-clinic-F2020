@@ -14,12 +14,25 @@
                id="search-owner-form">
         <div class="form-group">
             <div class="control-group" id="lastName">
-                <label class="col-sm-2 control-label">Last name </label>
+                <label class="col-sm-2 control-label">Last name</label>
                 <div class="col-sm-10">
-                    <form:input class="form-control" path="lastName" size="30" maxlength="80"/>
+                    <form:input class="form-control" path="lastName" size="30" maxlength="50"/>
                     <span class="help-inline"><form:errors path="*"/></span>
+        <%--<form:select path="*" id="dropdownOptions"> </form:select>--%>
+                        <%--select added by lucas-cimino--%>
+                    <select id="dropdownOptions" name="dropdownOptions">
+                        <option value="OptionId" label="Id"></option>
+                        <option value="OptionFirstName" label="First Name"></option>
+                        <option value="OptionLastName" label="Last Name"></option>
+                        <option value="OptionAddress" label="Address"></option>
+                        <option value="OptionCity" label="City"></option>
+                        <option value="OptionTelephone" label="Telephone"></option>
+                        <option value="OptionEmail" label="Email"></option>
+                    </select>
                 </div>
+
             </div>
+
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

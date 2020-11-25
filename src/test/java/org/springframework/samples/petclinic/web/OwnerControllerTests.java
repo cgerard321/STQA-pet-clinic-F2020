@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
+<<<<<<< HEAD
 import org.springframework.samples.petclinic.model.Visit;
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,11 +65,19 @@ class OwnerControllerTests {
 
     private Owner george;
 
+
     @BeforeEach
     void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(ownerController).build();
 
         george = new Owner();
+        // STQA 74 - REMOVE OWNER
+        // add dependency to the owner
+        // initialize the pet
+        Pet pet = new Pet();
+        // add pet to the owner
+        george.addPet(pet);
+
         george.setId(TEST_OWNER_ID);
         george.setProfile_picture("images (1)");
         george.setFirstName("George");
@@ -267,6 +279,7 @@ class OwnerControllerTests {
         then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
     }
 
+<<<<<<< HEAD
     // We must comment this test out until I have figured out a way to enable multipart support.
     //@Test
     void testAddMultipleOwners_SendFileSuccessful() throws Exception {
@@ -294,6 +307,7 @@ class OwnerControllerTests {
         mockMvc.perform(post("/owners/addMultipleOwnersFake")).andExpect(status().is3xxRedirection());
     }
 
+<<<<<<< HEAD
     @Test
     void testProcessNewOwnerFormHasErrorMessage() throws Exception {
         mockMvc.perform(post("/owners/new")
@@ -317,4 +331,24 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
+=======
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
+
+    // STQA 74 - REMOVE OWNER
+    // try to remove owner with dependency
+    // since there's a dependency, it should go to removeOwner.jsp
+    @Test
+    public void testOwnerHasDependency() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/removeOwner"))
+            .andExpect(forwardedUrl("owners/removeOwner"));
+    }
+
+
+<<<<<<< HEAD
+>>>>>>> fbdbd4f (Finished STQA 74 Remove Owner)
+=======
+>>>>>>> 1f77d4db17b995231e2ec8fa541a02dfd6b2fee2
 }

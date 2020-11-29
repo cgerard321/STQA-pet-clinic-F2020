@@ -5,9 +5,7 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -24,6 +22,8 @@ public class AppointmentController {
 
 
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
+    private static final String OWNER_VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/ownerAppointments";
+    private static final String VIEWS_APPOINTMENTS_NAVIGATION = "appointments/navigateAppointments";
     private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;
 
@@ -45,7 +45,7 @@ public class AppointmentController {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(ownerId);
         model.put("visits", visits);
         model.put("showWarning", true);
-        return VIEWS_APPOINTMENTS_VIEW_FORM;
+        return OWNER_VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 
     @GetMapping(value = "appointments/viewForm")
@@ -64,6 +64,18 @@ public class AppointmentController {
         vetList.getVetList().addAll(this.clinicService.findVets());
         vetInfo.put("vetAppoint", vetList);
         return APPOINT_FORM;
+    }
+
+    @PostMapping(value = "/appointments/{appointmentId}/cancel")
+    public String initViewFormCancel(@PathVariable("appointmentId") int appointmentId, Map<String, Object> model) throws Exception{
+
+        this.clinicService.deleteVisitById(appointmentId);
+        return "redirect:/appointments/viewForm";
+    }
+
+    @GetMapping(value = "appointments")
+    public String initAppointmentsNavigation(Map<String, Object> model) {
+        return VIEWS_APPOINTMENTS_NAVIGATION;
     }
 }
 

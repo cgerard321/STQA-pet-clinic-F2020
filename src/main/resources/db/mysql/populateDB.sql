@@ -98,6 +98,10 @@ INSERT IGNORE INTO visits
 VALUES (3, 8, '2009-06-04', 'neutered');
 INSERT IGNORE INTO visits
 VALUES (4, 7, '2008-09-04', 'spayed');
+INSERT IGNORE INTO visits
+VALUES (5, 13, '2008-09-04', 'spayed');
+INSERT IGNORE INTO visits
+VALUES (6, 12, '2008-09-04', 'rabies shot');
 
 
 INSERT INTO schedules

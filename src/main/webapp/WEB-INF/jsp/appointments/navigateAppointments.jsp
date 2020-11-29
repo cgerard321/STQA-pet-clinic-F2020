@@ -12,37 +12,21 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
-<petclinic:layout pageName="viewForm">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<petclinic:layout pageName="navigateAppointments">
 <head>
-    <title>View Appointments</title>
+    <title>Appointments Navigation</title>
 </head>
 <body>
+<h1>Appointments Navigation</h1><br><br>
+<h2>Management</h2><br>
+<a href="appointments/create" id="createHREF">Create Appointments</a><br>
+<a href="appointments/cancel" id="cancelHREF">Cancel Appointments</a><br><br>
 
-<h2>View Appointments</h2>
+<h2>Find Appointments</h2><br>
+<a href="appointments/viewForm" id="viewHREF">View Appointments</a>
+<br><br><br>
+<a href="http://localhost:8080/spring_framework_petclinic_war/">Return to Homepage</a>
 
-<table class="table table-striped table-bordered table-hover" id="appointmentsTable">
-    <thead class="thead-dark">
-    <tr>
-        <th>Date</th>
-        <th>Pet ID</th>
-        <th>Pet Name</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <c:forEach items="${visits}" var="v">
-        <form action="/spring_framework_petclinic_war/appointments/${v.id}/cancel" method="post">
-        <tr>
-            <td>${v.date}</td>
-            <td>${v.pet.id}</td>
-            <td>${v.pet.name}</td>
-            <td>${v.description}</td>
-            <td><input type="submit" id=${v.id} value="Cancel"></td>
-        </tr>
-        </form>
-    </c:forEach>
-    </table><br>
-<a href="http://localhost:8080/spring_framework_petclinic_war/appointments">Return to Navigation</a>
 </body>
-
 </petclinic:layout>

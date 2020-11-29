@@ -22,6 +22,7 @@ public class AppointmentController {
 
 
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
+    private static final String OWNER_VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/ownerAppointments";
     private static final String VIEWS_APPOINTMENTS_NAVIGATION = "appointments/navigateAppointments";
     private static final String APPOINT_FORM = "appointments/createAppointments";
     private final ClinicService clinicService;

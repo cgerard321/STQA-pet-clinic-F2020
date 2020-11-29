@@ -45,7 +45,7 @@ public class AppointmentController {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(ownerId);
         model.put("visits", visits);
         model.put("showWarning", true);
-        return VIEWS_APPOINTMENTS_VIEW_FORM;
+        return OWNER_VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 
     @GetMapping(value = "appointments/viewForm")

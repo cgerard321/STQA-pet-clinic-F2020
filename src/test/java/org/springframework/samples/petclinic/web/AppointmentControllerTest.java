@@ -70,14 +70,6 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    void testViewOwnerAppointments() throws Exception {
-        mockMvc.perform(get("/owners/6/appointments/viewForm"))
-            .andExpect(status().isOk())
-            .andExpect(model().attributeExists("visits"));
-
-    }
-
-    @Test
     void checkForCancelButton() throws Exception{
 
         //assert
@@ -119,6 +111,45 @@ public class AppointmentControllerTest {
     void testAppointmentsNavigationPage() throws Exception {
         mockMvc.perform(get("/appointments"))
             .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void testOwnerAppointmentsPage() throws Exception {
+        mockMvc.perform(get("appointments/ownerAppointments"))
+            .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void testOwnerAppointmentsPageRedirect() throws Exception {
+        mockMvc.perform(get("/owners/6/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("visits"));
+
+    }
+
+    @Test
+    void checkOwnerAppointmentsTableExists() throws Exception{
+
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/6/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        WebElement table = driver.findElement(By.xpath("//table"));
+        assertThat(table.isDisplayed(), is(true));
+
+    }
+
+    @Test
+    void checkOwnerAppointmentsRowsCount() throws Exception{
+
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/6/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        int count = driver.findElements(By.xpath("//tr")).size();
+
+        assertThat(count, is(4));
+
 
     }
 

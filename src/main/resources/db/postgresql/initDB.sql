@@ -43,11 +43,14 @@ ALTER SEQUENCE types_id_seq RESTART WITH 100;
 
 CREATE TABLE IF NOT EXISTS owners (
   id SERIAL,
+  profile_picture VARCHAR(255),
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   address VARCHAR(255),
   city VARCHAR(80),
   telephone VARCHAR(20),
+  email VARCHAR(30),
+  comment VARCHAR(255)
   CONSTRAINT pk_owners PRIMARY KEY (id)
 );
 

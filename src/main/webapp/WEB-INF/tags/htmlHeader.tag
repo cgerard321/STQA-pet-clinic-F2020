@@ -34,6 +34,10 @@ PetClinic :: a Spring Framework demonstration
     <spring:url value="/resources/css/hallOfFame.css" var="hallOfFame" />
     <link href="${hallOfFame}" rel="stylesheet">
 
+    <%-- Css added for showing pet information in hall of fame #Simon St-Andre --%>
+    <spring:url value="/resources/css/petInfoCard.css" var="cardInfo" />
+    <link href="${cardInfo}" rel="stylesheet">
+
     <spring:url value="/resources/css/headerPage.css" var="headerCss" />
     <link href="${headerCss}" rel="stylesheet">
 

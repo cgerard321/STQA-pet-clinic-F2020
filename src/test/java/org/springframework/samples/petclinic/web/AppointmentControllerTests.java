@@ -23,12 +23,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitWebConfig(locations = {"classpath:spring/mvc-core-config.xml", "classpath:spring/mvc-test-config.xml"})
-@ExtendWith(SeleniumExtension.class)
-public class AppointmentControllerTest {
+public class AppointmentControllerTests {
 
     EdgeDriver driver;
 
-    public AppointmentControllerTest(EdgeDriver driver) {
+    public AppointmentControllerTests(EdgeDriver driver) {
         this.driver = driver;
 
     }

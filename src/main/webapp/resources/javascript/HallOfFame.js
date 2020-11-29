@@ -32,6 +32,9 @@ $.ajax({
                 else{
                     $("#HOF" + (i+1) + "Name").text(obj.name + " [" + parseFloat((obj.totalRating / obj.timesRated).toFixed(2)) + "]");
                 }
+                $("#Name" + (i+1)).text(obj.name);
+                $("#owner" + (i+1)).text("Owner: " + obj.ownerElement);
+                $("#timesRated" + (i+1)).text("Times Rated: " + obj.timesRated);
                 $("#HOF" + (i+1) + "Img").attr("src", obj.imageURL);
             }
         }

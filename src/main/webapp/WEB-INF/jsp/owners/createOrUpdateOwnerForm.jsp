@@ -12,12 +12,15 @@
     </h2>
     <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+            <petclinic:inputField label="Profile Picture" name="profile_picture" />
             <petclinic:inputField label="First Name" name="firstName"/>
             <petclinic:inputField label="Last Name" name="lastName"/>
             <petclinic:inputField label="Address" name="address"/>
             <petclinic:inputField label="City" name="city"/>
+            <petclinic:inputField label="State Code" name="state"/>
             <petclinic:inputField label="Telephone" name="telephone"/>
             <petclinic:inputField label="Email" name="email"/>
+            <petclinic:inputField label="Comment" name="comment"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -31,5 +34,10 @@
                 </c:choose>
             </div>
         </div>
+    </form:form>
+
+    <form:form action="http://localhost:8080/spring_framework_petclinic_war/owners/addMultipleOwnersFake" enctype="multipart/form-data">
+        <input type="file" name="upload_file"/>
+        <button class="btn btn-default" type="submit">Send file</button>
     </form:form>
 </petclinic:layout>

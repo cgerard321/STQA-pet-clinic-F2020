@@ -8,6 +8,7 @@
 
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
+<c:set var = "events" value = "${calendar.getEvents()}"/>
 
 <petclinic:layout pageName="home">
     <h1><fmt:message key="welcome"/></h1>
@@ -40,23 +41,74 @@
         <tbody>
             <tr>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
-                <td class="text-center" style="width:45%"><a href="" alt="1st placed pet information"><img id="HOF1Img" src="${firstPlace}" alt="1st place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF1Img" src="${firstPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name1">John Doe</h1>
+                                <p id="owner1"></p>
+                                <p id="timesRated1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
-                <td class="text-center" style="width:30%"><a href="" alt="2nd placed pet information"><img id="HOF2Img" src="${secondPlace}" alt="2nd place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF2Img" src="${secondPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name2">John Doe</h1>
+                                <p id="owner2"></p>
+                                <p id="timesRated2"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
-                <td class="text-center" style="width:25%"><a href="" alt="3rd placed pet information"><img id="HOF3Img" src="${thirdPlace}" alt="3rd place"></a></td>
+                <td class="text-center" style="width:35%">
+                    <div class="card" id="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img id="HOF3Img" src="${thirdPlace}" alt="1st place">
+                            </div>
+                            <div class="card-back">
+                                <h1 id="Name3">John Doe</h1>
+                                <p id="owner3"></p>
+                                <p id="timesRated3"></p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
     </details>
 
+    <br/>
+    <%--    Rating Related Buttons - Nichita--%>
+    <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
+    <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+    <br/>
+
     <%-- Calendar -Louis C. --%>
+
+    <%-- For anyone that wants to work on this here is the origin of the css for the calendar that has been modified to show a dinamic calendar --%>
+    <%-- https://bootsnipp.com/snippets/v200E --%>
     <div class="row">
         <div class="col-md-12">
             <div id="calendar">
                 <table>
-                    <summary><strong><c:out value="${LocalDate.now().getMonth()}"/></strong> <c:out
-                            value="${LocalDate.now().getYear()}"/></summary>
+                    <summary>
+                        <strong><c:out value="${LocalDate.now().getMonth()}"/></strong>
+                        <c:out value="${LocalDate.now().getYear()}"/>
+                    </summary>
                     <thead>
                     <tr>
                         <th>Sun</th>
@@ -68,32 +120,50 @@
                         <th>Sat</th>
                     </tr>
                     </thead>
+
+                    <%-- Loop for weeks --%>
                     <c:forEach begin="0" end="${calendar.getNumberOfWeeks()}" varStatus="i">
-                        <c:choose>
-                            <c:when test=""></c:when>
-                        </c:choose>
                         <tr>
+
+                        <%-- Loop for day in the week --%>
                         <c:forEach begin="0" end="6" varStatus="j">
+
+                            <%-- Check if there is a day if not puts empty cell --%>
                             <c:choose>
                                 <c:when test="${days[i.index][j.index]=='0'}">
                                     <td></td>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:choose>
-                                        <c:when test="${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
-                                            <td class="current-day">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                        <span class="date">${days[i.index][j.index]}</span>
+
+                                    <%-- Check if the day is the current day to add css --%>
+                                    <td class="
+                                        <c:if test = "${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
+                                            current-day
+                                        </c:if>
+                                    ">
+                                        <%-- Content of the cell for the day --%>
+                                        <span class="date">${days[i.index][j.index]}
+
+                                            <%-- Check if there is an event for that day --%>
+                                            <c:if test = "${events.containsKey(days[i.index][j.index])}">
+                                                 <ul>
+                                                    <li>
+                                                        <c:set var = "event" value = "${events.get(days[i.index][j.index])}"/>
+                                                        <span class="event">${event.getDescription()}</span>
+                                                        <span class="time">${event.getTime()}</span>
+                                                    </li>
+                                                </ul>
+                                            </c:if>
+                                        </span>
                                     </td>
                                 </c:otherwise>
                             </c:choose>
+
                         </c:forEach>
+
                         </tr>
                     </c:forEach>
+
                 </table>
                 <script>
                     // wait for the page to load to make sure JQuery is fully loaded

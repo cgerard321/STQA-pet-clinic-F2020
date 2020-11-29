@@ -31,7 +31,8 @@
     </tr>
     </thead>
     <c:forEach items="${visits}" var="v">
-        <form action="/spring_framework_petclinic_war/appointments/${v.id}/cancel" method="post">
+        <spring:url value="/appointments/${v.id}/cancel" var="cancelUrl" />
+        <form action="${fn:escapeXml(cancelUrl)}" method="post">
         <tr>
             <td>${v.date}</td>
             <td>${v.pet.id}</td>

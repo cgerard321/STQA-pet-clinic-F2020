@@ -24,7 +24,6 @@ public class AppointmentController {
 
     private final ClinicService clinicService;
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
-    private static final String APPOINT_FORM = "appointments/createAppointments";
     private static final String LAST_MIN_VISIT = "/appointments/lastMinuteAppointments";
 
     @Autowired
@@ -54,16 +53,6 @@ public class AppointmentController {
         return VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 
-
-    /* Controller for the booking appointment page */
-    @GetMapping(value = "/appointments/create")
-    public String initCreationForm(Map<String, Object> vetInfo) {
-        Vets vetList = new Vets();
-        vetList.getVetList().addAll(this.clinicService.findVets());
-        vetInfo.put("vetAppoint", vetList);
-        return APPOINT_FORM;
-    }
-
     @PostMapping(value = "/appointments/{appointmentId}/cancel")
     public String initViewFormCancel(@PathVariable("appointmentId") int appointmentId, Map<String, Object> model) throws Exception{
 
@@ -78,7 +67,6 @@ public class AppointmentController {
         this.clinicService.deleteVisitById(appointmentId);
         return "redirect:/vets/vetProfile";
     }
-
 
     @GetMapping(value = "/owners/*/pets/{petId}/visits/lastMin")
     public String showLastMinuteVisits(Map<String, Object> vetInfo) {
@@ -129,8 +117,6 @@ public class AppointmentController {
         this.clinicService.saveVisit(v);
         return "redirect:/owners/{ownerId}";
     }
-
-
 }
 
 

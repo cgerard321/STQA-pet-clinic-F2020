@@ -26,7 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,6 +140,21 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
         return visits;
     }
 
+    @Override
+    public List<Visit> findAllFutureVisits(LocalDate current_date) {
+        Date date = Date.valueOf(current_date);
+
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets",
+            new JdbcPetRowMapper());
+
+        List<Visit> futureVisits = this.jdbcTemplate.query(
+            "SELECT id as visit_id, visit_date, description, pet_id FROM visits" +
+                " WHERE visit_date > '"+ date +"'",
+            new JdbcVisitRowMapper(results));
+
+        return futureVisits;
+    }
 
     public void deleteByIdIn(List<Integer> visitIds) {
         Map<String, Object> params = new HashMap<>();

@@ -38,8 +38,7 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -342,7 +341,6 @@ abstract class AbstractClinicServiceTests {
         assertThrows(NullPointerException.class, () -> mockService.findPets());
     }
 
-
     @Test
     @Transactional
     @Order(7)
@@ -377,7 +375,6 @@ abstract class AbstractClinicServiceTests {
 
         Collection<Visit> visits = this.clinicService.findAllVisits();
         assertThat(visits.size()==4);
-
     }
 
     @Test
@@ -392,8 +389,6 @@ abstract class AbstractClinicServiceTests {
 
         int newRows = this.clinicService.findAllVisits().size();
         MatcherAssert.assertThat(newRows, is(3));
-
-
     }
 
     @Test
@@ -442,6 +437,36 @@ abstract class AbstractClinicServiceTests {
         // retrieving new name from database
         owner = this.clinicService.findOwnerById(1);
         assertThat(owner.getState()).isEqualTo(newState);
+    }
+
+    @Test
+    void shouldReturnFutureVisits() {
+        //arrange-act
+        Collection<Visit> visits = this.clinicService.findAllFutureVisits();
+        //assert
+        assertTrue(visits.size() > 0);
+    }
+
+    @Test
+    void shouldReturnVisitsWithFutureDates() {
+        //arrange
+        Collection<Visit> visits = this.clinicService.findAllFutureVisits();
+        LocalDate current_date = LocalDate.now();
+        boolean dateIsInThePast = false;
+
+        //act
+        Visit test = visits.iterator().next();
+
+        for(Visit v : visits)
+        {
+            if(v.getDate().compareTo(current_date) < 0)
+                dateIsInThePast = true;
+        }
+
+        //assert
+        assertFalse(dateIsInThePast);
+        assertEquals(test.getDate(), LocalDate.of(2021, 01, 01));
+        assertTrue(visits.size() > 0);
     }
 
 }

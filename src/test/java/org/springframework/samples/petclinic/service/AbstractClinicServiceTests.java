@@ -450,16 +450,16 @@ abstract class AbstractClinicServiceTests {
     void shouldReturnVisitsWithFutureDates() {
         //arrange
         List<Visit> visits = new ArrayList<>(this.clinicService.findAllFutureVisits());
-        Collections.sort(visits, (v1, v2) -> v1.getDate().compareTo(v2.getDate()));
+        // sort in ascending order
+        Collections.sort(visits, (v1, v2) -> v2.getDate().compareTo(v1.getDate()));
         LocalDate current_date = LocalDate.now();
 
         //act
-        Visit test = visits.iterator().next();
-        for(Visit v : visits)
+        for (Visit v : visits)
             assertFalse(v.getDate().compareTo(current_date) < 0);
 
         //assert
-        assertEquals(test.getDate(), LocalDate.of(2021, 01, 01));
+        assertEquals(LocalDate.of(2021, 01, 01), visits.get(0).getDate());
         assertTrue(visits.size() > 0);
     }
 }

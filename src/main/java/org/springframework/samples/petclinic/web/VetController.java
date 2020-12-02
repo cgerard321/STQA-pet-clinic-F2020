@@ -87,7 +87,8 @@ public class VetController {
          List<Vet> allvets = this.showResourcesVetList().getVetList();
             //model.put("vet", selectedVet);
 
-        Collection<Visit> allVisits = this.clinicService.findAllVisits();
+        //modified to use findAllFutureVisits() method to get future appointments
+        Collection<Visit> allVisits = this.clinicService.findAllFutureVisits();
         ArrayList<Visit> generalVisits = new ArrayList<>();
         ArrayList<Visit> surgeryVisits = new ArrayList<>();
         ArrayList<Visit> dentistryVisits = new ArrayList<>();

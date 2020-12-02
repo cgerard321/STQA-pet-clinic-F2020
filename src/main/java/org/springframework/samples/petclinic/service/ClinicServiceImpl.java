@@ -24,6 +24,7 @@ import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,14 +37,11 @@ import java.util.List;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
-
     private PetRepository petRepository;
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
     private RatingRepository ratingRepository;
-
-
 
     @Autowired
     public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository) {
@@ -85,7 +83,6 @@ public class ClinicServiceImpl implements ClinicService {
         visitRepository.save(visit);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public Pet findPetById(int id) {
@@ -117,12 +114,10 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
-
     @Override
     public Collection<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
     }
-
 
     @Override
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
@@ -131,10 +126,16 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Collection<Visit> findAllVisits(){
-
         return visitRepository.findAll();
-
     }
+
+    @Override
+    public Collection<Visit> findAllFutureVisits()
+    {
+        LocalDate current_date = LocalDate.now();
+        return visitRepository.findAllFutureVisits(current_date);
+    }
+
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);

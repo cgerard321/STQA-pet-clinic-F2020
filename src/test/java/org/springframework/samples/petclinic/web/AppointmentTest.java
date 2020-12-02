@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,6 +17,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 
@@ -30,7 +30,6 @@ public class AppointmentTest {
 
     public AppointmentTest(ChromeDriver driver) {
         this.driver = driver;
-
     }
 
     @Test
@@ -71,7 +70,7 @@ public class AppointmentTest {
         List<WebElement> cancels = driver.findElements(By.xpath("//input[@type='submit']"));
         assertThat(cancels.get(0), is(cancel));
     }
-  
+
     @Test
     @Order(4)
     void checkGoBackButtonGoesBackCancelAppointment() {
@@ -109,6 +108,28 @@ public class AppointmentTest {
         driver.manage().window().maximize();
 
         List<WebElement> hasASchedule = driver.findElements(By.className("btn"));
-        assertThat(hasASchedule.size(), greaterThanOrEqualTo(0));    
+        assertThat(hasASchedule.size(), greaterThanOrEqualTo(0));
+    }
+
+    @Test
+    @Order(6)
+    void testVetVisitResultTable()
+    {
+        //arrange
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/vetProfile.html?id=1");
+        driver.manage().window().maximize();
+
+        //act
+        WebElement visitTable = driver.findElementById("vetSchedule");
+        int numRows = driver.findElementsByXPath("//table[@id='vetSchedule']/tbody/tr").size();
+        String petName = driver.findElementByXPath("//table[@id='vetSchedule']/tbody/tr[1]/td[2]").getText();
+
+        //assert
+        assertTrue(visitTable.isDisplayed());
+        assertTrue(numRows > 0);
+        /*May need to update if more pets are added*/
+        assertEquals("Samantha", petName);
+
+        driver.close();
     }
 }

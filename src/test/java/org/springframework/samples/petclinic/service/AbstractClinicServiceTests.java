@@ -33,13 +33,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -158,7 +156,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(9)
+    @Order(10)
     public void shouldInsertPetIntoDatabaseAndGenerateId() {
         Owner owner6 = this.clinicService.findOwnerById(6);
         int found = owner6.getPets().size();
@@ -182,7 +180,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(10)
+    @Order(11)
     public void shouldUpdatePetName() throws Exception {
         Pet pet7 = this.clinicService.findPetById(7);
         String oldName = pet7.getName();
@@ -196,7 +194,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     void shouldFindVets() {
         Collection<Vet> vets = this.clinicService.findVets();
 
@@ -209,7 +207,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(13)
+    @Order(14)
     public void shouldAddNewVisitForPet() {
         Pet pet7 = this.clinicService.findPetById(7);
         int found = pet7.getVisits().size();
@@ -225,7 +223,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(12)
+    @Order(11)
     void shouldFindVisitsByPetId() throws Exception {
         Collection<Visit> visits = this.clinicService.findVisitsByPetId(7);
         assertThat(visits.size()).isEqualTo(2);
@@ -236,7 +234,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(14)
+    @Order(15)
     void shouldFindVisitsByOwnerId() throws Exception {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
         assertThat(visits.size()).isEqualTo(4);
@@ -250,7 +248,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     void shouldFindAllPetInClinic() {
         Collection<Pet> pets = this.clinicService.findPets();
         // Make sure that all the pets is there
@@ -266,7 +264,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(18)
+    @Order(19)
     void shouldRemovePetFromPetList() {
 
         Collection<Pet> pets = this.clinicService.findPets();
@@ -308,7 +306,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(15)
+    @Order(16)
     void shouldRetrieveOwnerEmail() throws Exception {
         Owner owner = new Owner();
         owner.setEmail("antoine.heb@outlook.com");
@@ -321,7 +319,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(16)
+    @Order(17)
     void shouldUpdateOwnerEmail() {
         Owner owner = this.clinicService.findOwnerById(1);
         String oldEmail = owner.getEmail();
@@ -336,16 +334,15 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(17)
+    @Order(18)
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPets());
     }
 
-
     @Test
     @Transactional
-    @Order(7)
+    @Order(8)
     void shouldDeleteVisitsByIdIn() {
         this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
 
@@ -377,12 +374,11 @@ abstract class AbstractClinicServiceTests {
 
         Collection<Visit> visits = this.clinicService.findAllVisits();
         assertThat(visits.size()==4);
-
     }
 
     @Test
     @Transactional
-    @Order(19)
+    @Order(20)
     void shouldDeleteVisitById() throws Exception{
 
         int oldRows = this.clinicService.findAllVisits().size();
@@ -392,8 +388,6 @@ abstract class AbstractClinicServiceTests {
 
         int newRows = this.clinicService.findAllVisits().size();
         MatcherAssert.assertThat(newRows, is(3));
-
-
     }
 
     @Test
@@ -444,4 +438,29 @@ abstract class AbstractClinicServiceTests {
         assertThat(owner.getState()).isEqualTo(newState);
     }
 
+    @Test
+    void shouldReturnFutureVisits() {
+        //arrange-act
+        Collection<Visit> visits = this.clinicService.findAllFutureVisits();
+        //assert
+        assertTrue(visits.size() > 0);
+    }
+
+    @Test
+    @Order(7)
+    void shouldReturnVisitsWithFutureDates() {
+        //arrange
+        List<Visit> visits = new ArrayList<>(this.clinicService.findAllFutureVisits());
+        // sort in ascending order
+        visits.sort(Comparator.comparing(Visit::getDate));
+        LocalDate current_date = LocalDate.now();
+
+        //act
+        for (Visit v : visits)
+            assertFalse(v.getDate().compareTo(current_date) < 0);
+
+        //assert
+        assertEquals(LocalDate.of(2021, 01, 01), visits.get(0).getDate());
+        assertTrue(visits.size() > 0);
+    }
 }

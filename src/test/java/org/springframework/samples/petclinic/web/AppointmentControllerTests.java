@@ -35,14 +35,6 @@ public class AppointmentControllerTests {
     }
 
     @Test
-    void testNavigateToAppointments() throws Exception{
-        mockMvc.perform(get("/appointments/create"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("appointments/createAppointments"))
-            .andExpect(forwardedUrl("appointments/createAppointments"));
-    }
-
-    @Test
     void testViewAllAppointments() throws Exception {
         mockMvc.perform(get("/appointments/viewForm"))
             .andExpect(status().isOk())

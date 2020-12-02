@@ -25,6 +25,7 @@ public class AppointmentController {
     private final ClinicService clinicService;
     private static final String VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/viewAppointments";
     private static final String LAST_MIN_VISIT = "/appointments/lastMinuteAppointments";
+    private static final String OWNER_VIEWS_APPOINTMENTS_VIEW_FORM = "appointments/ownerAppointments";
 
     @Autowired
     public AppointmentController(ClinicService clinicService) {
@@ -42,7 +43,7 @@ public class AppointmentController {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(ownerId);
         model.put("visits", visits);
         model.put("showWarning", true);
-        return VIEWS_APPOINTMENTS_VIEW_FORM;
+        return OWNER_VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 
     @GetMapping(value = "appointments/viewForm")
@@ -116,6 +117,12 @@ public class AppointmentController {
 
         this.clinicService.saveVisit(v);
         return "redirect:/owners/{ownerId}";
+    }
+
+    @GetMapping(value = "/welcome")
+    public String initViewFormReturn(Map<String, Object> model){
+
+        return "redirect:/";
     }
 }
 

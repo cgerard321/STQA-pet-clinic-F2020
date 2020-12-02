@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,6 +36,10 @@ public interface SpringDataVisitRepository extends VisitRepository, Repository<V
     @Override
     @Query("SELECT v FROM Visit v LEFT JOIN FETCH v.pet p where p.owner.id = :ownerId")
     List<Visit> findByOwnerId(@Param("ownerId") Integer ownerId);
+
+    @Override
+    @Query("SELECT v FROM Visit v WHERE v.date > :current_date")
+    List<Visit> findAllFutureVisits(@Param("current_date") LocalDate current_date);
 
     @Override
     @Modifying

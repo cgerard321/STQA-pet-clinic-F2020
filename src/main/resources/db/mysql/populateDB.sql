@@ -82,18 +82,17 @@ INSERT IGNORE INTO pets
 VALUES (13, 'Sly', '2002-06-08', 1, 10);
 
 INSERT IGNORE INTO visits
-VALUES (1, 7, '2010-03-04', 'rabies shot');
+VALUES (1, 7, '2021-01-01', 'rabies shot');
 INSERT IGNORE INTO visits
-VALUES (2, 8, '2011-03-04', 'rabies shot');
+VALUES (2, 8, '2020-01-02', 'rabies shot');
 INSERT IGNORE INTO visits
-VALUES (3, 8, '2009-06-04', 'neutered');
+VALUES (3, 8, '2021-01-03', 'neutered');
 INSERT IGNORE INTO visits
-VALUES (4, 7, '2008-09-04', 'spayed');
+VALUES (4, 7, '2021-01-04', 'spayed');
 INSERT IGNORE INTO visits
-VALUES (5, 13, '2008-09-04', 'spayed');
+VALUES (5, 13, '2021-09-04', 'spayed');
 INSERT IGNORE INTO visits
-VALUES (6, 12, '2008-09-04', 'rabies shot');
-
+VALUES (6, 12, '2021-09-04', 'rabies shot');
 
 INSERT INTO schedules
 VALUES (1, 'Monday');

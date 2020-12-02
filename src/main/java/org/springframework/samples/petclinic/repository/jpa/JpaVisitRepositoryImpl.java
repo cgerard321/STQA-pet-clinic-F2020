@@ -79,9 +79,8 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
 
     @Override
     public List<Visit> findAllFutureVisits(LocalDate current_date) {
-        Date date = Date.valueOf(current_date);
-
-        Query query = this.em.createQuery("SELECT v FROM Visit v WHERE v.date > '"+ date +"'");
+        Query query = this.em.createQuery("SELECT v FROM Visit v WHERE v.date > (:param_current_date)");
+        query.setParameter("param_current_date", current_date);
         return query.getResultList();
     }
 

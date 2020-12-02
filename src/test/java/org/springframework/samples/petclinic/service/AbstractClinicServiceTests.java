@@ -452,21 +452,14 @@ abstract class AbstractClinicServiceTests {
         //arrange
         Collection<Visit> visits = this.clinicService.findAllFutureVisits();
         LocalDate current_date = LocalDate.now();
-        boolean dateIsInThePast = false;
 
         //act
         Visit test = visits.iterator().next();
-
         for(Visit v : visits)
-        {
-            if(v.getDate().compareTo(current_date) < 0)
-                dateIsInThePast = true;
-        }
+            assertFalse(v.getDate().compareTo(current_date) < 0);
 
         //assert
-        assertFalse(dateIsInThePast);
         assertEquals(test.getDate(), LocalDate.of(2021, 01, 01));
         assertTrue(visits.size() > 0);
     }
-
 }

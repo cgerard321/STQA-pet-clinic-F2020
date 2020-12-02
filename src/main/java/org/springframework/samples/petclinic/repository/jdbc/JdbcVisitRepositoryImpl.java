@@ -142,7 +142,8 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 
     @Override
     public List<Visit> findAllFutureVisits(LocalDate current_date) {
-        Date date = Date.valueOf(current_date);
+        Map<String, Object> params = new HashMap<>();
+        params.put("param_current_date", current_date);
 
         List<JdbcPet> results = this.jdbcTemplate.query(
             "SELECT id, name, birth_date, type_id, owner_id FROM pets",
@@ -150,7 +151,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 
         List<Visit> futureVisits = this.jdbcTemplate.query(
             "SELECT id as visit_id, visit_date, description, pet_id FROM visits" +
-                " WHERE visit_date > '"+ date +"'",
+                " WHERE visit_date > (:param_current_date)", params,
             new JdbcVisitRowMapper(results));
 
         return futureVisits;

@@ -1,13 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
-import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Specialty;
@@ -19,11 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.xml.HasXPath.hasXPath;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
-import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,16 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for the {@link VetController}
  */
 @SpringJUnitWebConfig(locations = {"classpath:spring/mvc-core-config.xml", "classpath:spring/mvc-test-config.xml"})
-@ExtendWith(SeleniumExtension.class)
 class VetControllerTests {
-
-    public static final int TOMCAT_PORT = 8080;
-    public static final String TOMCAT_PREFIX = "/spring_framework_petclinic_war";
-    FirefoxDriver driver;
-
-    public VetControllerTests(FirefoxDriver driver) {
-        this.driver = driver;
-    }
 
     @Autowired
     private VetController vetController;
@@ -125,25 +107,6 @@ class VetControllerTests {
         .andExpect(status().isOk())
         .andExpect(model().attributeExists("vet"))
         .andExpect(view().name("vets/vetProfile"));
-    }
-
-    @Test
-    void testVetVisitResultTable()
-    {
-        //arrange
-        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/vetProfile.html?id=2");
-        driver.manage().window().maximize();
-
-        //act
-        WebElement visitTable = driver.findElementById("vetSchedule");
-        int numRows = driver.findElementsByXPath("/table[@id='vetSchedule']/tbody/tr").size();
-        String petName = driver.findElementByXPath("/table[@id='vetSchedule']/tbody/tr[0]/td[1]").getText();
-
-        //assert
-        assertTrue(visitTable.isDisplayed());
-        assertTrue(numRows > 0);
-        /*May need to update if more pets are added*/
-        assertEquals(petName, "Samantha");
     }
 }
 

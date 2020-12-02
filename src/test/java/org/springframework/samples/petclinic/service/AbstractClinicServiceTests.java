@@ -383,12 +383,12 @@ abstract class AbstractClinicServiceTests {
     void shouldDeleteVisitById() throws Exception{
 
         int oldRows = this.clinicService.findAllVisits().size();
-        MatcherAssert.assertThat(oldRows, is(4));
+        MatcherAssert.assertThat(oldRows, is(6));
 
         this.clinicService.deleteVisitById(4);
 
         int newRows = this.clinicService.findAllVisits().size();
-        MatcherAssert.assertThat(newRows, is(3));
+        MatcherAssert.assertThat(newRows, is(5));
     }
 
     @Test

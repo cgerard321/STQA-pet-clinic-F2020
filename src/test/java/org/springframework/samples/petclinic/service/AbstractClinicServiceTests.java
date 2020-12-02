@@ -33,8 +33,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -450,7 +449,8 @@ abstract class AbstractClinicServiceTests {
     @Test
     void shouldReturnVisitsWithFutureDates() {
         //arrange
-        Collection<Visit> visits = this.clinicService.findAllFutureVisits();
+        List<Visit> visits = new ArrayList<>(this.clinicService.findAllFutureVisits());
+        Collections.sort(visits, (v1, v2) -> v1.getDate().compareTo(v2.getDate()));
         LocalDate current_date = LocalDate.now();
 
         //act

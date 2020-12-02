@@ -43,7 +43,8 @@
             </form>
         </c:forEach>
     </table><br>
-    <a href="http://localhost:8080/spring_framework_petclinic_war/appointments">Return to Navigation</a>
+    <spring:url value="/welcome" var="returnUrl"/>
+    <a href="${fn:escapeXml(returnUrl)}">Return to Navigation</a>
     </body>
 
 </petclinic:layout>

@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
+
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -31,10 +32,10 @@ import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.*;
-
+import java.util.Arrays;
+import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
@@ -413,7 +414,6 @@ abstract class AbstractClinicServiceTests {
         assertThat(ratings.size()).isEqualTo(1);
     }
 
-
     @Test
     void shouldRetrieveOwnerState() {
         Owner owner = new Owner();
@@ -463,4 +463,15 @@ abstract class AbstractClinicServiceTests {
         assertEquals(LocalDate.of(2021, 01, 01), visits.get(0).getDate());
         assertTrue(visits.size() > 0);
     }
+
+    @Test
+    void shouldFindListOfAllOwners() {
+        Collection<Owner> owners = this.clinicService.findAllOwner();
+        //assert that it returns the complete list of Owner
+        assertThat(owners.isEmpty()).isFalse();
+        assertThat(owners.size()).isEqualTo(10);
+    }
+
+
+
 }

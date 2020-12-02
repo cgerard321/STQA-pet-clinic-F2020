@@ -14,7 +14,7 @@
                id="search-owner-form">
         <div class="form-group">
             <div class="control-group" id="lastName">
-                <label class="col-sm-2 control-label">Last name </label>
+                <label class="col-sm-2 control-label">Last name</label>
                 <div class="col-sm-10">
                     <form:input class="form-control" path="lastName" size="30" maxlength="80"/>
                     <span class="help-inline"><form:errors path="*"/></span>
@@ -26,9 +26,18 @@
                 <button type="submit" class="btn btn-default">Find Owner</button>
             </div>
         </div>
+    </form:form>
 
+    <form:form modelAttribute="owner" action="${pageContext.request.contextPath}/findAll" method="get" class="form-horizontal"
+               id="search-owner-form">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" id="findAllOwners">Find All Owner</button>
+            </div>
+        </div>
     </form:form>
 
     <br/>
     <a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Owner</a>
 </petclinic:layout>
+

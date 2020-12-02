@@ -71,6 +71,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Collection<Owner> findAllOwner() {
+        return ownerRepository.findAllOwner();
+    }
+
+    @Override
     @Transactional
     public void saveOwner(Owner owner) {
         ownerRepository.save(owner);

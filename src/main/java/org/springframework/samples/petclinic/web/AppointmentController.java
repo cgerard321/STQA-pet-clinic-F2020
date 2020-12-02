@@ -118,6 +118,12 @@ public class AppointmentController {
         this.clinicService.saveVisit(v);
         return "redirect:/owners/{ownerId}";
     }
+
+    @GetMapping(value = "/welcome")
+    public String initViewFormReturn(Map<String, Object> model){
+
+        return "redirect:/";
+    }
 }
 
 

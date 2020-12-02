@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SeleniumExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -55,7 +56,7 @@ public class AppointmentTest {
 
         int count = driver.findElements(By.xpath("//input[@type='submit']")).size();
 
-        assertThat(count, is(4));
+        assertThat(count, is(6));
 
     }
 
@@ -131,5 +132,25 @@ public class AppointmentTest {
         assertEquals("Samantha", petName);
 
         driver.close();
+    }
+
+    @Test
+    void checkOwnerAppointmentsTableExists() throws Exception{
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/6/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        WebElement table = driver.findElement(By.xpath("//table"));
+        assertThat(table.isDisplayed(), is(true));
+    }
+
+    @Test
+    void checkOwnerAppointmentsRowsCount() throws Exception{
+        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/10/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        int count = driver.findElements(By.xpath("//tr")).size();
+
+        assertThat(count, is(3));
+
     }
 }

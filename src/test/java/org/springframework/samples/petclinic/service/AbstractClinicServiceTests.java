@@ -156,7 +156,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(9)
+    @Order(10)
     public void shouldInsertPetIntoDatabaseAndGenerateId() {
         Owner owner6 = this.clinicService.findOwnerById(6);
         int found = owner6.getPets().size();
@@ -180,7 +180,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(10)
+    @Order(11)
     public void shouldUpdatePetName() throws Exception {
         Pet pet7 = this.clinicService.findPetById(7);
         String oldName = pet7.getName();
@@ -194,7 +194,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     void shouldFindVets() {
         Collection<Vet> vets = this.clinicService.findVets();
 
@@ -207,7 +207,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(13)
+    @Order(14)
     public void shouldAddNewVisitForPet() {
         Pet pet7 = this.clinicService.findPetById(7);
         int found = pet7.getVisits().size();
@@ -223,7 +223,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(12)
+    @Order(11)
     void shouldFindVisitsByPetId() throws Exception {
         Collection<Visit> visits = this.clinicService.findVisitsByPetId(7);
         assertThat(visits.size()).isEqualTo(2);
@@ -234,7 +234,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(14)
+    @Order(15)
     void shouldFindVisitsByOwnerId() throws Exception {
         Collection<Visit> visits = this.clinicService.findVisitsByOwnerId(6);
         assertThat(visits.size()).isEqualTo(4);
@@ -248,7 +248,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     void shouldFindAllPetInClinic() {
         Collection<Pet> pets = this.clinicService.findPets();
         // Make sure that all the pets is there
@@ -264,7 +264,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(18)
+    @Order(19)
     void shouldRemovePetFromPetList() {
 
         Collection<Pet> pets = this.clinicService.findPets();
@@ -306,7 +306,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(15)
+    @Order(16)
     void shouldRetrieveOwnerEmail() throws Exception {
         Owner owner = new Owner();
         owner.setEmail("antoine.heb@outlook.com");
@@ -319,7 +319,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(16)
+    @Order(17)
     void shouldUpdateOwnerEmail() {
         Owner owner = this.clinicService.findOwnerById(1);
         String oldEmail = owner.getEmail();
@@ -334,7 +334,7 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
-    @Order(17)
+    @Order(18)
     void shouldExceptionFindAllPetInClinic() {
         when(petRepository.findAll()).thenReturn(null);
         assertThrows(NullPointerException.class, () -> mockService.findPets());
@@ -342,7 +342,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(7)
+    @Order(8)
     void shouldDeleteVisitsByIdIn() {
         this.clinicService.deleteVisitsById(Arrays.asList(1, 2));
 
@@ -378,7 +378,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    @Order(19)
+    @Order(20)
     void shouldDeleteVisitById() throws Exception{
 
         int oldRows = this.clinicService.findAllVisits().size();
@@ -447,11 +447,12 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
+    @Order(7)
     void shouldReturnVisitsWithFutureDates() {
         //arrange
         List<Visit> visits = new ArrayList<>(this.clinicService.findAllFutureVisits());
         // sort in ascending order
-        Collections.sort(visits, (v1, v2) -> v2.getDate().compareTo(v1.getDate()));
+        visits.sort(Comparator.comparing(Visit::getDate));
         LocalDate current_date = LocalDate.now();
 
         //act

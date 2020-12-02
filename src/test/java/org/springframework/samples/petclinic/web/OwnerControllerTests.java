@@ -4,8 +4,11 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
@@ -25,6 +28,7 @@ import java.util.HashMap;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -51,7 +55,6 @@ class OwnerControllerTests {
 
     @Autowired
     private ClinicService clinicService;
-
 
     @Qualifier("servletContext")
     @Autowired
@@ -136,7 +139,7 @@ class OwnerControllerTests {
 
         mockMvc.perform(get("/owners"))
             .andExpect(status().isOk())
-            .andExpect(view().name("owners/ownersList"));
+            .andExpect(view().name("owners/findOwners"));
     }
 
     @Test
@@ -316,5 +319,14 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+    }
+
+    //test added by Antoine
+    @Test
+    void testProcessFindAllOwnerForm() throws Exception {
+        //this get method should retrieve all owners and display the list
+        mockMvc.perform(get("/findAll"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/ownersList"));
     }
 }

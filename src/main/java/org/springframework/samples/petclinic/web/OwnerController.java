@@ -97,8 +97,8 @@ public class OwnerController {
     public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
 
         // allow parameterless GET request for /owners to return all records
-        if (owner.getLastName() == null) {
-            owner.setLastName(""); // empty string signifies broadest possible search
+        if (owner.getLastName() == "") {
+            return "owners/findOwners";
         }
 
         // find owners by last name
@@ -116,6 +116,7 @@ public class OwnerController {
             model.put("selections", results);
             return "owners/ownersList";
         }
+
     }
 
     @GetMapping(value = "/owners/{ownerId}/edit")
@@ -220,5 +221,14 @@ public class OwnerController {
             clinicService.saveOwner(owner);
 
         return "redirect:/owners";
+    }
+
+    //RequestMapping called when the find All Owner button is clicked
+    @RequestMapping(value = "/findAll")
+    public String processFindAllOwnerForm(Map<String, Object> model) {
+        Collection<Owner> results = this.clinicService.findAllOwner();
+        // multiple owners found
+        model.put("selections", results);
+        return "owners/ownersList";
     }
 }

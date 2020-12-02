@@ -136,7 +136,7 @@ public class AppointmentTest {
 
     @Test
     void checkOwnerAppointmentsTableExists() throws Exception{
-        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/6/appointments/viewForm");
+        driver.get("http://localhost:"+TOMCAT_PORT + TOMCAT_PREFIX+"owners/6/appointments/viewForm");
         driver.manage().window().maximize();
 
         WebElement table = driver.findElement(By.xpath("//table"));
@@ -145,7 +145,7 @@ public class AppointmentTest {
 
     @Test
     void checkOwnerAppointmentsRowsCount() throws Exception{
-        driver.get("http://localhost:8080/spring_framework_petclinic_war/owners/10/appointments/viewForm");
+        driver.get("http://localhost:"+TOMCAT_PORT + TOMCAT_PREFIX+"/owners/10/appointments/viewForm");
         driver.manage().window().maximize();
 
         int count = driver.findElements(By.xpath("//tr")).size();

@@ -15,7 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import io.github.bonigarcia.seljup.SeleniumExtension;
+
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -63,9 +63,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(SeleniumExtension.class)
 abstract class AbstractClinicServiceTests {
-
 
     @Autowired
     protected ClinicService clinicService;

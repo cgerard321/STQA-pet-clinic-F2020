@@ -30,10 +30,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -210,5 +207,11 @@ public class PetController {
         }
 
         return stringPets;
+    }
+
+    @GetMapping(value = "/pets/petTypes")
+    @ResponseBody
+    public  Collection<PetType> getPetTypes() throws JsonProcessingException{
+        return this.clinicService.findPetTypes();
     }
 }

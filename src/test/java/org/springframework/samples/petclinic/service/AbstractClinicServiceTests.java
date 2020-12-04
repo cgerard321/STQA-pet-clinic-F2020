@@ -32,10 +32,10 @@ import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.*;
-import java.util.Arrays;
-import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
@@ -287,16 +287,23 @@ abstract class AbstractClinicServiceTests {
     void shouldRemoveSamanthaFromPetList() {
         int id = 7;
         // Arrange
+        Pet pet = EntityUtils.getById(this.clinicService.findPets(), Pet.class, id);
         Collection<Pet> actualPetList;
 
         // Act
-        this.clinicService.removePetById(id);
+        this.clinicService.removePetById(pet.getId());
         actualPetList = this.clinicService.findPets();
 
         // Assert
         assertThat(actualPetList.size()).isEqualTo(12);
         boolean result = actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase("Samantha"));
         assertFalse(result);
+
+        // Revert
+        Owner owner = this.clinicService.findOwnerById(pet.getOwner().getId());
+        owner.addPet(pet);
+        this.clinicService.savePet(pet);
+        this.clinicService.saveOwner(owner);
     }
 
     @Test
@@ -371,16 +378,16 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     @Order(21)
-    void shouldFindAllAppointments(){
+    void shouldFindAllAppointments() {
 
         Collection<Visit> visits = this.clinicService.findAllVisits();
-        assertThat(visits.size()==4);
+        assertThat(visits.size() == 4);
     }
 
     @Test
     @Transactional
     @Order(20)
-    void shouldDeleteVisitById() throws Exception{
+    void shouldDeleteVisitById() throws Exception {
 
         int oldRows = this.clinicService.findAllVisits().size();
         MatcherAssert.assertThat(oldRows, is(6));
@@ -471,7 +478,6 @@ abstract class AbstractClinicServiceTests {
         assertThat(owners.isEmpty()).isFalse();
         assertThat(owners.size()).isEqualTo(10);
     }
-
 
 
 }

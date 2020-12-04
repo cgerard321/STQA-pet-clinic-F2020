@@ -72,4 +72,6 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
+    Collection<Rating> findRatingsByPetId(int petId);
+
 }

@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
@@ -35,14 +36,6 @@ public class AppointmentControllerTests {
     }
 
     @Test
-    void testNavigateToAppointments() throws Exception{
-        mockMvc.perform(get("/appointments/create"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("appointments/createAppointments"))
-            .andExpect(forwardedUrl("appointments/createAppointments"));
-    }
-
-    @Test
     void testViewAllAppointments() throws Exception {
         mockMvc.perform(get("/appointments/viewForm"))
             .andExpect(status().isOk())
@@ -58,4 +51,19 @@ public class AppointmentControllerTests {
             .andExpect(model().attributeExists("visits"));
 
     }
+
+    @Test
+    void testOwnerAppointmentsPage() throws Exception{
+        mockMvc.perform(get("/owners/6/appointments/viewForm"))
+            .andExpect(status().isOk());
+    }
+
+
+    @Test
+    void testOwnerAppointmentsPageRedirect() throws Exception{
+        mockMvc.perform(get("/owners/6/appointments/viewForm"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("visits"));
+    }
+
 }

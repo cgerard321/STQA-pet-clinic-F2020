@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.web;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -15,19 +14,11 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.ResourceUtils;
-
-import javax.print.attribute.standard.Media;
 import javax.servlet.ServletContext;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
-
-import java.util.List;
-
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -51,7 +42,6 @@ class OwnerControllerTests {
 
     @Autowired
     private ClinicService clinicService;
-
 
     @Qualifier("servletContext")
     @Autowired
@@ -136,7 +126,7 @@ class OwnerControllerTests {
 
         mockMvc.perform(get("/owners"))
             .andExpect(status().isOk())
-            .andExpect(view().name("owners/ownersList"));
+            .andExpect(view().name("owners/findOwners"));
     }
 
     @Test
@@ -316,5 +306,14 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+    }
+
+    //test added by Antoine
+    @Test
+    void testProcessFindAllOwnerForm() throws Exception {
+        //this get method should retrieve all owners and display the list
+        mockMvc.perform(get("/findAll"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/ownersList"));
     }
 }

@@ -12,33 +12,27 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
-<petclinic:layout pageName="viewForm">
-    <head>
-        <title>View Appointments</title>
-    </head>
+<petclinic:layout pageName="owner_viewForm">
+<head>
+    <title>Owner Appointments</title>
+</head>
     <body>
-
     <h2>View Appointments</h2>
 
     <table class="table table-striped table-bordered table-hover" id="appointmentsTable">
         <thead class="thead-dark">
         <tr>
             <th>Date</th>
-            <th>Pet ID</th>
             <th>Pet Name</th>
             <th>Description</th>
-            <th>Action</th>
         </tr>
         </thead>
         <c:forEach items="${visits}" var="v">
-            <spring:url value="/appointments/${v.id}/cancel" var="cancelUrl" />
-            <form action="${fn:escapeXml(cancelUrl)}" method="post">
+            <form action="/spring_framework_petclinic_war/appointments/${v.id}/cancel" method="post">
                 <tr>
                     <td>${v.date}</td>
-                    <td>${v.pet.id}</td>
                     <td>${v.pet.name}</td>
                     <td>${v.description}</td>
-                    <td><input type="submit" id=${v.id} value="Cancel"></td>
                 </tr>
             </form>
         </c:forEach>
@@ -46,5 +40,4 @@
     <spring:url value="/welcome" var="returnUrl"/>
     <a href="${fn:escapeXml(returnUrl)}">Return to Navigation</a>
     </body>
-
 </petclinic:layout>

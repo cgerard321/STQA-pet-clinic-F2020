@@ -307,6 +307,29 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
+    void shouldRemoveLeoFromPetList() {
+        int id = 1;
+        // Arrange
+        Pet pet = EntityUtils.getById(this.clinicService.findPets(), Pet.class, id);
+        Collection<Pet> actualPetList;
+
+        // Act
+        this.clinicService.removePetById(pet.getId());
+        actualPetList = this.clinicService.findPets();
+
+        // Assert
+        assertThat(actualPetList.size()).isEqualTo(12);
+        boolean result = actualPetList.stream().anyMatch(x -> x.getName().equalsIgnoreCase(pet.getName()));
+        assertFalse(result);
+
+        // Revert
+        Owner owner = this.clinicService.findOwnerById(pet.getOwner().getId());
+        owner.addPet(pet);
+        this.clinicService.savePet(pet);
+        this.clinicService.saveOwner(owner);
+    }
+
+    @Test
     @Order(23)
     void shouldExceptionWithPetNotExist() {
         int id = 69;

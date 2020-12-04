@@ -37,3 +37,18 @@ $.ajax({
 $(document).ready(function(){
     $("#hallOfFame").show();
 });
+async function init() {
+    const result = await fetch("/spring_framework_petclinic_war//pets/petTypes");
+
+    if (result.ok) {
+        (await result.json())
+            .map(i => {
+                const option = document.createElement("option");
+                option.value = i.name.toString();
+                option.textContent = i.name.toString();
+                return option;
+            })
+            .forEach(o => document.getElementById("petType").appendChild(o));
+    }
+}
+init();

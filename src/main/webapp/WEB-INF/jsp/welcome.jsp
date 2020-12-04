@@ -23,7 +23,19 @@
     -->
 
     <details id="hallOfFame" style="display:none">
-    <summary><strong>Hall of Fame</strong></summary>
+        <!-- Christos C.-->
+        <div class="input-group">
+
+            <select class="form-control" name='petType' id="petType">
+                <option selected="selected" value="all">All</option>
+
+
+            </select>
+            <span class="input-group-btn">
+    <button class="btn btn-default" type="button">Set Filter</button>
+  </span>
+        </div>
+        <summary><strong>Hall of Fame</strong></summary>
     <!-- Ryan L. -->
     <table>
         <thead class="thead">

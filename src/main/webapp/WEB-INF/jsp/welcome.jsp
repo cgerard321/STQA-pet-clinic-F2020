@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
 <c:set var = "events" value = "${calendar.getEvents()}"/>
@@ -32,7 +31,7 @@
 
             </select>
             <span class="input-group-btn">
-    <button class="btn btn-default" type="button">Set Filter</button>
+    <button class="btn btn-default" id="sortHall" type="button">Set Filter</button>
   </span>
         </div>
         <summary><strong>Hall of Fame</strong></summary>

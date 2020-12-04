@@ -34,10 +34,10 @@ INSERT INTO owners VALUES (9, 'images (7)','David', 'Schroeder', '2749 Blackhawk
 INSERT INTO owners VALUES (10, 'images_default','Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', 'AK', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
 
 INSERT INTO pets VALUES (1, 'Leo', '2010-09-07', 'https://i.pinimg.com/736x/33/32/6d/33326dcddbf15c56d631e374b62338dc.jpg', 0, 0, 1, 1);
-INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 'https://i.ytimg.com/vi/1BF1kfwAVN4/maxresdefault.jpg', 0, 0, 6, 2);
+INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 'https://i.ytimg.com/vi/1BF1kfwAVN4/maxresdefault.jpg', 5, 0, 6, 2);
 INSERT INTO pets VALUES (3, 'Rosy', '2011-04-17', 'https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg', 0, 0, 2, 3);
 INSERT INTO pets VALUES (4, 'Jewel', '2010-03-07', 'https://www.rd.com/wp-content/uploads/2019/01/shutterstock_1176034804.jpg', 0, 0, 2, 3);
-INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 'https://cf.ltkcdn.net/small-pets/images/std/261974-425x274-lizard-pet-cute.jpg', 0, 0, 3, 4);
+INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 'https://cf.ltkcdn.net/small-pets/images/std/261974-425x274-lizard-pet-cute.jpg', 10, 0, 3, 4);
 INSERT INTO pets VALUES (6, 'George', '2010-01-20', 'https://imgur.com/tDrCeLB', 0, 0, 4, 5);
 INSERT INTO pets VALUES (7, 'Samantha', '2012-09-04', 'https://i.pinimg.com/originals/0c/1c/a1/0c1ca1955e2b0c5469ba17da2b1b9b96.jpg', 0, 0, 1, 6);
 INSERT INTO pets VALUES (8, 'Max', '2012-09-04', 'https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/03/Scottish-Fold_01.jpg', 0, 0, 1, 6);

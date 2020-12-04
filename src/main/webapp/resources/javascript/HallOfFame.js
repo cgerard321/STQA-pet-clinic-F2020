@@ -72,29 +72,32 @@ $('#sortHall').click(async function filterByPetType(){
         }
 
       }
+      console.log(pets)
+        // if(pets.length === 2){
+        //     $("#HOF3Name").hide();
+        //     $("#HOF3Img").hide();
+        // }
+        // else if(pets.length === 1){
+        //     $("#HOF2Name").hide();
+        //     $("#HOF2Img").hide();
+        //     $("#HOF3Name").hide();
+        //     $("#HOF3Img").hide();
+        // }
         for (var x = 0; x < 3; x++){
-            if (pets[x] - 1) {
-                $("#HOF" + (x+1) + "Name").hide();
-                $("#HOF" + (x+1) + "Img").hide();
+                if (pets[x].totalRating == 0){
+                    $("#HOF" + (x+1) + "Name").text(pets[x].name + " [0]");
+                }
+                else{
+                    $("#HOF" + (x+1) + "Name").text(pets[x].name + " [" + parseFloat((pets[x].totalRating / pets[x].timesRated).toFixed(2)) + "]");
+                }
+                $("#Name" + (x+1)).text(pets[x].name);
+                // $("#owner" + (x+1)).text("Owner: " + pets[x].ownerElement);
+                $("#timesRated" + (x+1)).text("Times Rated: " + pets[x].timesRated);
+                $("#HOF" + (x+1) + "Img").attr("src", pets[x].imageURL);
             }
-            // else {
-            //     var obj = JSON.parse(petArray[top3Highest[i] - 1]);
-            //     if (obj.totalRating == 0){
-            //         $("#HOF" + (i+1) + "Name").text(obj.name + " [0]");
-            //     }
-            //     else{
-            //         $("#HOF" + (i+1) + "Name").text(obj.name + " [" + parseFloat((obj.totalRating / obj.timesRated).toFixed(2)) + "]");
-            //     }
-            //     $("#Name" + (i+1)).text(obj.name);
-            //     $("#owner" + (i+1)).text("Owner: " + obj.ownerElement);
-            //     $("#timesRated" + (i+1)).text("Times Rated: " + obj.timesRated);
-            //     $("#HOF" + (i+1) + "Img").attr("src", obj.imageURL);
-            // }
         }
-        console.log(pets)
 
 
-    }
 });
 
 

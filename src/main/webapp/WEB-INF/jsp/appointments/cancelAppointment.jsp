@@ -34,7 +34,7 @@
             </c:forEach>
         </table>
 
-        <button class="btn btn-default" type="submit">Cancel appointment</button>
+        <button class="btn btn-default" type="submit" onclick="return confirm('Are you sure you want to remove this appointment for ${v.pet.name}?')">Cancel appointment</button>
         <button class="btn btn-default" onclick="event.preventDefault(); history.back();">Go back</button>
     </form:form>
 </petclinic:layout>

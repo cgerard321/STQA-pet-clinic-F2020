@@ -66,4 +66,5 @@ public class AppointmentControllerTests {
             .andExpect(model().attributeExists("visits"));
     }
 
+
 }

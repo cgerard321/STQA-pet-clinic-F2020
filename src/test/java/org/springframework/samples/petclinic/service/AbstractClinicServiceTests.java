@@ -300,14 +300,12 @@ abstract class AbstractClinicServiceTests {
         assertFalse(result);
 
         // Revert
-        Owner owner = this.clinicService.findOwnerById(pet.getOwner().getId());
-        owner.addPet(pet);
-        this.clinicService.savePet(pet);
-        this.clinicService.saveOwner(owner);
+        revertPet(pet);
     }
 
     @Test
     void shouldRemoveLeoFromPetList() {
+        boolean jdbcTest = this.getClass().equals(ClinicServiceJdbcTests.class);
         int id = 1;
         // Arrange
         Pet pet = EntityUtils.getById(this.clinicService.findPets(), Pet.class, id);
@@ -323,10 +321,7 @@ abstract class AbstractClinicServiceTests {
         assertFalse(result);
 
         // Revert
-        Owner owner = this.clinicService.findOwnerById(pet.getOwner().getId());
-        owner.addPet(pet);
-        this.clinicService.savePet(pet);
-        this.clinicService.saveOwner(owner);
+        revertPet(pet);
     }
 
     @Test
@@ -502,5 +497,22 @@ abstract class AbstractClinicServiceTests {
         assertThat(owners.size()).isEqualTo(10);
     }
 
+    private void revertPet(Pet pet) {
+        boolean jdbcTest = this.getClass().equals(ClinicServiceJdbcTests.class);
 
+        Owner owner = pet.getOwner();
+        owner.addPet(pet);
+        if (jdbcTest)
+            pet.setId(null);
+        this.clinicService.savePet(pet);
+        if (jdbcTest) {
+            this.clinicService.saveOwner(owner);
+            for (Visit visit : pet.getVisits()) {
+                this.clinicService.saveVisit(visit);
+            }
+            for (Rating rating : pet.getRatings()) {
+                this.clinicService.saveRating(rating);
+            }
+        }
+    }
 }

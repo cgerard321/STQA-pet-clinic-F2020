@@ -1,0 +1,15 @@
+.tooltip.in {
+    opacity: 1 !important;
+}
+
+.ownerHover {
+    color: #34302d;
+    text-decoration: underline;
+    text-underline-position: under;
+    text-decoration-style: dashed;
+}
+
+.ownerHover:hover {
+    color: #5fa134;
+    text-decoration-style: dashed;
+}

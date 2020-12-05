@@ -35,14 +35,18 @@ PetClinic :: a Spring Framework demonstration
     <link href="${hallOfFame}" rel="stylesheet">
 
     <%-- Css added for showing pet information in hall of fame #Simon St-Andre --%>
-    <spring:url value="/resources/css/petInfoCard.css" var="cardInfo" />
+    <spring:url value="/resources/css/petInfoCard.css" var="cardInfo"/>
     <link href="${cardInfo}" rel="stylesheet">
 
-    <spring:url value="/resources/css/headerPage.css" var="headerCss" />
+    <spring:url value="/resources/css/headerPage.css" var="headerCss"/>
     <link href="${headerCss}" rel="stylesheet">
 
-    <spring:url value="/resources/css/footer.css" var="footerCss" />
+    <spring:url value="/resources/css/footer.css" var="footerCss"/>
     <link href="${footerCss}" rel="stylesheet">
+
+    <%-- Css for Pet Page #Simon St-Andre --%>
+    <spring:url value="/resources/css/petPage.css" var="petPageCss"/>
+    <link href="${petPageCss}" rel="stylesheet">
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

@@ -10,11 +10,11 @@
 <petclinic:layout pageName="pets">
     <h2 id="pets">Pets</h2>
 
-<%--    Check if there's pets in the petclinic--%>
+    <%--    Check if there's pets in the petclinic--%>
     <c:choose>
         <%--        There's at least one pet--%>
         <c:when test="${selections.toArray()[0] != null}">
-            <table id="petsTable" class="table table-striped" aria-describedby="pets">
+            <table id="petsTable" class="table table-striped table-hover" aria-describedby="pets">
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -30,45 +30,57 @@
                 <c:forEach items="${selections}" var="pet">
                     <tr>
                         <td>
-                            <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+                                <%--                            <spring:url value="/pets/${pet.id}/view" var="petViewUrl"/>--%>
+                                <%--                            <form:form method="POST" action="${fn:escapeXml(petViewUrl)}">--%>
+                                <%--                                <button type="submit" name="viewPetDetails" value="${pet.id}">--%>
+                                <%--                                    View Details--%>
+                                <%--                                </button>--%>
+                            <!--view details about pet -->
+
+                            <spring:url value="/owners/{ownerId}/pets/{petId}/view" var="detailUrl">
                                 <spring:param name="ownerId" value="${pet.owner.id}"/>
                                 <spring:param name="petId" value="${pet.id}"/>
                             </spring:url>
-                            <c:out value="${pet.name}"/>
+                            <a href="${fn:escapeXml(detailUrl)}"><c:out value="${pet.name}"/></a>
+                                <%--                            </form:form>--%>
                         </td>
                         <td>
                             <c:out value="${pet.birthDate}"/>
                         </td>
                         <td>
-                            <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
+                            <spring:url value="/owners/{ownerId}.html" var="ownerUrl">
+                                <spring:param name="ownerId" value="${pet.owner.id}"/>
+                            </spring:url>
+                            <a data-toggle="tooltip" data-html="true" data-placement="right"
+                               data-original-title="<img style='width:60%;' src='${pet.owner.profile_picture}' />"
+                               title="" class="ownerHover" href="${fn:escapeXml(ownerUrl)}">
+                                <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
+                            </a>
                         </td>
                         <td style="text-transform:capitalize;">
                             <c:out value="${pet.type.name}"/>
                         </td>
                         <td>
-                        <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl" />
-                        <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}">
-                            
-                              
-                              <a href="${fn:escapeXml(petUrl)}"><button type="button" name="editPet">Edit Pet Information</button></a>
-                            <!--    Go to edit pet page -->
-                              
-                                 <button type="submit" name="deletePet" value="${pet.id}"
+
+                            <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+                                <spring:param name="ownerId" value="${pet.owner.id}"/>
+                                <spring:param name="petId" value="${pet.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(petUrl)}">
+                                <button type="button" name="editPet">Edit Pet Information</button>
+                            </a>
+                            <!-- Go to edit pet page -->
+
+                            <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl"/>
+                            <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}"
+                                       cssStyle="display: inline-block">
+                                <button type="submit" name="deletePet" value="${pet.id}"
                                         onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
                                     Delete Pet
                                 </button>
                                 <!--remove the new pet -->
-                              
-                        </form:form>
-                        <spring:url value="/pets/${pet.id}/view" var="petViewUrl" />
-                        <form:form method="POST" action="${fn:escapeXml(petViewUrl)}">
-                            <button type="submit" name="viewPetDetails" value="${pet.id}">
-                                    View Details
-                                </button>
-                                <!--view details about pet -->
-                          
-                            
-                        </form:form>
+
+                            </form:form>
                         </td>
                     </tr>
                 </c:forEach>
@@ -83,10 +95,10 @@
     </c:choose>
 
     <input class="col-sm-3">
-        <a href="${fn:escapeXml(petUrl)}">
-            <button type="button" name="addPet">Add Pet</button>
-        </a>
-        <input type="text" id="addPet" name="addPet"><!--add the new pet --></input>
+    <a href="${fn:escapeXml(petUrl)}">
+        <button type="button" name="addPet">Add Pet</button>
+    </a>
+    <input type="text" id="addPet" name="addPet"><!--add the new pet --></input>
     </div>
 
 </petclinic:layout>

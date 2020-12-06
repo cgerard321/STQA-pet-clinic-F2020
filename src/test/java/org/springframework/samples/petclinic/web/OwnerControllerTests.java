@@ -1,16 +1,29 @@
 package org.springframework.samples.petclinic.web;
 
+import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
+=======
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
+<<<<<<< HEAD
 
 import org.springframework.samples.petclinic.model.Visit;
 
+=======
+import org.springframework.samples.petclinic.model.Visit;
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 import org.springframework.samples.petclinic.model.Pet;
 
 
@@ -22,9 +35,18 @@ import org.springframework.util.ResourceUtils;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.util.HashMap;
+<<<<<<< HEAD
+=======
+
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PORT;
+import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,10 +59,47 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Colin But
  */
 
+@ExtendWith(SeleniumExtension.class)
 @SpringJUnitWebConfig(locations = {"classpath:spring/mvc-test-config.xml", "classpath:spring/mvc-core-config.xml"})
 class OwnerControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
+    private static final int TEST_OWNER_ID2 = 2;
+
+    // SELENIUM testing for STQA 196 - Improve alert window UI
+    // Initialize chrome driver
+    ChromeDriver driver;
+    public OwnerControllerTests (ChromeDriver driver){
+        this.driver = driver;
+    }
+
+    // SELENIUM STQA-196
+    // Improve Alert Window UI testing
+    @Test
+    public void TestRemoveOwnerSelenium() {
+        //arrange
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1.html");
+        driver.manage().window().maximize();
+
+        // act
+        WebElement test = driver.findElementById("removeOwnerID");
+        System.out.println(test.getText());
+        driver.findElementById("removeOwnerID").click();
+
+        // add 2 seconds for the browser to catch up, otherwise the test will fail
+        try {
+            Thread.sleep(2000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElementById("delete").click();
+
+        // assert
+        String URL = driver.getCurrentUrl();
+        assertThat(URL, is("http://localhost:8080/spring_framework_petclinic_war/owners/1/remove.html" ));
+    }
+
 
     @Autowired
     private OwnerController ownerController;
@@ -55,6 +114,7 @@ class OwnerControllerTests {
     private MockMvc mockMvc;
 
     private Owner george;
+    private Owner jav;
 
 
     @BeforeEach
@@ -80,6 +140,23 @@ class OwnerControllerTests {
         george.setEmail("george.franklin@gmail.com");
         george.setComment("This owner is hard of hearing");
         given(this.clinicService.findOwnerById(TEST_OWNER_ID)).willReturn(george);
+
+
+        // STQA 74 - REMOVE OWNER
+        // Owner without dependency
+        jav = new Owner();
+
+        jav.setId(TEST_OWNER_ID2);
+        jav.setFirstName("George");
+        jav.setLastName("Franklin");
+        jav.setAddress("110 W. Liberty St.");
+        jav.setCity("Madison");
+        jav.setState("NY");
+        jav.setTelephone("6085551023");
+        jav.setEmail("george.franklin@gmail.com");
+        jav.setComment("This owner is hard of hearing");
+        given(this.clinicService.findOwnerById(TEST_OWNER_ID2)).willReturn(jav);
+
 
     }
 
@@ -267,7 +344,10 @@ class OwnerControllerTests {
 
         then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
     // We must comment this test out until I have figured out a way to enable multipart support.
     //@Test
     void testAddMultipleOwners_SendFileSuccessful() throws Exception {
@@ -318,6 +398,7 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
+<<<<<<< HEAD
 
     //test added by Antoine
     @Test
@@ -327,6 +408,8 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(view().name("owners/ownersList"));
     }
+=======
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 
     // STQA 74 - REMOVE OWNER
     // try to remove owner with dependency
@@ -338,4 +421,17 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/removeOwner"))
             .andExpect(forwardedUrl("owners/removeOwner"));
     }
+<<<<<<< HEAD
+=======
+
+    // STQA 74 - REMOVE OWNER
+    // remove owner without dependency
+
+    @Test
+    public void testRemoveOwnerNoDependency() throws Exception {
+        mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID2))
+            .andExpect(view().name("redirect:/owners.html?lastName="));
+    }
+
+>>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 }

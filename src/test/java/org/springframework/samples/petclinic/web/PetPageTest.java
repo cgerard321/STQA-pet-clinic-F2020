@@ -127,4 +127,21 @@ public class PetPageTest {
 
         assertThat(driver.findElementByXPath("//div[@role='tooltip']").isDisplayed(), is(true));
     }
+
+    @Test
+    void shouldSearchCorrectPet() {
+        // Arrange
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/pets/find.html");
+        driver.manage().window().maximize();
+
+        // Act & Assert
+        driver.findElementById("searchFilter").sendKeys("Mul");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertThat(driver.findElementByXPath("//a[contains(text(), 'Mulligan')]").isDisplayed(), is(true));
+    }
 }

@@ -5,9 +5,10 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -127,6 +128,30 @@ public class AppointmentTest {
         int count = driver.findElements(By.xpath("//tr")).size();
 
         assertThat(count, is(3));
+
+    }
+
+    @Test
+    void checkAppointmentCancelConfirmation(){
+
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/appointments/viewForm");
+        driver.manage().window().maximize();
+
+        WebElement cancel = driver.findElement(By.xpath("//input[@id='1']"));
+        cancel.click();
+
+        boolean foundAlert = false;
+        WebDriverWait wait = new WebDriverWait(driver, 0 /*timeout in seconds*/);
+        try {
+            wait.until(ExpectedConditions.alertIsPresent());
+            foundAlert = true;
+        } catch (TimeoutException eTO) {
+            foundAlert = false;
+        }
+
+        assertThat(foundAlert, is(true));
+
+
 
     }
 }

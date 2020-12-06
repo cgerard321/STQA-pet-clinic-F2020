@@ -17,12 +17,12 @@
             <table id="petsTable" class="table table-striped table-hover" aria-describedby="pets">
                 <thead>
                 <tr>
+                    <th scope="col" style="width: 30px;"></th>
                     <th scope="col">Name</th>
                     <th scope="col">Birth Day</th>
                     <th scope="col">Owner</th>
                     <th scope="col">Type</th>
-                    <th></th>
-                    <th></th>
+                    <th scope="col" style="width: 30px;"></th>
 
                 </tr>
                 </thead>
@@ -30,19 +30,29 @@
                 <c:forEach items="${selections}" var="pet">
                     <tr>
                         <td>
-                                <%--                            <spring:url value="/pets/${pet.id}/view" var="petViewUrl"/>--%>
-                                <%--                            <form:form method="POST" action="${fn:escapeXml(petViewUrl)}">--%>
-                                <%--                                <button type="submit" name="viewPetDetails" value="${pet.id}">--%>
-                                <%--                                    View Details--%>
-                                <%--                                </button>--%>
-                            <!--view details about pet -->
+                            <!-- Edit Pet -->
+                            <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+                                <spring:param name="ownerId" value="${pet.owner.id}"/>
+                                <spring:param name="petId" value="${pet.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(petUrl)}">
+                                <button type="button" class="btn btn-link btnLink" style="padding: 5px">
+                                        <%--                                <span--%>
+                                        <%--                                        class="glyphicon glyphicon-pencil"--%>
+                                        <%--                                        aria-hidden="true"></span>--%>
+                                    <span aria-hidden="true"><i class="fi-pencil"></i></span>
+                                </button>
+                            </a>
+                        </td>
+                        <td>
 
+                            <!--view details about pet -->
                             <spring:url value="/owners/{ownerId}/pets/{petId}/view" var="detailUrl">
                                 <spring:param name="ownerId" value="${pet.owner.id}"/>
                                 <spring:param name="petId" value="${pet.id}"/>
                             </spring:url>
-                            <a href="${fn:escapeXml(detailUrl)}"><c:out value="${pet.name}"/></a>
-                                <%--                            </form:form>--%>
+                            <a href="${fn:escapeXml(detailUrl)}" style="font-weight: bold;"><c:out
+                                    value="${pet.name}"/></a>
                         </td>
                         <td>
                             <c:out value="${pet.birthDate}"/>
@@ -61,22 +71,13 @@
                             <c:out value="${pet.type.name}"/>
                         </td>
                         <td>
-
-                            <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
-                                <spring:param name="ownerId" value="${pet.owner.id}"/>
-                                <spring:param name="petId" value="${pet.id}"/>
-                            </spring:url>
-                            <a href="${fn:escapeXml(petUrl)}">
-                                <button type="button" name="editPet">Edit Pet Information</button>
-                            </a>
-                            <!-- Go to edit pet page -->
-
                             <spring:url value="/pets/${pet.id}/remove" var="petRemoveUrl"/>
                             <form:form method="POST" action="${fn:escapeXml(petRemoveUrl)}"
                                        cssStyle="display: inline-block">
-                                <button type="submit" name="deletePet" value="${pet.id}"
-                                        onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
-                                    Delete Pet
+                                <button type="submit" name="deletePet" class="btn btn-link btnLink" value="${pet.id}"
+                                        onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')"
+                                        style="padding: 5px">
+                                    <span aria-hidden="true"><i class="fi-trash"></i></span>
                                 </button>
                                 <!--remove the new pet -->
 
@@ -95,11 +96,10 @@
     </c:choose>
 
     <input class="col-sm-3">
-    <a href="${fn:escapeXml(petUrl)}">
-        <button type="button" name="addPet">Add Pet</button>
-    </a>
-    <input type="text" id="addPet" name="addPet"><!--add the new pet --></input>
-    </div>
+    <%--    <a href="${fn:escapeXml(petUrl)}">--%>
+    <button type="button" name="addPet">Add Pet</button>
+    <%--    </a>--%>
+    <input type="text" id="addPet" name="addPet"><!--add the new pet -->
 
 </petclinic:layout>
 

@@ -13,3 +13,12 @@
     color: #5fa134;
     text-decoration-style: dashed;
 }
+
+.btnLink:hover {
+    filter: brightness(85%);
+}
+
+#petsTable td {
+    height: 30px;
+    line-height: 30px;
+}

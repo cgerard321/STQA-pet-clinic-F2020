@@ -123,6 +123,18 @@ public class AppointmentController {
 
         return "redirect:/";
     }
+
+    // Ryan
+    @GetMapping(value = "appointments/getAllAppointments")
+    @ResponseBody
+    public String[] getAllVisits() {
+        ArrayList<Visit> visits = new ArrayList<>(this.clinicService.findAllVisits());
+        String[] stringVisits = new String[visits.size()];
+        for (int i = 0; i < visits.size(); i++){
+            stringVisits[i] = visits.get(i).toJsonString();
+        }
+        return stringVisits;
+    }
 }
 
 

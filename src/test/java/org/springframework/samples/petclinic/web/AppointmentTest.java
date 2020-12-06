@@ -5,7 +5,9 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -37,8 +39,8 @@ public class AppointmentTest {
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-        WebElement cancel= driver.findElement(By.xpath("//input[@type='submit']"));
-        assertThat(cancel.isDisplayed(), is(true)) ;
+        WebElement cancel = driver.findElement(By.xpath("//input[@type='submit']"));
+        assertThat(cancel.isDisplayed(), is(true));
 
     }
 
@@ -83,7 +85,7 @@ public class AppointmentTest {
     //button for the appointments in the schedule. If there's none, there's no appointments.
     @Test
     void checkAppointmentsScheduledCanBeCancelled() {
-        driver.get("http://localhost:"+ TOMCAT_PORT+ TOMCAT_PREFIX+ "/vetProfile.html?id=4");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/vetProfile.html?id=4");
         driver.manage().window().maximize();
 
         List<WebElement> hasASchedule = driver.findElements(By.className("btn"));
@@ -91,8 +93,7 @@ public class AppointmentTest {
     }
 
     @Test
-    void testVetVisitResultTable()
-    {
+    void testVetVisitResultTable() {
         //arrange
         driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/vetProfile.html?id=1");
         driver.manage().window().maximize();
@@ -113,7 +114,7 @@ public class AppointmentTest {
 
     @Test
     void checkOwnerAppointmentsTableExists() {
-        driver.get("http://localhost:"+TOMCAT_PORT + TOMCAT_PREFIX+"owners/6/appointments/viewForm");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/6/appointments/viewForm");
         driver.manage().window().maximize();
 
         WebElement table = driver.findElement(By.xpath("//table"));
@@ -122,7 +123,7 @@ public class AppointmentTest {
 
     @Test
     void checkOwnerAppointmentsRowsCount() {
-        driver.get("http://localhost:"+TOMCAT_PORT + TOMCAT_PREFIX+"/owners/10/appointments/viewForm");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/10/appointments/viewForm");
         driver.manage().window().maximize();
 
         int count = driver.findElements(By.xpath("//tr")).size();
@@ -132,7 +133,7 @@ public class AppointmentTest {
     }
 
     @Test
-    void checkAppointmentCancelConfirmation(){
+    void checkAppointmentCancelConfirmation() {
 
         driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/appointments/viewForm");
         driver.manage().window().maximize();
@@ -150,7 +151,6 @@ public class AppointmentTest {
         }
 
         assertThat(foundAlert, is(true));
-
 
 
     }

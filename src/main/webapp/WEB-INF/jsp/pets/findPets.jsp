@@ -10,6 +10,10 @@
 <petclinic:layout pageName="pets">
     <h2 id="pets">Pets</h2>
 
+    <label>
+        <input type="search" id="searchFilter" class="form-control" placeholder="Search" maxlength="20">
+    </label>
+
     <%--    Check if there's pets in the petclinic--%>
     <c:choose>
         <%--        There's at least one pet--%>
@@ -37,9 +41,6 @@
                             </spring:url>
                             <a href="${fn:escapeXml(petUrl)}">
                                 <button type="button" class="btn btn-link btnLink" style="padding: 5px">
-                                        <%--                                <span--%>
-                                        <%--                                        class="glyphicon glyphicon-pencil"--%>
-                                        <%--                                        aria-hidden="true"></span>--%>
                                     <span aria-hidden="true"><i class="fi-pencil"></i></span>
                                 </button>
                             </a>
@@ -96,9 +97,7 @@
     </c:choose>
 
     <input class="col-sm-3">
-    <%--    <a href="${fn:escapeXml(petUrl)}">--%>
-    <button type="button" name="addPet">Add Pet</button>
-    <%--    </a>--%>
+    <button type="button" name="addPet" onclick="return alert('Feature not implemented yet!')">Add Pet</button>
     <input type="text" id="addPet" name="addPet"><!--add the new pet -->
 
 </petclinic:layout>

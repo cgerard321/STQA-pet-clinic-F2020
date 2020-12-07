@@ -1,11 +1,11 @@
-.footer{
+.footer {
     background: #303036;
-    color:#d3d3d3;
+    color: #d3d3d3;
     width: 100%;
     margin-top: auto;
 }
-.links{
-    width:50%;
+
+.links {
     display: table;
     margin: 0 auto;
 }
@@ -15,10 +15,11 @@ ul#horizontal-list {
     list-style: none;
     padding-top: 30px;
 }
+
 ul#horizontal-list li {
     margin-top: 5px;
-
 }
+
 html {
     height: 100%;
 }
@@ -33,10 +34,11 @@ body {
 /*When Screen is bigger than 900PX, change footer nav list to horizontal*/
 @media only screen and (min-width: 900px) {
     ul#horizontal-list {
-        min-width: 900px;
+        min-width: 500px;
         list-style: none;
         padding-top: 20px;
     }
+
     ul#horizontal-list li {
         margin: 20px;
         display: inline;

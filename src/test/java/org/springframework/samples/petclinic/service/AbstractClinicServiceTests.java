@@ -440,6 +440,18 @@ abstract class AbstractClinicServiceTests {
     }
 
     @Test
+    @Order(26)
+    void shouldFindRatingsByPetId() throws Exception {
+        Collection<Rating> ratings = this.clinicService.findRatingsByPetId(1);
+        assertThat(ratings.size()).isEqualTo(1);
+        Rating[] ratingArr = ratings.toArray(new Rating[ratings.size()]);
+        assertThat(ratingArr[0].getPet()).isNotNull();
+        assertThat(ratingArr[0].getUsername()).isNotNull();
+        assertThat(ratingArr[0].getRating()).isNotNull();
+        assertThat(ratingArr[0].getPet().getId()).isEqualTo(1);
+    }
+
+    @Test
     void shouldRetrieveOwnerState() {
         Owner owner = new Owner();
         owner.setState("NY");

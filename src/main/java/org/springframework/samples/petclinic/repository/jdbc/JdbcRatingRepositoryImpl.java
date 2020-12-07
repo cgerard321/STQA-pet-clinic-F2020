@@ -57,4 +57,24 @@ public class JdbcRatingRepositoryImpl implements RatingRepository {
             BeanPropertyRowMapper.newInstance(Rating.class)));
         return ratings;
     }
+
+    @Override
+    public List<Rating> findByPetId(Integer petId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", petId);
+        JdbcPet pet = this.jdbcTemplate.queryForObject(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE id=:id",
+            params,
+            new JdbcPetRowMapper());
+
+        List<Rating> ratings = this.jdbcTemplate.query(
+            "SELECT id as rating_id, username, rating FROM ratings WHERE pet_id=:id",
+            params, new JdbcRatingRowMapper());
+
+        for (Rating rating : ratings) {
+            rating.setPet(pet);
+        }
+
+        return ratings;
+    }
 }

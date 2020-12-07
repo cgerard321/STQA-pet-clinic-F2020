@@ -12,6 +12,13 @@
     </h2>
     <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+            <inputField label="Profile Picture" name="profile_picture" value="images_default"/>
+            <div class="form-group ">
+                <label class="col-sm-2 control-label">Profile Picture</label>
+                <div class="col-sm-10">
+                    <input type="text" id="profile_picture" name="profile_picture" value="images_default" class="form-control" required>
+                </div>
+            </div>
             <petclinic:inputField label="First Name" name="firstName"/>
             <petclinic:inputField label="Last Name" name="lastName"/>
             <petclinic:inputField label="Address" name="address"/>

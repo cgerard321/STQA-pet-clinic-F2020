@@ -62,4 +62,5 @@ public interface OwnerRepository {
     void save(Owner owner);
 
 
+    Collection<Owner> findAllOwner();
 }

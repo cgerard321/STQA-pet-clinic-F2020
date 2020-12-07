@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.samples.petclinic.model.Visit;
@@ -43,6 +44,8 @@ public interface VisitRepository {
     List<Visit> findByOwnerId(Integer ownerId);
 
     List<Visit> findAll();
+
+    List<Visit> findAllFutureVisits(LocalDate current_date);
 
     void deleteByIdIn(List<Integer> visitIds);
 

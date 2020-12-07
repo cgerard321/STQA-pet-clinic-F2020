@@ -11,6 +11,11 @@
 
     <table class="table table-striped" aria-describedby="ownerInformation">
         <tr>
+            <th id="profile_picture">Profile Picture</th>
+            <spring:url value="/resources/images/ownersProfilePictures/${owner.profile_picture}.png" var="profilePictureUrl" />
+            <td headers="profile_picture"><img src="${fn:escapeXml(profilePictureUrl)}" alt="owner image"></td>
+        </tr>
+        <tr>
             <th id="name">Name</th>
             <td headers="name"><strong><c:out value="${owner.firstName} ${owner.lastName}"/></strong></td>
         </tr>
@@ -229,6 +234,14 @@
                                     <spring:param name="petId" value="${pet.id}"/>
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
+                            </td>
+                            <td>
+                                <!--Last minute Appointments link-->
+                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/lastMin" var="lastMinuteAppointment">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(lastMinuteAppointment)}">Last Minute Visit</a>
                             </td>
                         </tr>
                     </table>

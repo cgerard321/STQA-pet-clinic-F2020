@@ -46,6 +46,10 @@ import java.util.*;
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
+    @Column(name = "profile_picture")
+    @NotEmpty
+    private String profile_picture;
+
     @Column(name = "address")
     @NotEmpty
     @ValidAddress
@@ -72,12 +76,19 @@ public class Owner extends Person {
     private String email;
 
     @Column(name = "comment")
-    @NotEmpty
     private String comment;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Pet> pets;
 
+
+    public String getProfile_picture() {
+        return this.profile_picture;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
+    }
 
     public String getAddress() {
         return this.address;
@@ -179,6 +190,7 @@ public class Owner extends Person {
     public String toString() {
         return new ToStringCreator(this)
 
+            .append("profile_picture", this.getProfile_picture())
             .append("id", this.getId())
             .append("new", this.isNew())
             .append("lastName", this.getLastName())

@@ -15,12 +15,11 @@
  */
 package org.springframework.samples.petclinic.service;
 
-
 import org.springframework.samples.petclinic.model.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
@@ -52,6 +51,8 @@ public interface ClinicService {
 
     Collection<Owner> findOwnerByLastName(String lastName);
 
+    Collection<Owner> findAllOwner();
+
     Collection<Visit> findVisitsByPetId(int petId);
 
 //
@@ -60,7 +61,10 @@ public interface ClinicService {
 //    Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+
     Collection<Visit> findAllVisits();
+
+    Collection<Visit> findAllFutureVisits();
 
     void deleteVisitsById(List<Integer> visitIds);
 
@@ -73,5 +77,9 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
+ feat/OWRT_STQA-196_Improve-Alert-Window-UI
     void removeOwnerById(int ownerId);
+
+    Collection<Rating> findRatingsByPetId(int petId);
+ master
 }

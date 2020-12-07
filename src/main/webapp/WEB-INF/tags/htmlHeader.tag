@@ -17,14 +17,24 @@ PetClinic :: a Spring Framework demonstration
     <title>PetClinic :: a Spring Framework demonstration</title>
 
     <%-- CSS generated from LESS --%>
+
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
     <link href="${petclinicCss}" rel="stylesheet"/>
     <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon"/>
     <link href="${foundationIcon}" rel="stylesheet">
 
+    <%-- Css added for ownerListTable --%>
+    <spring:url value="/resources/css/ownerListTable.css" var="hallOfFame" />
+    <link href="${hallOfFame}" rel="stylesheet">
+
     <%-- Css added for back to top button --%>
     <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
     <link href="${goBackToTopCss}" rel="stylesheet">
+
+
+    <%-- Css added for OwnerListTable --%>
+    <spring:url value="/resources/css/ownerListTable.css" var="ownerTable" />
+    <link href="${ownerTable}" rel="stylesheet">
 
     <%-- Css added for calendar --%>
     <spring:url value="/resources/css/calendar.css" var="calendarCss" />
@@ -35,14 +45,18 @@ PetClinic :: a Spring Framework demonstration
     <link href="${hallOfFame}" rel="stylesheet">
 
     <%-- Css added for showing pet information in hall of fame #Simon St-Andre --%>
-    <spring:url value="/resources/css/petInfoCard.css" var="cardInfo" />
+    <spring:url value="/resources/css/petInfoCard.css" var="cardInfo"/>
     <link href="${cardInfo}" rel="stylesheet">
 
-    <spring:url value="/resources/css/headerPage.css" var="headerCss" />
+    <spring:url value="/resources/css/headerPage.css" var="headerCss"/>
     <link href="${headerCss}" rel="stylesheet">
 
-    <spring:url value="/resources/css/footer.css" var="footerCss" />
+    <spring:url value="/resources/css/footer.css" var="footerCss"/>
     <link href="${footerCss}" rel="stylesheet">
+
+    <%-- Css for Pet Page #Simon St-Andre --%>
+    <spring:url value="/resources/css/petPage.css" var="petPageCss"/>
+    <link href="${petPageCss}" rel="stylesheet">
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

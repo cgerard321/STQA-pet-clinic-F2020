@@ -162,36 +162,26 @@ public class PetController {
         return "redirect:/pets/find";
     }
 
-    @GetMapping(value="/pets/getPets")
-    @ResponseBody
-    public String[] getAllPetsInJsonFormat() throws JsonProcessingException {
-        String[] pets = new String[getPetCount()];
-        for(int i = 1; i <= pets.length; i++){
-            pets[i-1] = this.clinicService.findPetById(i).toJsonString();
-        }
-        return pets;
-    }
-
     @GetMapping(value="/pets/getPetCount")
     @ResponseBody
     public int getPetCount() throws JsonProcessingException {
         return this.clinicService.findPets().size();
     }
 
-    @GetMapping(value="/pets/getHighestRatings")
+    @GetMapping(value="/pets/getAllPetsInJson")
     @ResponseBody
-    public int[] getHighestRatingById() throws JsonProcessingException {
+    public String[] getPetListInJsonString() throws JsonProcessingException {
         // Get all pets
-        ArrayList<Pet> pets = new ArrayList<>(this.clinicService.findPets());
+        ArrayList<Pet> pets;
+        try {
+            pets = new ArrayList<>(this.clinicService.findPets());
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
 
         // Set array size accordingly
-        int[] top3HighestAverage;
-        if (pets.size() < 3){
-            top3HighestAverage = new int[pets.size()];
-        }
-        else {
-            top3HighestAverage = new int[3];
-        }
+        String[] stringPets = new String[pets.size()];
 
         // Sort the Pet list in a descending order according to the Average Rating
         double highestRating;
@@ -215,15 +205,10 @@ public class PetController {
             Pet tempPet = pets.get(i);
             pets.set(i, pets.get(highestIndex));
             pets.set(highestIndex, tempPet);
-        }
-        // Insert the Highest Average Ratings into the array
-        for (int i = 0; i < top3HighestAverage.length; i++){
-            top3HighestAverage[i] = pets.get(i).getId();
-        }
-        return top3HighestAverage;
-    }
 
-    public double getAverageRating(int totalRating, int timesRated){
-        return (double)totalRating / timesRated;
+            stringPets[i] = pets.get(i).toJsonString();
+        }
+
+        return stringPets;
     }
 }

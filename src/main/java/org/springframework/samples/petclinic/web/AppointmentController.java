@@ -56,7 +56,6 @@ public class AppointmentController {
 
     @PostMapping(value = "/appointments/{appointmentId}/cancel")
     public String initViewFormCancel(@PathVariable("appointmentId") int appointmentId, Map<String, Object> model) throws Exception{
-
         this.clinicService.deleteVisitById(appointmentId);
         return "redirect:/appointments/viewForm";
     }

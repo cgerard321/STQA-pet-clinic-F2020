@@ -38,7 +38,7 @@
                     <td>${v.pet.id}</td>
                     <td>${v.pet.name}</td>
                     <td>${v.description}</td>
-                    <td><input type="submit" id=${v.id} value="Cancel"></td>
+                    <td><input type="submit" id=${v.id} value="Cancel" onclick="return confirm('Are you sure you want to remove this appointment for ${v.pet.name}?')"></td>
                 </tr>
             </form>
         </c:forEach>

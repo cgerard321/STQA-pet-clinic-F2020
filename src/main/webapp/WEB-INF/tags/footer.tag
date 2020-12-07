@@ -68,4 +68,6 @@
 <script src="${hofJS}"></script>
 <spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
 <script src="${backToTopJs}"></script>
+<spring:url value="/resources/javascript/PetPage.js" var="petPageJs"/>
+<script src="${petPageJs}"></script>
 

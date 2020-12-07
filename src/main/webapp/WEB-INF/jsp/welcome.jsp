@@ -93,10 +93,9 @@
     <br/>
     <%--    Rating Related Buttons - Nichita--%>
     <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
-
     <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+    <a class="btn btn-default" href='<spring:url value="/ratings/findPetRatings" htmlEscape="true"/>'>View Pet Ratings</a>
     <br/>
-
     <%-- Calendar -Louis C. --%>
 
     <%-- For anyone that wants to work on this here is the origin of the css for the calendar that has been modified to show a dinamic calendar --%>

@@ -17,14 +17,24 @@ PetClinic :: a Spring Framework demonstration
     <title>PetClinic :: a Spring Framework demonstration</title>
 
     <%-- CSS generated from LESS --%>
+
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
     <link href="${petclinicCss}" rel="stylesheet"/>
     <spring:url value="/resources/css/foundation-icons/foundation-icons.css" var="foundationIcon"/>
     <link href="${foundationIcon}" rel="stylesheet">
 
+    <%-- Css added for ownerListTable --%>
+    <spring:url value="/resources/css/ownerListTable.css" var="hallOfFame" />
+    <link href="${hallOfFame}" rel="stylesheet">
+
     <%-- Css added for back to top button --%>
     <spring:url value="/resources/css/goBackToTop.css" var="goBackToTopCss" />
     <link href="${goBackToTopCss}" rel="stylesheet">
+
+
+    <%-- Css added for OwnerListTable --%>
+    <spring:url value="/resources/css/ownerListTable.css" var="ownerTable" />
+    <link href="${ownerTable}" rel="stylesheet">
 
     <%-- Css added for calendar --%>
     <spring:url value="/resources/css/calendar.css" var="calendarCss" />

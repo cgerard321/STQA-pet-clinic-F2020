@@ -11,4 +11,6 @@ public interface RatingRepository{
     void save(Rating rating);
 
     Collection<Rating> findAll();
+
+    List<Rating> findByPetId(Integer petId);
 }

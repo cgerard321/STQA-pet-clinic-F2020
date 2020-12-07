@@ -105,8 +105,8 @@
             <div id="calendar">
                 <table>
                     <summary>
-                        <strong><c:out value="${LocalDate.now().getMonth()}"/></strong>
-                        <c:out value="${LocalDate.now().getYear()}"/>
+                        <strong id="currentMonth"><c:out value="${LocalDate.now().getMonth()}"/></strong>
+                        <span id="currentYear"><c:out value="${LocalDate.now().getYear()}"/></span>
                     </summary>
                     <thead>
                     <tr>
@@ -121,7 +121,7 @@
                     </thead>
 
                     <%-- Loop for weeks --%>
-                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks()}" varStatus="i">
+                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks() - 1}" varStatus="i">
                         <tr>
 
                         <%-- Loop for day in the week --%>

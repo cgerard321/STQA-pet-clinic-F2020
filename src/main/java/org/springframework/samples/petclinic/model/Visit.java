@@ -121,4 +121,13 @@ public class Visit extends BaseEntity {
         this.pet = pet;
     }
 
+    // Ryan
+    // For Calendar
+    public String toJsonString(){
+        return "{" +
+            "\"date\":\"" + getDate() + "\", " +
+            "\"petName\":\"" + getPet().getName() + "\", " +
+            "\"description\":\"" + getDescription() + "\"" +
+            "}";
+    }
 }

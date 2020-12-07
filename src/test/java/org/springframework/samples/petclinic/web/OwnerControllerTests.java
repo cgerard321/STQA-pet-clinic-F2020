@@ -107,7 +107,6 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
-            .andExpect(model().attributeHasFieldErrors("owner", "comment"))
             .andExpect(model().attributeHasFieldErrors("owner", "profile_picture"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
@@ -199,7 +198,6 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "state"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
-            .andExpect(model().attributeHasFieldErrors("owner", "comment"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 

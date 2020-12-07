@@ -197,7 +197,7 @@ class PetControllerTests {
             .andExpect(view().name("pets/createOrUpdatePetForm"))
             .andExpect(forwardedUrl("pets/createOrUpdatePetForm"));
     }
-  
+
     @Test
     void testGoBackToPetPage() throws Exception {
         // test case
@@ -209,12 +209,12 @@ class PetControllerTests {
             .andExpect(forwardedUrl("pets/findPets"));
     }
 
-    
+
 
 
     @Test
     void testGetAllPets() throws Exception{
-        mockMvc.perform(get("/pets/getPets"))
+        mockMvc.perform(get("/pets/getAllPetsInJson"))
             .andExpect(status().isOk())
             .andExpect(content().string(startsWith("[")))
             .andExpect(content().string(containsString("name")))
@@ -231,13 +231,6 @@ class PetControllerTests {
         mockMvc.perform(get("/pets/getPetCount"))
             .andExpect(status().isOk())
             .andExpect(content().string("2")); // Pet List size
-    }
-
-    @Test
-    void testGetHighestRatingById() throws Exception{
-        mockMvc.perform(get("/pets/getHighestRatings"))
-            .andExpect(status().isOk())
-            .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
     }
 }
 

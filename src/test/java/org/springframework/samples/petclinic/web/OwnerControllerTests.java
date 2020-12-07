@@ -25,7 +25,6 @@ import org.springframework.util.ResourceUtils;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.util.HashMap;
-feat/OWRT_STQA-196_Improve-Alert-Window-UI
 
 import java.util.List;
 

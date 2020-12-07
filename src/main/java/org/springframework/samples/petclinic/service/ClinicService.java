@@ -77,9 +77,7 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
- feat/OWRT_STQA-196_Improve-Alert-Window-UI
     void removeOwnerById(int ownerId);
 
     Collection<Rating> findRatingsByPetId(int petId);
- master
 }

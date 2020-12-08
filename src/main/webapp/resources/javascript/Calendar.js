@@ -3,8 +3,6 @@ var days = $("tbody tr td span.date").toArray();
 var currMonth = getMonthFromString($("#currentMonth").text()).toString();
 var currYear = $("#currentYear").text();
 
-// var currDay = $("td.current-day").text().trim();
-
 function getMonthFromString(mon) {
     return new Date(Date.parse(mon + " 1, 2020")).getMonth() + 1
 }
@@ -33,7 +31,6 @@ $.ajax({
                     "<span class='event'><b>" + obj.petName + "</b> " + obj.description + "</span>" +
                     "</li>");
             }
-
         }
     },
     error: function (response) {
@@ -54,7 +51,7 @@ $.ajax({
                 // Check if ul doesn't exist already
                 $(days[date.day - 1]).find("ul").append(
                     "<li>" +
-                    "<span class='event'>" + obj.description + "</span>" +
+                    "<span class='event'><b>" + obj.description + "</b></span>" +
                     "<span class='time'>" + obj.time + "</span>" +
                     "</li>");
             }

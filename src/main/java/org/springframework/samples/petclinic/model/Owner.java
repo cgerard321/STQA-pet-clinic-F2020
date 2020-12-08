@@ -76,7 +76,6 @@ public class Owner extends Person {
     private String email;
 
     @Column(name = "comment")
-    @NotEmpty
     private String comment;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)

@@ -56,6 +56,12 @@ INSERT INTO visits VALUES (3, 8, '2021-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2021-01-04', 'spayed');
 INSERT INTO visits VALUES (5, 13, '2021-09-04', 'spayed');
 INSERT INTO visits VALUES (6, 12, '2021-09-04', 'rabies shot');
+INSERT INTO visits VALUES (7, 6, '2020-12-23', 'rabies shot');
+INSERT INTO visits VALUES (8, 11, '2020-12-17', 'rabies shot');
+INSERT INTO visits VALUES (9, 10, '2020-12-07', 'neutered');
+INSERT INTO visits VALUES (10, 9, '2020-12-11', 'spayed');
+INSERT INTO visits VALUES (11, 3, '2020-12-29', 'spayed');
+INSERT INTO visits VALUES (12, 4, '2020-11-30', 'rabies shot');
 
 INSERT INTO schedules VALUES (1, 'Monday');
 INSERT INTO schedules VALUES (2, 'Tuesday');

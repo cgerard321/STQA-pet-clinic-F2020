@@ -10,6 +10,8 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -65,5 +67,19 @@ class RatingControllerTests {
             .andExpect(view().name("redirect:/"));
     }
 
+    @Test
+    void testNavigateToFindPetRatings() throws Exception{
+        mockMvc.perform(get("/ratings/findPetRatings"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("ratings/findPetRatings"));
+    }
+
+    @Test
+    void testShowRatings() throws Exception {
+        mockMvc.perform(get("/ratings/findPetRatings/{petId}/petRatings", 1))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeExists("petRatings"))
+            .andExpect(view().name("ratings/petRatingList"));
+    }
 
 }

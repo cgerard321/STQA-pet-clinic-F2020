@@ -7,7 +7,8 @@
         "telephone": "6085555418",
         "email": "joseph.smith@gmail.com",
         "comment": "Does not like green",
-        "state": "QC"
+        "state": "QC",
+        "profile_picture": "images_default"
     },
     {
         "firstName": "James",
@@ -17,7 +18,8 @@
         "telephone": "6085544418",
         "email": "james.blaese@gmail.com",
         "comment": "Does not like red",
-        "state": "QC"
+        "state": "QC",
+        "profile_picture": "images_default"
     },
     {
         "firstName": "Daniel",
@@ -27,7 +29,8 @@
         "telephone": "6085544418",
         "email": "daniel.williams@gmail.com",
         "comment": "Does not like blue",
-        "state": "QC"
+        "state": "QC",
+        "profile_picture": "images_default"
     },
     {
         "firstName": "Joshua",
@@ -37,6 +40,7 @@
         "telephone": "6083344418",
         "email": "joshua.davis@gmail.com",
         "comment": "Does not like red",
-        "state": "QC"
+        "state": "QC",
+        "profile_picture": "images_default"
     }
 ]

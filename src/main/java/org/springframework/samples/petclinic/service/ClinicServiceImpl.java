@@ -173,4 +173,10 @@ public class ClinicServiceImpl implements ClinicService {
         return ratingRepository.findAll();
     }
 
+    @Override
+    public Collection<Rating> findRatingsByPetId(int petId){
+        return ratingRepository.findByPetId(petId);
+    }
+
+
 }

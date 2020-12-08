@@ -527,4 +527,10 @@ abstract class AbstractClinicServiceTests {
             }
         }
     }
+
+    @Test
+    void shouldFindAvailableVets() {
+        Collection<Vet> vets = this.clinicService.findVetsAvailableForDay(6);
+        MatcherAssert.assertThat(vets.size(), is(2));
+    }
 }

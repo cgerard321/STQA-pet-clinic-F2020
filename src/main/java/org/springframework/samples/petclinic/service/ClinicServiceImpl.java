@@ -187,4 +187,10 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Event> getEvents() {
         return eventRepository.getEvents();
     }
+    @Override
+    public Collection<Vet> findVetsAvailableForDay(int dayId) {
+        return vetRepository.findAllAvailableForDay(dayId);
+    }
+
+
 }

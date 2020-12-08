@@ -82,6 +82,5 @@ INSERT INTO vet_schedule VALUES (6, 6);
 INSERT INTO ratings VALUES(1,1,'Johny',5);
 
 
--- INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
--- INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
--- INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');
+INSERT INTO event VALUES (5, '2020-12-12','Open house', '10h00am');
+INSERT INTO event VALUES (2, '2020-12-25', 'Christmas!', '');

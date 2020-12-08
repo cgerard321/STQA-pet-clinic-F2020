@@ -7,7 +7,7 @@
 <petclinic:layout pageName="pets">
 
     <h2 id="ownerInformation">Pet Information</h2>
-
+    <img src="<c:out value="${pet.imageURL}"/>" width="150" height="150">
     <table class="table table-striped" aria-describedby="pets">
         <tr>
             <th id="name">Name</th>
@@ -23,8 +23,27 @@
         </tr>
         <tr>
             <th id="birthDate">Birth Date</th>
-            <td headers="address">
+            <td headers="birthDate">
                 <petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/>
+            </td>
+        </tr>
+        <tr>
+            <th id="age">Age</th>
+            <td headers="age"><strong><c:out value="${petAge}"/></strong>
+            </td>
+        </tr>
+        <tr>
+            <th id="rating">Rating</th>
+            <td headers="rating"><strong>
+                <c:choose>
+                    <c:when test="${totalRating != null}">
+                        <c:out value="${totalRating}"/>
+                    </c:when>
+                    <c:otherwise>
+                        N/A
+                    </c:otherwise>
+                </c:choose>
+            </strong>
             </td>
         </tr>
         <tr>

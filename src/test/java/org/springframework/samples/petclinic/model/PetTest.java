@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PetTest {
@@ -20,5 +23,55 @@ public class PetTest {
 
         actualResult = pet2.getAverageRating();
         assertEquals(0, actualResult);
+    }
+    @Test
+    void testGetAgeOnBDay(){
+        //arrange
+        Pet pet = new Pet();
+        LocalDate now = LocalDate.now();
+        LocalDate birth = now.minusYears(5);
+        pet.setBirthDate(birth);
+        int expectedResult = 5;
+        int realResult;
+
+        //act
+        realResult = pet.getAge();
+
+        //assert
+        assertEquals(expectedResult, realResult);
+    }
+    @Test
+    void testGetAgeOnBDayPlus1Day(){
+        //arrange
+        Pet pet = new Pet();
+        LocalDate now = LocalDate.now();
+        LocalDate birth = now.minusYears(5);
+        birth = birth.minusDays(1);
+        pet.setBirthDate(birth);
+        int expectedResult = 5;
+        int realResult;
+
+        //act
+        realResult = pet.getAge();
+
+        //assert
+        assertEquals(expectedResult, realResult);
+    }
+    @Test
+    void testGetAgeOnBDayMinus1Day(){
+        //arrange
+        Pet pet = new Pet();
+        LocalDate now = LocalDate.now();
+        LocalDate birth = now.minusYears(5);
+        birth = birth.plusDays(1);
+        pet.setBirthDate(birth);
+        int expectedResult = 4;
+        int realResult;
+
+        //act
+        realResult = pet.getAge();
+
+        //assert
+        assertEquals(expectedResult, realResult);
     }
 }

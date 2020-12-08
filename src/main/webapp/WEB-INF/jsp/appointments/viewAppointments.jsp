@@ -13,6 +13,7 @@
 <body>
 
 <h2>View Appointments</h2>
+
 <table class="table table-striped table-bordered table-hover" id="appointmentsTable">
     <thead class="thead-dark">
     <tr>
@@ -23,7 +24,6 @@
         <th>Action</th>
     </tr>
     </thead>
-
     <c:forEach items="${visits}" var="v">
         <spring:url value="/appointments/${v.id}/cancel" var="cancelUrl" />
         <form action="${fn:escapeXml(cancelUrl)}" method="post">
@@ -37,19 +37,18 @@
         </form>
     </c:forEach>
 </table>
-
-    <c:if test="${filter.equals('upcoming')}">
-        <table class="table table-striped table-bordered table-hover" id="filteredTable">
+    <c:if test="${filterUpcoming.size > 0} && ${filterUpcoming != null}">
+        <table class="table table-striped table-bordered table-hover" id="upcomingApptsTable">
             <thead class="thead-dark">
             <tr>
-                <th>Date</th>
+                <th>Date - Upcoming</th>
                 <th>Pet ID</th>
                 <th>Pet Name</th>
                 <th>Description</th>
                 <th>Action</th>
             </tr>
             </thead>
-        <c:forEach items="${filter}" var="u">
+        <c:forEach items="${filterUpcoming}" var="u">
             <td>${u.date}</td>
             <td>${u.pet.id}</td>
             <td>${u.pet.name}</td>
@@ -58,7 +57,60 @@
         </c:forEach>
         </table>
     </c:if>
-    <spring:url value="/appointments/viewForm?filter=" var="filterUrl"/>
+<c:if test="${filterUpcoming.size() == 0}">
+    <tr>
+        <td colspan="5" class="text-center">No future appointments scheduled</td>
+    </tr>
+</c:if>
+<c:if test="${filterDuplicate.size > 0} && ${filterDuplicate != null}">
+    <table class="table table-striped table-bordered table-hover" id="upcomingApptsTable">
+        <thead class="thead-dark">
+        <tr>
+            <th>Date</th>
+            <th>Pet ID</th>
+            <th>Pet Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <c:forEach items="${filterDuplicate}" var="d">
+            <td>${d.date}</td>
+            <td>${d.pet.id}</td>
+            <td>${d.pet.name}</td>
+            <td>${d.description}</td>
+            <spring:url value="/appointments/${d.id}/cancel" var="cancelUrl" />
+        </c:forEach>
+    </table>
+</c:if>
+<c:if test="${filterDuplicate.size() == 0}">
+    <tr>
+        <td colspan="5" class="text-center">There are no duplicate appointments to display.</td>
+    </tr>
+</c:if>
+<c:if test="${filterPetApps.size > 0} && ${filterPetApps != null}">
+    <table class="table table-striped table-bordered table-hover" id="upcomingApptsTable">
+        <thead class="thead-dark">
+        <tr>
+            <th>Pet ID</th>
+            <th>Pet Name</th>
+            <th>Description</th>
+            <th>Number of appointments</th>
+        </tr>
+        </thead>
+        <c:forEach items="${filterPetApps}" var="p">
+            <td>${p.pet.id}</td>
+            <td>${p.pet.name}</td>
+            <td>${p.apptCount}</td>
+        </c:forEach>
+    </table>
+</c:if>
+<c:if test="${filterPetApps.size() == 0}">
+    <tr>
+        <td colspan="5" class="text-center">Sorry, no ranking could be generated</td>
+    </tr>
+</c:if>
+
+    <spring:url value="/appointments/viewForm/${filter}" var="filterUrl"/>
     <div class="container">
         <div class="text-left row">
             <form action="${fn:escapeXml(filterUrl)}" method="get" class="col-md-3">

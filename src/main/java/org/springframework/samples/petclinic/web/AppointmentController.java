@@ -51,8 +51,8 @@ public class AppointmentController {
             return VIEWS_APPOINTMENTS_VIEW_FORM;
     }
 
-    @GetMapping(value="/appointments/viewForm?filter={filter}")
-    public String cloneViewForm (@RequestParam String filter, Map<String, Object> model)
+    @GetMapping(value="/appointments/viewForm/${filter}")
+    public String filteredViewForm (@RequestParam String filter, Map<String, Object> model)
     {
 
         Collection<Visit> visits = this.clinicService.findAllVisits();
@@ -61,22 +61,23 @@ public class AppointmentController {
         if(filter.equals("upcoming"))
         {
             Collection<Visit> filterUpcoming = this.clinicService.findAllFutureVisits();
-            model.put("filter", filterUpcoming);
-            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=upcoming";
+            model.put("filterUpcoming", filterUpcoming);
+            return "redirect:/appointments/viewForm?=filter=upcoming";
         }
         else if(filter.equals("duplicate"))
         {
             Collection <Visit> filterDuplicate = this.clinicService.findAppointmentDuplicates();
-            model.put("filter", filterDuplicate);
-            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=duplicate";
+            model.put("filterDuplicate", filterDuplicate);
+            return  "redirect:/appointments/viewForm?=filter=duplicate";
         }
         else if(filter.equals("petappts")) {
             Collection <Visit> filterPetAppts = this.clinicService.groupPetsByAppointments();
-            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=petappts";
+            model.put("filterPetAppts", filterPetAppts);
+            return  "redirect:/appointments/viewForm?=filter=duplicate";
         }
         else {
             model.put("filter", visits);
-            return VIEWS_APPOINTMENTS_VIEW_FORM;
+            return  "redirect:/appointments/viewForm";
         }
     }
 

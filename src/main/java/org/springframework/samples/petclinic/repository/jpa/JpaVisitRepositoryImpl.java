@@ -87,7 +87,7 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     @Override
     public List<Visit> groupPetsByAppointments()
     {
-        Query query = this.em.createQuery("SELECT v, COUNT(v.pet) FROM Visit v GROUP BY v.pet");
+        Query query = this.em.createQuery("SELECT v, COUNT(v.date) AS apptCount FROM Visit v GROUP BY v.pet");
         return query.getResultList();
     }
 

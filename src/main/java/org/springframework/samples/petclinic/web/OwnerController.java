@@ -15,10 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +23,7 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -193,32 +191,53 @@ public class OwnerController {
         return "redirect:/owners/{ownerId}";
     }
 
-    // Since multipart support is not enabled on the server, this endpoint is not working as it should and must be commented for the tests to pass.
-   /* @RequestMapping(value = "/owners/addMultipleOwners", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
-    public String addMultipleOwners(@RequestParam("file") MultipartFile file) throws IOException {
-        if (file == null)
-            System.err.println("file is null");
-        else
-            System.err.println("Output: " + file.getName());
-
-
-        return "redirect:/owners";
-    }*/
-
     // The JSON parsing logic is contained within that endpoint until I figure out a way to enable multipart support on Spring.
     @PostMapping(value = "/owners/addMultipleOwnersFake")
     public String addMultipleOwnersFake() throws FileNotFoundException {
 
         // Obviously, the goal is to have the user supply the JSON file and not simply fetching it from our resources folder.
-        final String FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+        final String FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.csv").getPath();
 
-        Gson gson = new Gson();
+        FileReader fileReader = new FileReader(FILE_PATH);
 
-        Owner[] owners = gson.fromJson(new FileReader(FILE_PATH), Owner[].class);
+        String fileExtension = Files.getFileExtension(FILE_PATH);
 
-        // We add each owner object into the database.
-        for (Owner owner : owners)
-            clinicService.saveOwner(owner);
+        // If the file is a JSON file.
+        if (fileExtension.equals("json")) {
+            Gson gson = new Gson();
+
+            Owner[] owners = gson.fromJson(fileReader, Owner[].class);
+
+            // We add each owner object into the database.
+            for (Owner owner : owners)
+                clinicService.saveOwner(owner);
+        } else if (fileExtension.equals("csv")) {
+            // If the file is a CSV file.
+            BufferedReader br = new BufferedReader(fileReader);
+            try {
+                // We read each line of the file and add the attributes into a new Owner object.
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] ownerDetails = line.split(",");
+
+                    Owner owner = new Owner();
+                    owner.setFirstName(ownerDetails[0]);
+                    owner.setLastName(ownerDetails[1]);
+                    owner.setAddress(ownerDetails[2]);
+                    owner.setCity(ownerDetails[3]);
+                    owner.setTelephone(ownerDetails[4]);
+                    owner.setEmail(ownerDetails[5]);
+                    owner.setComment(ownerDetails[6]);
+                    owner.setState(ownerDetails[7]);
+                    owner.setProfile_picture(ownerDetails[8]);
+
+                    // Then, we save this object.
+                    clinicService.saveOwner(owner);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return "redirect:/owners";
     }

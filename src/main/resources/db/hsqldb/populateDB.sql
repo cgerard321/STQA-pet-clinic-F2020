@@ -34,28 +34,33 @@ INSERT INTO owners VALUES (9, 'images (7)','David', 'Schroeder', '2749 Blackhawk
 INSERT INTO owners VALUES (10, 'images_default','Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', 'AK', '6085555487', 'carlos.estaban@gmail.com', 'This owner hates animals');
 
 INSERT INTO pets VALUES (1, 'Leo', '2010-09-07', 'https://i.pinimg.com/736x/33/32/6d/33326dcddbf15c56d631e374b62338dc.jpg', 0, 0, 1, 1);
-INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 'https://i.ytimg.com/vi/1BF1kfwAVN4/maxresdefault.jpg', 0, 0, 6, 2);
+INSERT INTO pets VALUES (2, 'Basil', '2012-08-06', 'https://i.ytimg.com/vi/1BF1kfwAVN4/maxresdefault.jpg', 5, 1, 6, 2);
 INSERT INTO pets VALUES (3, 'Rosy', '2011-04-17', 'https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg', 0, 0, 2, 3);
 INSERT INTO pets VALUES (4, 'Jewel', '2010-03-07', 'https://www.rd.com/wp-content/uploads/2019/01/shutterstock_1176034804.jpg', 0, 0, 2, 3);
-INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 'https://cf.ltkcdn.net/small-pets/images/std/261974-425x274-lizard-pet-cute.jpg', 0, 0, 3, 4);
+INSERT INTO pets VALUES (5, 'Iggy', '2010-11-30', 'https://cf.ltkcdn.net/small-pets/images/std/261974-425x274-lizard-pet-cute.jpg', 10, 1, 3, 4);
 INSERT INTO pets VALUES (6, 'George', '2010-01-20', 'https://imgur.com/tDrCeLB', 0, 0, 4, 5);
 INSERT INTO pets VALUES (7, 'Samantha', '2012-09-04', 'https://i.pinimg.com/originals/0c/1c/a1/0c1ca1955e2b0c5469ba17da2b1b9b96.jpg', 0, 0, 1, 6);
 INSERT INTO pets VALUES (8, 'Max', '2012-09-04', 'https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/03/Scottish-Fold_01.jpg', 0, 0, 1, 6);
-INSERT INTO pets VALUES (9, 'Lucky', '2011-08-06', 'https://pm1.narvii.com/7095/6ef53a0241f17779df40f265a335e1c26ec5b4c2r1-972-1196v2_hq.jpg', 0, 0, 5, 7);
+INSERT INTO pets VALUES (9, 'Lucky', '2011-08-06', 'https://pm1.narvii.com/7095/6ef53a0241f17779df40f265a335e1c26ec5b4c2r1-972-1196v2_hq.jpg', 8, 1, 5, 7);
 INSERT INTO pets VALUES (10, 'Mulligan', '2007-02-24', 'https://cdn5.littlethings.com/app/uploads/2017/05/cute-dog-names-1200.jpg', 0, 0, 2, 8);
-INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 'https://i.ytimg.com/vi/MjEaniGTrx0/maxresdefault.jpg', 0, 0, 5, 9);
+INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 'https://i.ytimg.com/vi/MjEaniGTrx0/maxresdefault.jpg', 20, 2, 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/originals/5c/d7/47/5cd7478e9a6f8893b288512b6181d658.jpg', 0, 0, 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg', 0, 0, 1, 10);
 
 
---Updated dates to 2020 and 2021
---Original year: 2013
 INSERT INTO visits VALUES (1, 7, '2021-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2020-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2021-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2021-01-04', 'spayed');
 INSERT INTO visits VALUES (5, 13, '2021-09-04', 'spayed');
 INSERT INTO visits VALUES (6, 12, '2021-09-04', 'rabies shot');
+INSERT INTO visits VALUES (7, 6, '2020-12-23', 'rabies shot');
+INSERT INTO visits VALUES (8, 11, '2020-12-17', 'rabies shot');
+INSERT INTO visits VALUES (9, 10, '2020-12-07', 'neutered');
+INSERT INTO visits VALUES (10, 9, '2020-12-11', 'spayed');
+INSERT INTO visits VALUES (11, 3, '2020-12-29', 'spayed');
+INSERT INTO visits VALUES (12, 4, '2020-11-30', 'rabies shot');
+
 
 INSERT INTO schedules VALUES (1, 'Monday');
 INSERT INTO schedules VALUES (2, 'Tuesday');
@@ -86,6 +91,5 @@ INSERT INTO vet_schedule VALUES (6, 6);
 INSERT INTO ratings VALUES(1,1,'Johny',5);
 
 
--- INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
--- INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
--- INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');
+INSERT INTO event VALUES (5, '2020-12-12','Open house', '10h00am');
+INSERT INTO event VALUES (2, '2020-12-25', 'Christmas!', '');

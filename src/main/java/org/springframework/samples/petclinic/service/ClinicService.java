@@ -52,6 +52,8 @@ public interface ClinicService {
 
     Collection<Owner> findOwnerByLastName(String lastName);
 
+    void saveVet(Vet vet);
+
     Collection<Visit> findVisitsByPetId(int petId);
 
 //
@@ -72,4 +74,6 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
+
+    Vet findVetById(int vetId);
 }

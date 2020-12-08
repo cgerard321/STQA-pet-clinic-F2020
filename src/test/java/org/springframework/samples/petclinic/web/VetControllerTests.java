@@ -84,6 +84,7 @@ class VetControllerTests {
             .andExpect(forwardedUrl("vets/vetList"));
     }
 
+    //APPT
     @Test
     void testNavigateToVetSchedules() throws Exception {
         mockMvc.perform(get("/scheduleList"))
@@ -92,7 +93,7 @@ class VetControllerTests {
             .andExpect(forwardedUrl("vets/scheduleList"));
     }
 
-
+    //APPT
     @Test
     void testShowVetScheduleList() throws Exception {
         mockMvc.perform(get("/scheduleList"))
@@ -109,6 +110,17 @@ class VetControllerTests {
         .andExpect(status().isOk())
         .andExpect(model().attributeExists("vet"))
         .andExpect(view().name("vets/vetProfile"));
+    }
+
+
+
+    //APPT
+    @Test
+    void testGoToModifyScheduleForm() throws Exception{
+        mockMvc.perform(get("/modifySchedule/1"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("vets/modifySchedule"))
+            .andExpect(forwardedUrl("vets/modifySchedule"));
     }
 
 

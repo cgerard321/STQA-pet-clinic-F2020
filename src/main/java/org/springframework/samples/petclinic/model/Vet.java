@@ -43,7 +43,7 @@ public class Vet extends Person {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_schedule", joinColumns = @JoinColumn(name = "vet_id"),
         inverseJoinColumns = @JoinColumn(name = "day_id"))
-    private Set<Schedule> schedules;
+    private List<Schedule> schedules;
 
 
     protected Set<Specialty> getSpecialtiesInternal() {
@@ -53,9 +53,9 @@ public class Vet extends Person {
         return this.specialties;
     }
 
-    protected Set<Schedule> getScheduleInternal() {
+    protected List<Schedule> getScheduleInternal() {
         if (this.schedules == null) {
-            this.schedules = new HashSet<>();
+            this.schedules = new ArrayList<>();
         }
         return this.schedules;
     }
@@ -65,7 +65,7 @@ public class Vet extends Person {
         this.specialties = specialties;
     }
 
-    protected void setScheduleInternal(Set<Schedule> schedules) {
+    public void setScheduleInternal(List<Schedule> schedules) {
         this.schedules = schedules;
     }
 
@@ -119,5 +119,7 @@ public class Vet extends Person {
     public void addDayToSchedule(Schedule schedule) {
         getScheduleInternal().add(schedule);
     }
+
+    public void removeDayFromSchedule(Schedule schedule){getScheduleInternal().remove(schedule);}
 
 }

@@ -117,6 +117,17 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+    @Override
+    public Vet findVetById(int vetId) {
+        return vetRepository.findById(vetId);
+    }
+
+    @Override
+    @Transactional
+    public void saveVet(Vet vet){
+        vetRepository.save(vet);
+    }
+
 
     @Override
     public Collection<Visit> findVisitsByPetId(int petId) {
@@ -166,5 +177,18 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Rating> findRatings() {
         return ratingRepository.findAll();
     }
+
+
+//    @Override
+//    public void updateSchedule(int vetId, Vet vet) {
+//        List<Vet> vets = (List<Vet>) findVets();
+//        for (int i=0; i< vets.size(); i++){
+//            Vet tempVet = vets.get(i);
+//            if(tempVet.getId().equals(vetId)){
+//                vets.set(i, vet);
+//                return;
+//            }
+//        }
+//    }
 
 }

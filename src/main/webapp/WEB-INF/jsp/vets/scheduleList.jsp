@@ -17,7 +17,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Availability</th>
-<%--                <th scope="col"></th>--%>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -38,28 +38,14 @@
                         </ol>
                     </td>
 
-<%--                    <td>--%>
-<%--                        <a href="<spring:url value="/vets.html" htmlEscape="true"/>">Edit</a>--%>
-<%--                    </td>--%>
+                    <td>
+                       <a href="<spring:url value="/modifySchedule/${vet.id}" htmlEscape="true" />">Edit</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-
-
-<%--<div>--%>
-<%--    <form>--%>
-<%--<label>Select Veterinarian</label>--%>
-<%--        --%>
-<%--        <select>--%>
-<%--            <c:forEach items="${vets.vetList}" var="vet">--%>
-<%--                <option value="${vet.lastName}">${vet.lastName}</option>--%>
-<%--            </c:forEach>--%>
-<%--        </select>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
 
     <div class="col-md-2">
         <a href="<spring:url value="/vets.html" htmlEscape="true" />">Return</a>

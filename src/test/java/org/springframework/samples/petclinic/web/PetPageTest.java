@@ -144,4 +144,69 @@ public class PetPageTest {
 
         assertThat(driver.findElementByXPath("//a[contains(text(), 'Mulligan')]").isDisplayed(), is(true));
     }
+
+// my port is 8090 and by using tomcat port, it will default to 8080 for some reason and it will direct me to another page that is not in the project
+    @Test
+    void editWeight() {
+        //ar
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/edit");
+        driver.manage().window().maximize();
+
+        //act
+        driver.findElementById("weight").sendKeys("10");
+        driver.findElementByName("update").click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //assert
+        assertThat(driver.findElementByXPath("//h2[contains(text(), 'Owner Information')]").isDisplayed(), is(true));
+    }
+
+
+    @Test
+    void editHeight() {
+        //ar
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/edit");
+        driver.manage().window().maximize();
+
+        //act
+        driver.findElementById("height").sendKeys("10");
+        driver.findElementByName("update").click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //assert
+        assertThat(driver.findElementByXPath("//h2[contains(text(), 'Owner Information')]").isDisplayed(), is(true));
+    }
+
+
+    @Test
+    void addNewPetWithWeightAndHeight() {
+        //ar
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/new.html");
+        driver.manage().window().maximize();
+
+        //act
+        driver.findElementByName("name").sendKeys("NotACat");
+        driver.findElementByName("birthDate").sendKeys("2020/10/09");
+        driver.findElementById("weight").sendKeys("10");
+        driver.findElementById("height").sendKeys("20");
+        Select dropdown = new Select(driver.findElement(By.id("type")));
+        dropdown.selectByIndex(1);
+        driver.findElementByName("add").click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //assert
+        assertThat(driver.findElementByXPath("//h2[contains(text(), 'Owner Information')]").isDisplayed(), is(true));
+    }
 }

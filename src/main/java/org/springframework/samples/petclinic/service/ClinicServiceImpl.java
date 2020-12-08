@@ -145,19 +145,9 @@ public class ClinicServiceImpl implements ClinicService {
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);
     }
-
-<<<<<<< HEAD
     @Transactional
     public void deleteVisitById(int visitId) {
         visitRepository.deleteById(visitId);
-=======
-    public void removeOwnerById(int ownerId) {
-        Owner owner = ownerRepository.findById(ownerId);
-        if (owner == null) {
-            throw new ObjectRetrievalFailureException("Owner not found", ObjectRetrievalFailureException.class);
-        }
-        ownerRepository.removeOwner(owner);
->>>>>>> 1f77d4d (Finished STQA 74 Remove Owner)
     }
 
     public void removeOwnerById(int ownerId) {

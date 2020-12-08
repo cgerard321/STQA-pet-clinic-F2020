@@ -4,26 +4,25 @@ import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-=======
+
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
-<<<<<<< HEAD
+
 
 import org.springframework.samples.petclinic.model.Visit;
 
-=======
+
 import org.springframework.samples.petclinic.model.Visit;
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
+
 import org.springframework.samples.petclinic.model.Pet;
 
 
@@ -35,13 +34,11 @@ import org.springframework.util.ResourceUtils;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.util.HashMap;
-<<<<<<< HEAD
-=======
+
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -344,10 +341,7 @@ class OwnerControllerTests {
 
         then(clinicService).should().deleteVisitsById(Lists.newArrayList(1));
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
     // We must comment this test out until I have figured out a way to enable multipart support.
     //@Test
     void testAddMultipleOwners_SendFileSuccessful() throws Exception {
@@ -398,7 +392,7 @@ class OwnerControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "email"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
-<<<<<<< HEAD
+
 
     //test added by Antoine
     @Test
@@ -408,8 +402,6 @@ class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(view().name("owners/ownersList"));
     }
-=======
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 
     // STQA 74 - REMOVE OWNER
     // try to remove owner with dependency
@@ -421,8 +413,7 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/removeOwner"))
             .andExpect(forwardedUrl("owners/removeOwner"));
     }
-<<<<<<< HEAD
-=======
+
 
     // STQA 74 - REMOVE OWNER
     // remove owner without dependency
@@ -433,5 +424,4 @@ class OwnerControllerTests {
             .andExpect(view().name("redirect:/owners.html?lastName="));
     }
 
->>>>>>> 9c0fd49 (Finished STQA-196 Improve Alert Window UI)
 }

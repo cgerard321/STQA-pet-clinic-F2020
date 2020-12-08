@@ -1,9 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -22,7 +20,6 @@ import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PO
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 
 @ExtendWith(SeleniumExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppointmentTest {
 
     ChromeDriver driver;
@@ -52,8 +49,7 @@ public class AppointmentTest {
 
         int count = driver.findElements(By.xpath("//input[@type='submit']")).size();
 
-        assertThat(count, is(6));
-
+        assertThat(count, is(12));
     }
 
     @Test
@@ -151,7 +147,22 @@ public class AppointmentTest {
         }
 
         assertThat(foundAlert, is(true));
+    }
 
+    @Test
+    void checkAppointmentCreateVetList() throws InterruptedException {
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/visits/new");
+        driver.manage().window().maximize();
+
+        WebElement date = driver.findElement(By.name("date"));
+        date.clear();
+        date.sendKeys("2020/12/11");
+        driver.findElement(By.tagName("h2")).click(); // dismiss the date picker
+
+        // wait for the HTTP query
+        Thread.sleep(1000);
+
+        assertThat(driver.findElements(By.cssSelector("#availableVets > li")).size(), is(2));
 
     }
 }

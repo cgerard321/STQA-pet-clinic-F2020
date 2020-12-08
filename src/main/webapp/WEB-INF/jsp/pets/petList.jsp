@@ -43,6 +43,7 @@
                 </td>
                 <td>
                     <c:out value="${pet.type.name}"/>
+
                 </td>
 
             </tr>

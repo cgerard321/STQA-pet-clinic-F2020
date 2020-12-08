@@ -54,8 +54,10 @@
 <%--Custom Js--%>
 <spring:url value="/resources/javascript/HallOfFame.js" var="hofJS"/>
 <script src="${hofJS}"></script>
-<spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJs"/>
-<script src="${backToTopJs}"></script>
-<spring:url value="/resources/javascript/PetPage.js" var="petPageJs"/>
-<script src="${petPageJs}"></script>
+<spring:url value="/resources/javascript/Calendar.js" var="calendarJS"/>
+<script src="${calendarJS}"></script>
+<spring:url value="/resources/javascript/GoToTopJavascript.js" var="backToTopJS"/>
+<script src="${backToTopJS}"></script>
+<spring:url value="/resources/javascript/PetPage.js" var="petPageJS"/>
+<script src="${petPageJS}"></script>
 

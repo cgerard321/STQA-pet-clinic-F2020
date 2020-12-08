@@ -48,14 +48,19 @@ INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 'https://i.ytimg.com/vi/MjE
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/originals/5c/d7/47/5cd7478e9a6f8893b288512b6181d658.jpg',0, 0, 0, 0, 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg',0, 0, 0, 0, 1, 10);
 
---Updated dates to 2020 and 2021
---Original year: 2013
 INSERT INTO visits VALUES (1, 7, '2021-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2020-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2021-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2021-01-04', 'spayed');
 INSERT INTO visits VALUES (5, 13, '2021-09-04', 'spayed');
 INSERT INTO visits VALUES (6, 12, '2021-09-04', 'rabies shot');
+INSERT INTO visits VALUES (7, 6, '2020-12-23', 'rabies shot');
+INSERT INTO visits VALUES (8, 11, '2020-12-17', 'rabies shot');
+INSERT INTO visits VALUES (9, 10, '2020-12-07', 'neutered');
+INSERT INTO visits VALUES (10, 9, '2020-12-11', 'spayed');
+INSERT INTO visits VALUES (11, 3, '2020-12-29', 'spayed');
+INSERT INTO visits VALUES (12, 4, '2020-11-30', 'rabies shot');
+
 
 INSERT INTO schedules VALUES (1, 'Monday');
 INSERT INTO schedules VALUES (2, 'Tuesday');
@@ -86,6 +91,5 @@ INSERT INTO vet_schedule VALUES (6, 6);
 INSERT INTO ratings VALUES(1,1,'Johny',5);
 
 
--- INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
--- INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
--- INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');
+INSERT INTO event VALUES (5, '2020-12-12','Open house', '10h00am');
+INSERT INTO event VALUES (2, '2020-12-25', 'Christmas!', '');

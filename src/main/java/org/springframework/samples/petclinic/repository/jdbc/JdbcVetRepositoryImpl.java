@@ -45,7 +45,7 @@ import javax.sql.DataSource;
  */
 @Repository
 public class JdbcVetRepositoryImpl implements VetRepository {
-    JdbcTemplate jdbcTemplatee;
+   // JdbcTemplate jdbcTemplatee;
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -121,21 +121,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
             BeanPropertyRowMapper.newInstance(Specialty.class));
 
         // Build each vet's list of specialties.
-        for (Vet vet : vets) {
-            final List<Integer> vetSpecialtiesIds = this.jdbcTemplatee.query(
-                "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
-                new BeanPropertyRowMapper<Integer>() {
-                    @Override
-                    public Integer mapRow(ResultSet rs, int row) throws SQLException {
-                        return rs.getInt(1);
-                    }
-                },
-                vet.getId());
-            for (int specialtyId : vetSpecialtiesIds) {
-                Specialty specialty = EntityUtils.getById(specialties, Specialty.class, specialtyId);
-                vet.addSpecialty(specialty);
-            }
-        }
+        fillSpecialties(vets);
         return vets.get(0);
     }
 

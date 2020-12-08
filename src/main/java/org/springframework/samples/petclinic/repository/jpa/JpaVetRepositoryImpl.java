@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Collection;
 
 /**
@@ -42,6 +43,14 @@ public class JpaVetRepositoryImpl implements VetRepository {
     @SuppressWarnings("unchecked")
     public Collection<Vet> findAll() {
         return this.em.createQuery("SELECT distinct vet FROM Vet vet left join fetch vet.specialties ORDER BY vet.lastName, vet.firstName").getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Collection<Vet> findAllAvailableForDay(int dayId) {
+        Query query = this.em.createQuery("SELECT DISTINCT v from Vet v WHERE :day_id IN (SELECT sched.id FROM v.schedules sched)");
+        query.setParameter("day_id", dayId);
+        return query.getResultList();
     }
 
 }

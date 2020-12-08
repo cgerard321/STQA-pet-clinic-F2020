@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.model;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.util.DateMethods;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
@@ -198,5 +199,8 @@ public class Pet extends NamedEntity {
                "\"totalRating\":\"" + totalRating + "\", " +
                "\"timesRated\":\"" + timesRated +"\"" +
                "}";
+    }
+    public int getAge() {
+        return DateMethods.calculateAge(this.birthDate);
     }
 }

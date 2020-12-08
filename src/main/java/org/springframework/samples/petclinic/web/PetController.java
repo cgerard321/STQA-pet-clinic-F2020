@@ -120,13 +120,17 @@ public class PetController {
     @GetMapping(value = "/owners/{ownerId}/pets/{petId}/view")
     public String initViewPet(@PathVariable("petId") int petId, ModelMap model) {
         Pet pet = this.clinicService.findPetById(petId);
+        int petAge = pet.getAge();
         model.put("pet", pet);
+        model.put("petAge", petAge);
         return VIEWS_PETS_VIEW_DETAILS;
     }
     @PostMapping(value = "/pets/{petId}/view")
     public String initViewPet2(@PathVariable("petId") int petId, ModelMap model) {
         Pet pet = this.clinicService.findPetById(petId);
+        int petAge = pet.getAge();
         model.put("pet", pet);
+        model.put("petAge", petAge);
         return VIEWS_PETS_VIEW_DETAILS;
     }
 

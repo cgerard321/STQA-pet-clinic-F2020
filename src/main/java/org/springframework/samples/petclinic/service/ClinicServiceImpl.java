@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,19 +38,22 @@ import java.util.List;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
+
     private PetRepository petRepository;
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
     private RatingRepository ratingRepository;
+    private EventRepository eventRepository;
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository, EventRepository eventRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.ratingRepository = ratingRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
@@ -178,5 +182,9 @@ public class ClinicServiceImpl implements ClinicService {
         return ratingRepository.findByPetId(petId);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Event> getEvents() {
+        return eventRepository.getEvents();
+    }
 }

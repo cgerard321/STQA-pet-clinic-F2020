@@ -95,11 +95,9 @@ public class Vet extends Person {
         for(Schedule sched: holder)
         {
 
-
+            //Bugfix made by Connor
             if(dayOfWeek < 6 && sched.getId() >= dayOfWeek && sched.getId() <= dayOfWeek+2)
             {
-                System.out.println(sched.getId());
-                System.out.println(dayOfWeek);
                 sortedSpecs.add(sched);
             }
             else if((dayOfWeek == 6 && sched.getId() >= dayOfWeek) || (dayOfWeek == 6 && sched.getId() == 1)){

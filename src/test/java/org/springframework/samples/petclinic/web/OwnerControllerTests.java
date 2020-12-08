@@ -8,16 +8,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Person;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.SortingUtils;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.ResourceUtils;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
-import java.util.HashMap;
+import java.util.*;
+
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -313,6 +317,16 @@ class OwnerControllerTests {
     void testProcessFindAllOwnerForm() throws Exception {
         //this get method should retrieve all owners and display the list
         mockMvc.perform(get("/findAll"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("owners/ownersList"));
+    }
+
+    //test added by Antoine
+    @Test
+    void testProcessNewSortedOwnerListByName() throws Exception {
+        //test assert that the view ownerList is being displayed when we perform the post /sort
+        mockMvc.perform(post("/sort")
+            .param("sortingField", "FirstName"))
             .andExpect(status().isOk())
             .andExpect(view().name("owners/ownersList"));
     }

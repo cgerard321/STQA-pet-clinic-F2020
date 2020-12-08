@@ -46,6 +46,12 @@ public class Pet extends NamedEntity {
 
     @Column
     private int totalRating;
+    @Column(name = "weight")
+    private int weight;
+
+
+    @Column(name = "height")
+    private int height;
 
     @Column
     private int timesRated;
@@ -63,6 +69,21 @@ public class Pet extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Rating> ratings;
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -172,6 +193,8 @@ public class Pet extends NamedEntity {
                "\"birthdate\":\"" + birthDate + "\", " +
                "\"type\":\"" + type + "\", " +
                "\"imageURL\":\"" + imageURL + "\", " +
+               "\"weight\":\"" + weight + "\", " +
+               "\"height\":\"" + height + "\", " +
                "\"totalRating\":\"" + totalRating + "\", " +
                "\"timesRated\":\"" + timesRated +"\"" +
                "}";

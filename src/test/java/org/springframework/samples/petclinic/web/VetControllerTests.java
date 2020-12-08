@@ -108,5 +108,11 @@ class VetControllerTests {
         .andExpect(model().attributeExists("vet"))
         .andExpect(view().name("vets/vetProfile"));
     }
+
+    @Test
+    void testGetAvailableVets() throws Exception {
+        mockMvc.perform(get("/vets/available?dayId=6"))
+            .andExpect(status().isOk());
+    }
 }
 

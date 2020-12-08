@@ -1,9 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -11,10 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 
@@ -26,15 +20,9 @@ import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PO
 import static org.springframework.samples.petclinic.web.WebTestsCommon.TOMCAT_PREFIX;
 
 @ExtendWith(SeleniumExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@SpringJUnitConfig(locations = {"classpath:spring/business-config.xml"})
-@ActiveProfiles("jpa")
 public class AppointmentTest {
 
     ChromeDriver driver;
-
-    @Autowired
-    private ClinicService clinicService;
 
     public AppointmentTest(ChromeDriver driver) {
         this.driver = driver;
@@ -61,7 +49,7 @@ public class AppointmentTest {
 
         int count = driver.findElements(By.xpath("//input[@type='submit']")).size();
 
-        assertThat(count, is(this.clinicService.findAllVisits().size()));
+        assertThat(count, is(12));
     }
 
     @Test
@@ -159,7 +147,22 @@ public class AppointmentTest {
         }
 
         assertThat(foundAlert, is(true));
+    }
 
+    @Test
+    void checkAppointmentCreateVetList() throws InterruptedException {
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/visits/new");
+        driver.manage().window().maximize();
+
+        WebElement date = driver.findElement(By.name("date"));
+        date.clear();
+        date.sendKeys("2020/12/11");
+        driver.findElement(By.tagName("h2")).click(); // dismiss the date picker
+
+        // wait for the HTTP query
+        Thread.sleep(1000);
+
+        assertThat(driver.findElements(By.cssSelector("#availableVets > li")).size(), is(2));
 
     }
 }

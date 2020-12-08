@@ -43,6 +43,16 @@
             <th id="email">Email</th>
             <td headers="email"><c:out value="${owner.email}"/></td>
         </tr>
+
+        <tr>
+            <th id="height">Height(In)</th>
+            <td headers="name"><strong><c:out value="${pet.height}"/></strong></td>
+        </tr>
+
+        <tr>
+            <th id="weight">Weight(lbs)</th>
+            <td headers="name"><strong><c:out value="${pet.weight}"/></strong></td>
+        </tr>
     </table>
 
 

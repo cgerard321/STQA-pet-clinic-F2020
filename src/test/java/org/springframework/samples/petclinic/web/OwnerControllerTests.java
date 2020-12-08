@@ -4,10 +4,6 @@ import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-
-=======
->>>>>>> 8dc0a75d5025a4da00872d94b1d8f6b02b66bb7c
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.openqa.selenium.By;
@@ -22,7 +18,6 @@ import org.springframework.samples.petclinic.model.Owner;
 
 
 import org.springframework.samples.petclinic.model.Visit;
-<<<<<<< HEAD
 
 
 import org.springframework.samples.petclinic.model.Visit;
@@ -30,9 +25,8 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.model.Pet;
 
 
-=======
 import org.springframework.samples.petclinic.model.Pet;
->>>>>>> 8dc0a75d5025a4da00872d94b1d8f6b02b66bb7c
+
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,11 +35,6 @@ import org.springframework.util.ResourceUtils;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.util.HashMap;
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 8dc0a75d5025a4da00872d94b1d8f6b02b66bb7c
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -402,8 +391,6 @@ class OwnerControllerTests {
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 
-<<<<<<< HEAD
-=======
     // STQA 74 - REMOVE OWNER
     // try to remove owner with dependency
     // since there's a dependency, it should go to removeOwner.jsp
@@ -423,7 +410,6 @@ class OwnerControllerTests {
         mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID2))
             .andExpect(view().name("redirect:/owners.html?lastName="));
     }
->>>>>>> 8dc0a75d5025a4da00872d94b1d8f6b02b66bb7c
 
     //test added by Antoine
     @Test
@@ -432,27 +418,6 @@ class OwnerControllerTests {
         mockMvc.perform(get("/findAll"))
             .andExpect(status().isOk())
             .andExpect(view().name("owners/ownersList"));
-    }
-
-    // STQA 74 - REMOVE OWNER
-    // try to remove owner with dependency
-    // since there's a dependency, it should go to removeOwner.jsp
-    @Test
-    public void testOwnerHasDependency() throws Exception {
-        mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID))
-            .andExpect(status().isOk())
-            .andExpect(view().name("owners/removeOwner"))
-            .andExpect(forwardedUrl("owners/removeOwner"));
-    }
-
-
-    // STQA 74 - REMOVE OWNER
-    // remove owner without dependency
-
-    @Test
-    public void testRemoveOwnerNoDependency() throws Exception {
-        mockMvc.perform(get("/owners/{ownerId}/remove", TEST_OWNER_ID2))
-            .andExpect(view().name("redirect:/owners.html?lastName="));
     }
 
 }

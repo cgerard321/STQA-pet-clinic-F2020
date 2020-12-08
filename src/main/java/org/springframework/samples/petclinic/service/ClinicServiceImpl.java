@@ -185,5 +185,4 @@ public class ClinicServiceImpl implements ClinicService {
         return ratingRepository.findByPetId(petId);
     }
 
-
 }

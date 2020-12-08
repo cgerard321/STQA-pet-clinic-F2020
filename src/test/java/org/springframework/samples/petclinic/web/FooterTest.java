@@ -32,58 +32,59 @@ public class FooterTest {
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-        WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
-        int links =   footer.findElements(By.tagName("a")).size();
+        WebElement footer = driver.findElement(By.xpath("//div[@class='footer']"));
+        int links = footer.findElements(By.tagName("a")).size();
 
         //store all links of footer wihin a list
-        for(int i=0;i<links;i++){
+        for (int i = 0; i < links; i++) {
             List<WebElement> footlinks = footer.findElements(By.tagName("a"));
             WebElement test = footlinks.get(i);
-            String testText=test.getText();
+            String testText = test.getText();
 
-            if(testText.equals(linkName)){
+            if (testText.equals(linkName)) {
                 test.click();
                 break;
             }
         }
 
         WebElement Welcome = driver.findElement(By.xpath("//*[contains(text(),'Welcome')]"));
-        assertThat(Welcome.isDisplayed(), is(true)) ;
-        try{
+        assertThat(Welcome.isDisplayed(), is(true));
+        try {
             Thread.sleep(1000);
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-@Test
+
+    @Test
     public void TestGoTo_OwnersFooter() {
         //assert
 
-        String linkName= "Find owners";
+        String linkName = "Find owners";
         driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-        WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
-        int links =   footer.findElements(By.tagName("a")).size();
+        WebElement footer = driver.findElement(By.xpath("//div[@class='footer']"));
+        int links = footer.findElements(By.tagName("a")).size();
 
         //store all links of footer wihin a list
-        for(int i=0;i<links;i++){
+        for (int i = 0; i < links; i++) {
             List<WebElement> footlinks = footer.findElements(By.tagName("a"));
             WebElement test = footlinks.get(i);
-            String testText=test.getText();
+            String testText = test.getText();
 
-            if(testText.equals(linkName)){
+            if (testText.equals(linkName)) {
                 test.click();
                 break;
             }
         }
 
         WebElement lastName = driver.findElement(By.id("lastName"));
-        assertThat(lastName.isDisplayed(), is(true)) ;
-        try{
+        assertThat(lastName.isDisplayed(), is(true));
+        try {
             Thread.sleep(1000);
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -96,58 +97,59 @@ public class FooterTest {
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-        WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
-        int links =   footer.findElements(By.tagName("a")).size();
+        WebElement footer = driver.findElement(By.xpath("//div[@class='footer']"));
+        int links = footer.findElements(By.tagName("a")).size();
 
         //store all links of footer wihin a list
-        for(int i=0;i<links;i++){
+        for (int i = 0; i < links; i++) {
             List<WebElement> footlinks = footer.findElements(By.tagName("a"));
             WebElement test = footlinks.get(i);
-            String testText=test.getText();
+            String testText = test.getText();
 
-            if(testText.equals(linkName)){
+            if (testText.equals(linkName)) {
                 test.click();
                 break;
             }
         }
 
         WebElement veterinarians = driver.findElement(By.id("veterinarians"));
-        assertThat(veterinarians .isDisplayed(), is(true)) ;
-        try{
+        assertThat(veterinarians.isDisplayed(), is(true));
+        try {
             Thread.sleep(1000);
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void TestGoTo_Error() {
+    public void TestGoTo_Pets() {
         //assert
 
-        String linkName = "Error";
+        String linkName = "Find Pets";
         driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/");
         driver.manage().window().maximize();
 
         //get list all elements within footer tag.
-        WebElement footer= driver.findElement(By.xpath("//div[@class='footer']"));
-        int links =   footer.findElements(By.tagName("a")).size();
+        WebElement footer = driver.findElement(By.xpath("//div[@class='footer']"));
+        int links = footer.findElements(By.tagName("a")).size();
 
         //store all links of footer wihin a list
-        for(int i=0;i<links;i++){
+        for (int i = 0; i < links; i++) {
             List<WebElement> footlinks = footer.findElements(By.tagName("a"));
             WebElement test = footlinks.get(i);
-            String testText=test.getText();
+            String testText = test.getText();
 
-            if(testText.equals(linkName)){
+            if (testText.equals(linkName)) {
                 test.click();
                 break;
             }
         }
 
-        WebElement errorMsg = driver.findElement(By.xpath("//*[contains(text(),'Expected:')]"));
-        assertThat(errorMsg.isDisplayed(), is(true)) ;
-        try{
+        WebElement pets = driver.findElement(By.id("pets"));
+        assertThat(pets.isDisplayed(), is(true));
+        try {
             Thread.sleep(1000);
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

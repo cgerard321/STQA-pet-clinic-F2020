@@ -23,6 +23,36 @@ public class FooterTest {
 
     }
 
+    // SELENIUM testing for STQA 196 - Improve alert window UI
+    // Initialize chrome driver
+
+    // SELENIUM STQA-196
+    // Improve Alert Window UI testing
+    @Test
+    public void TestRemoveOwnerSelenium() {
+        //arrange
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1.html");
+        driver.manage().window().maximize();
+
+        // act
+        WebElement test = driver.findElementById("removeOwnerID");
+        System.out.println(test.getText());
+        driver.findElementById("removeOwnerID").click();
+
+        // add 2 seconds for the browser to catch up, otherwise the test will fail
+        try {
+            Thread.sleep(2000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElementById("delete").click();
+
+        // assert
+        String URL = driver.getCurrentUrl();
+        assertThat(URL, is("http://localhost:8080/spring_framework_petclinic_war/owners/1/remove.html" ));
+    }
+
     // Test Cases for FIND PETS AND APPOINTMENTS TO BE ADDED once pages are implemented.
     @Test
     public void TestGoTo_Home() {

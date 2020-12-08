@@ -105,6 +105,9 @@
     <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
 
     <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
+
+    <a class="btn btn-default" href='<spring:url value="/ratings/findPetRatings" htmlEscape="true"/>'>View Pet Ratings</a>
+
     <br/>
 
     <%-- Calendar -Louis C. --%>

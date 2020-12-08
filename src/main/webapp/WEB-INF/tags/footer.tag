@@ -34,7 +34,8 @@
             </a>
         </li>
         <li class="">
-            <a href="#" title="appointments">
+            <spring:url value="/appointments/viewForm" var="apptUrl" />
+            <a href="${fn:escapeXml(apptUrl)}" title="appointments">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 <span>Appointments</span>
             </a>

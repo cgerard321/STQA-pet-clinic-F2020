@@ -156,6 +156,34 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 
         return futureVisits;
     }
+    //group pets by appointments
+    @Override
+    public List<Visit> groupPetsByAppointments()
+    {
+        Map<String, Object> params = new HashMap<>();
+
+        List<JdbcPet> results = this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets", new JdbcPetRowMapper());
+
+        List<Visit>groupedVisits = this.jdbcTemplate.query(
+            "SELECT  id, COUNT(id) AS apptCount, visit_date, description, pet_id FROM visits",
+        new JdbcVisitRowMapper(results));
+
+        return groupedVisits;
+    }
+
+    @Override
+    public List<Visit> findAppointmentDuplicates()
+    {
+        List<JdbcPet> results =  this.jdbcTemplate.query(
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets", new JdbcPetRowMapper());
+
+        List<Visit> duplicateVisits = this.jdbcTemplate.query(
+            "SELECT v.pet, v.date  FROM Visit v GROUP BY v.pet, v.date HAVING COUNT(*) > 1",
+            new JdbcVisitRowMapper(results));
+
+        return duplicateVisits;
+    }
 
     public void deleteByIdIn(List<Integer> visitIds) {
         Map<String, Object> params = new HashMap<>();

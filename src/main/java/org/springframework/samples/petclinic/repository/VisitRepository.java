@@ -47,6 +47,10 @@ public interface VisitRepository {
 
     List<Visit> findAllFutureVisits(LocalDate current_date);
 
+    List<Visit> groupPetsByAppointments();
+
+    List<Visit> findAppointmentDuplicates();
+
     void deleteByIdIn(List<Integer> visitIds);
 
     void deleteById(int visitId);

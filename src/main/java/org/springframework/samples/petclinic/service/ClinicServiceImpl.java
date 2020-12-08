@@ -136,6 +136,18 @@ public class ClinicServiceImpl implements ClinicService {
         return visitRepository.findAllFutureVisits(current_date);
     }
 
+    @Override
+    public Collection<Visit> findAppointmentDuplicates()
+    {
+        return visitRepository.findAppointmentDuplicates();
+    }
+
+    @Override
+    public Collection<Visit> groupPetsByAppointments()
+    {
+        return visitRepository.groupPetsByAppointments();
+    }
+
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);

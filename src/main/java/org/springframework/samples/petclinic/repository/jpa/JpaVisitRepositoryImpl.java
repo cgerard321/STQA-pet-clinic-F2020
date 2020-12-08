@@ -84,6 +84,20 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Visit> groupPetsByAppointments()
+    {
+        Query query = this.em.createQuery("SELECT v, COUNT(v.pet) FROM Visit v GROUP BY v.pet");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Visit> findAppointmentDuplicates()
+    {
+        Query innerQuery = this.em.createQuery("SELECT v.pet, v.date  FROM Visit v GROUP BY v.pet, v.date HAVING COUNT(ALL v) > 1");
+        return innerQuery.getResultList();
+    }
+
     public void deleteByIdIn(List<Integer> visitIds) {
         Query query = this.em.createQuery("DELETE FROM Visit v WHERE v.id IN (:ids)");
         query.setParameter("ids", visitIds);

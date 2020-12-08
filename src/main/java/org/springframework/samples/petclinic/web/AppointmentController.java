@@ -8,16 +8,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.*;
 
 
-import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.web.bind.annotation.GetMapping;
-import java.util.Map;
 
 @Controller
 public class AppointmentController {
@@ -50,7 +47,37 @@ public class AppointmentController {
         Collection<Visit> visits = this.clinicService.findAllVisits();
         model.put("visits", visits);
         model.put("showWarning", true);
-        return VIEWS_APPOINTMENTS_VIEW_FORM;
+
+            return VIEWS_APPOINTMENTS_VIEW_FORM;
+    }
+
+    @GetMapping(value="/appointments/viewForm?filter={filter}")
+    public String cloneViewForm (@RequestParam String filter, Map<String, Object> model)
+    {
+
+        Collection<Visit> visits = this.clinicService.findAllVisits();
+
+        //Set up variables for filtering
+        if(filter.equals("upcoming"))
+        {
+            Collection<Visit> filterUpcoming = this.clinicService.findAllFutureVisits();
+            model.put("filter", filterUpcoming);
+            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=upcoming";
+        }
+        else if(filter.equals("duplicate"))
+        {
+            Collection <Visit> filterDuplicate = this.clinicService.findAppointmentDuplicates();
+            model.put("filter", filterDuplicate);
+            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=duplicate";
+        }
+        else if(filter.equals("petappts")) {
+            Collection <Visit> filterPetAppts = this.clinicService.groupPetsByAppointments();
+            return VIEWS_APPOINTMENTS_VIEW_FORM+"?filter=petappts";
+        }
+        else {
+            model.put("filter", visits);
+            return VIEWS_APPOINTMENTS_VIEW_FORM;
+        }
     }
 
     @PostMapping(value = "/appointments/{appointmentId}/cancel")
@@ -105,6 +132,7 @@ public class AppointmentController {
             visitDate = newDate.plusDays(1);
         else
             visitDate = newDate.plusDays(2);
+
 /*Possible bug - Sunday exception case not implemented yet*/
 
         Pet p = this.clinicService.findPetById(petId);

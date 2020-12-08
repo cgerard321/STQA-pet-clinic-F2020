@@ -43,7 +43,7 @@
                 </petclinic:menuItem>
 
 
-                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments/create.html" title="schedule appointments">
+                <petclinic:menuItem active="${name eq 'appointments'}" url="/appointments/viewForm" title="schedule appointments">
                     <span aria-hidden="true"><i class="fi-clipboard-pencil" style="font-size:22px; position:relative; top:-1px;"></i></span>
 
                     <span class="foundationIconsSpacing"> Appointments</span>

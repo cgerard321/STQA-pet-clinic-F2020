@@ -64,6 +64,10 @@ public interface ClinicService {
 
     Collection<Visit> findAllFutureVisits();
 
+    Collection<Visit> groupPetsByAppointments();
+
+    Collection<Visit> findAppointmentDuplicates();
+
     void deleteVisitsById(List<Integer> visitIds);
 
     void deleteVisitById(int visitId);

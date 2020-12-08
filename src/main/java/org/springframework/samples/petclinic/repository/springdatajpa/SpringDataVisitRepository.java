@@ -42,6 +42,11 @@ public interface SpringDataVisitRepository extends VisitRepository, Repository<V
     List<Visit> findAllFutureVisits(@Param("current_date") LocalDate current_date);
 
     @Override
+    @Query("SELECT v, COUNT(v.pet) FROM Visit v GROUP BY v.pet")
+    List<Visit> groupPetsByAppointments();
+
+
+    @Override
     @Modifying
     @Query("DELETE FROM Visit v WHERE v.id IN (:ids)")
     void deleteByIdIn(@Param("ids") List<Integer> visitIds);

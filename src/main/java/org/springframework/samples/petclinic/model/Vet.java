@@ -87,7 +87,7 @@ public class Vet extends Person {
     @XmlElement
     public List<Schedule> getSchedulesLastMinute() {
         Calendar calendar = Calendar.getInstance();
-        int dayOfWeek = 6;
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         List<Schedule> holder = new ArrayList<>(getScheduleInternal());
         List<Schedule> sortedSpecs = new ArrayList<>();

@@ -48,8 +48,6 @@ INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/origin
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg', 0, 0, 1, 10);
 
 
---Updated dates to 2020 and 2021
---Original year: 2013
 INSERT INTO visits VALUES (1, 7, '2021-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2020-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2021-01-03', 'neutered');
@@ -71,7 +69,6 @@ INSERT INTO schedules VALUES (5, 'Thursday');
 INSERT INTO schedules VALUES (6, 'Friday');
 INSERT INTO schedules VALUES (7, 'Saturday');
 
-
 INSERT INTO vet_schedule VALUES (1, 1);
 INSERT INTO vet_schedule VALUES (1, 2);
 INSERT INTO vet_schedule VALUES (1, 3);
@@ -92,6 +89,5 @@ INSERT INTO vet_schedule VALUES (6, 6);
 INSERT INTO ratings VALUES(1,1,'Johny',5);
 
 
--- INSERT INTO events VALUE(1, '2020-11-02', 'veteran day');
--- INSERT INTO events VALUE(2, '2020-11-11', 'Open house');
--- INSERT INTO events VALUE(3, '2020-11-27', 'Adoption day');
+INSERT INTO event VALUES (5, '2020-12-12','Open house', '10h00am');
+INSERT INTO event VALUES (2, '2020-12-25', 'Christmas!', '');

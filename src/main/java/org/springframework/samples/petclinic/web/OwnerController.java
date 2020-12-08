@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -31,6 +33,7 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.SortingUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -38,7 +41,6 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -53,6 +55,7 @@ public class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final ClinicService clinicService;
+    private final SortingUtils sortingUtils = new SortingUtils();
 
     @Autowired
     public OwnerController(ClinicService clinicService) {
@@ -246,8 +249,34 @@ public class OwnerController {
     @RequestMapping(value = "/findAll")
     public String processFindAllOwnerForm(Map<String, Object> model) {
         Collection<Owner> results = this.clinicService.findAllOwner();
+
         // multiple owners found
         model.put("selections", results);
+        return "owners/ownersList";
+    }
+
+    //method added by Antoine to sort the list of owner by the field specified in the drop down list
+    @PostMapping(value = "/sort")
+    public String processSortOwnerListByFirstName(@RequestParam("sortingField") String sortValue, Map<String, Object> model) {
+        //this method only sort the list of all the owners see I was not able to find a way of only getting the list being displayed on the screen
+        Collection<Owner> owners = this.clinicService.findAllOwner();
+        List<Owner> ownerList = new ArrayList<>();
+
+        //Sort the list of owner
+        if(sortValue.equals("FirstName")) {
+            ownerList = sortingUtils.sortByFirstName(owners);
+        }
+        else if(sortValue.equals("LastName")) {
+            ownerList = sortingUtils.sortByLastName(owners);
+        }
+        else if(sortValue.equals("City")) {
+            ownerList = sortingUtils.sortByCityName(owners);
+        }
+        else if(sortValue.equals("State")) {
+            ownerList = sortingUtils.sortByStateName(owners);
+        }
+
+        model.put("selections", ownerList);
         return "owners/ownersList";
     }
 }

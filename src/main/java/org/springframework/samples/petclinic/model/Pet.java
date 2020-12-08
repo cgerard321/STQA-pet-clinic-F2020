@@ -46,11 +46,11 @@ public class Pet extends NamedEntity {
 
     @Column
     private int totalRating;
-    @Column
+    @Column(name = "weight")
     private int weight;
 
 
-    @Column
+    @Column(name = "height")
     private int height;
 
     @Column

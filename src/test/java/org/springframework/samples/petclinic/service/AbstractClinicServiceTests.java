@@ -305,7 +305,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     void shouldRemoveLeoFromPetList() {
-        boolean jdbcTest = this.getClass().equals(ClinicServiceJdbcTests.class);
+
         int id = 1;
         // Arrange
         Pet pet = EntityUtils.getById(this.clinicService.findPets(), Pet.class, id);

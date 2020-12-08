@@ -25,7 +25,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
@@ -93,10 +92,11 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             Number newKey = this.insertPet.executeAndReturnKey(
                 createPetParameterSource(pet));
             pet.setId(newKey.intValue());
-        } else {
+        }
+        else {
             this.namedParameterJdbcTemplate.update(
                 "UPDATE pets SET name=:name, birth_date=:birth_date, type_id=:type_id, " +
-                    "owner_id=:owner_id WHERE id=:id",
+                    "owner_id=:owner_id, weight=:weight, height=:height WHERE id=:id",
                 createPetParameterSource(pet));
         }
     }
@@ -141,12 +141,14 @@ public class JdbcPetRepositoryImpl implements PetRepository {
         params.put("id", id);
 
         // Cascade Delete visits
-        List<Visit> visits = pet.getVisits();
-        for (Visit visit : visits) {
-            Map<String, Object> visit_params = new HashMap<>();
-            visit_params.put("id", visit.getId());
-            this.namedParameterJdbcTemplate.update("DELETE FROM visits WHERE id=:id", visit_params);
-        }
+        Map<String, Object> visit_params = new HashMap<>();
+        visit_params.put("id", pet.getId());
+        this.namedParameterJdbcTemplate.update("DELETE FROM visits WHERE pet_id=:id", visit_params);
+
+        // Cascade Delete Rating
+        Map<String, Object> rating_params = new HashMap<>();
+        rating_params.put("id", pet.getId());
+        this.namedParameterJdbcTemplate.update("DELETE FROM ratings WHERE pet_id=:id", rating_params);
 
         String DELETE_PET = "delete from pets p WHERE p.id =:id";
         this.namedParameterJdbcTemplate.update(DELETE_PET, params);
@@ -161,7 +163,9 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             .addValue("name", pet.getName())
             .addValue("birth_date", pet.getBirthDate())
             .addValue("type_id", pet.getType().getId())
-            .addValue("owner_id", pet.getOwner().getId());
+            .addValue("owner_id", pet.getOwner().getId())
+            .addValue("weight", pet.getWeight())
+            .addValue("height", pet.getHeight());
     }
 
 }

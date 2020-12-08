@@ -75,7 +75,6 @@ class VetControllerTests {
             .andExpect(content().node(hasXPath("/vets/vet[id=1]/id")));
     }
 
-
     @Test
     void testNavigateToVets() throws Exception {
         mockMvc.perform(get("/vets.html"))
@@ -92,6 +91,7 @@ class VetControllerTests {
             .andExpect(view().name("vets/scheduleList"))
             .andExpect(forwardedUrl("vets/scheduleList"));
     }
+
 
     //APPT
     @Test
@@ -123,6 +123,13 @@ class VetControllerTests {
             .andExpect(forwardedUrl("vets/modifySchedule"));
     }
 
+
+
+    @Test
+    void testGetAvailableVets() throws Exception {
+        mockMvc.perform(get("/vets/available?dayId=6"))
+            .andExpect(status().isOk());
+    }
 
 }
 

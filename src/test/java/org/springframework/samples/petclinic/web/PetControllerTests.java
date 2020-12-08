@@ -197,7 +197,7 @@ class PetControllerTests {
             .andExpect(view().name("pets/createOrUpdatePetForm"))
             .andExpect(forwardedUrl("pets/createOrUpdatePetForm"));
     }
-  
+
     @Test
     void testGoBackToPetPage() throws Exception {
         // test case
@@ -209,12 +209,12 @@ class PetControllerTests {
             .andExpect(forwardedUrl("pets/findPets"));
     }
 
-    
+
 
 
     @Test
     void testGetAllPets() throws Exception{
-        mockMvc.perform(get("/pets/getPets"))
+        mockMvc.perform(get("/pets/getAllPetsInJson"))
             .andExpect(status().isOk())
             .andExpect(content().string(startsWith("[")))
             .andExpect(content().string(containsString("name")))
@@ -232,12 +232,16 @@ class PetControllerTests {
             .andExpect(status().isOk())
             .andExpect(content().string("2")); // Pet List size
     }
-
+    //Test case for return a collection of pet types
     @Test
-    void testGetHighestRatingById() throws Exception{
-        mockMvc.perform(get("/pets/getHighestRatings"))
+    void testGetAllPetsType() throws Exception{
+        mockMvc.perform(get("/pets/petTypes"))
             .andExpect(status().isOk())
-            .andExpect(content().string("[1,2]")); // Array w/ Pet ID 1 and 2
+            .andExpect(content().string(startsWith("[")))
+            .andExpect(content().string(containsString("id")))
+            .andExpect(content().string(containsString("name")))
+            .andExpect(content().string(containsString("new")))
+            .andExpect(content().string(endsWith("]")));
     }
 }
 

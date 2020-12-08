@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.repository.jpa;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,7 +55,6 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         }
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public List<Visit> findByPetId(Integer petId) {
@@ -71,9 +72,15 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     }
 
     @Override
-
     public List<Visit> findAll() {
         Query query = this.em.createQuery("SELECT v FROM Visit v");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Visit> findAllFutureVisits(LocalDate current_date) {
+        Query query = this.em.createQuery("SELECT v FROM Visit v WHERE v.date > (:param_current_date)");
+        query.setParameter("param_current_date", current_date);
         return query.getResultList();
     }
 
@@ -89,5 +96,4 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
         query.setParameter("id", visitId);
         query.executeUpdate();
     }
-
 }

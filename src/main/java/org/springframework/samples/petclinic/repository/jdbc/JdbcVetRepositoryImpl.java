@@ -23,15 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.samples.petclinic.model.Owner;
+
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
 
 /**
  * A simple JDBC-based implementation of the {@link VetRepository} interface.
@@ -47,25 +48,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JdbcVetRepositoryImpl implements VetRepository {
 
+
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+
     @Autowired
-    public JdbcVetRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public JdbcVetRepositoryImpl(DataSource dataSource) {
+        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    /**
-     * Refresh the cache of Vets that the ClinicService is holding.
-     */
-    @Override
-    public Collection<Vet> findAll() {
-        List<Vet> vets = new ArrayList<>();
-        // Retrieve the list of all vets.
-        vets.addAll(this.jdbcTemplate.query(
-            "SELECT id, first_name, last_name FROM vets ORDER BY last_name,first_name",
-            BeanPropertyRowMapper.newInstance(Vet.class)));
-
+    private void fillSpecialties(List<Vet> vets) {
         // Retrieve the list of all possible specialties.
         final List<Specialty> specialties = this.jdbcTemplate.query(
             "SELECT id, name FROM specialties",
@@ -73,7 +66,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
 
         // Build each vet's list of specialties.
         for (Vet vet : vets) {
-            final List<Integer> vetSpecialtiesIds = this.jdbcTemplate.query(
+            final List<Integer> vetSpecialtiesIds = this.namedParameterJdbcTemplate.getJdbcTemplate().query(
                 "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
                 new BeanPropertyRowMapper<Integer>() {
                     @Override
@@ -87,6 +80,35 @@ public class JdbcVetRepositoryImpl implements VetRepository {
                 vet.addSpecialty(specialty);
             }
         }
+    }
+
+    /**
+     * Refresh the cache of Vets that the ClinicService is holding.
+     */
+    @Override
+    public Collection<Vet> findAll() {
+        List<Vet> vets = new ArrayList<>();
+        // Retrieve the list of all vets.
+        vets.addAll(this.jdbcTemplate.query(
+            "SELECT id, first_name, last_name FROM vets ORDER BY last_name,first_name",
+            BeanPropertyRowMapper.newInstance(Vet.class)));
+
+        fillSpecialties(vets);
+
+        return vets;
+    }
+
+    @Override
+    public Collection<Vet> findAllAvailableForDay(int dayId) {
+        List<Vet> vets = new ArrayList<>();
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", dayId);
+        vets.addAll(this.jdbcTemplate.query(
+            "SELECT DISTINCT id, first_name, last_name FROM vets LEFT JOIN vet_schedule ON vets.id = vet_schedule.vet_id WHERE day_id = :id",
+            params,
+            BeanPropertyRowMapper.newInstance(Vet.class)));
+
+        fillSpecialties(vets);
         return vets;
     }
 

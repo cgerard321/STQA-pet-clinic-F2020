@@ -24,7 +24,9 @@ import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,16 +44,16 @@ public class ClinicServiceImpl implements ClinicService {
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
     private RatingRepository ratingRepository;
-
-
+    private EventRepository eventRepository;
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, RatingRepository ratingRepository, EventRepository eventRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.ratingRepository = ratingRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
@@ -73,6 +75,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Collection<Owner> findAllOwner() {
+        return ownerRepository.findAllOwner();
+    }
+
+    @Override
     @Transactional
     public void saveOwner(Owner owner) {
         ownerRepository.save(owner);
@@ -84,7 +91,6 @@ public class ClinicServiceImpl implements ClinicService {
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -117,6 +123,7 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+
     @Override
     public Vet findVetById(int vetId) {
         return vetRepository.findById(vetId);
@@ -129,11 +136,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
 
+
     @Override
     public Collection<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
     }
-
 
     @Override
     public Collection<Visit> findVisitsByOwnerId(int ownerId) {
@@ -142,10 +149,16 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Collection<Visit> findAllVisits(){
-
         return visitRepository.findAll();
-
     }
+
+    @Override
+    public Collection<Visit> findAllFutureVisits()
+    {
+        LocalDate current_date = LocalDate.now();
+        return visitRepository.findAllFutureVisits(current_date);
+    }
+
     @Transactional
     public void deleteVisitsById(List<Integer> visitIds) {
         visitRepository.deleteByIdIn(visitIds);
@@ -179,16 +192,20 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
 
-//    @Override
-//    public void updateSchedule(int vetId, Vet vet) {
-//        List<Vet> vets = (List<Vet>) findVets();
-//        for (int i=0; i< vets.size(); i++){
-//            Vet tempVet = vets.get(i);
-//            if(tempVet.getId().equals(vetId)){
-//                vets.set(i, vet);
-//                return;
-//            }
-//        }
-//    }
+    @Override
+    public Collection<Rating> findRatingsByPetId(int petId){
+        return ratingRepository.findByPetId(petId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Event> getEvents() {
+        return eventRepository.getEvents();
+    }
+    @Override
+    public Collection<Vet> findVetsAvailableForDay(int dayId) {
+        return vetRepository.findAllAvailableForDay(dayId);
+    }
+
 
 }

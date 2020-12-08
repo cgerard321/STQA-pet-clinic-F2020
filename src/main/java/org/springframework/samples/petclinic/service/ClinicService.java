@@ -16,11 +16,14 @@
 package org.springframework.samples.petclinic.service;
 
 
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.samples.petclinic.model.*;
 
+import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
@@ -54,6 +57,9 @@ public interface ClinicService {
 
     void saveVet(Vet vet);
 
+    Collection<Owner> findAllOwner();
+
+
     Collection<Visit> findVisitsByPetId(int petId);
 
 //
@@ -62,7 +68,10 @@ public interface ClinicService {
 //    Schedule findScheduleByVetId(int id);
 
     Collection<Visit> findVisitsByOwnerId(int ownerId);
+
     Collection<Visit> findAllVisits();
+
+    Collection<Visit> findAllFutureVisits();
 
     void deleteVisitsById(List<Integer> visitIds);
 
@@ -75,5 +84,13 @@ public interface ClinicService {
     Collection<Rating> findRatings();
 
 
+
     Vet findVetById(int vetId);
+
+    Collection<Event> getEvents();
+
+    Collection<Rating> findRatingsByPetId(int petId);
+
+    Collection<Vet> findVetsAvailableForDay(int dayId);
+
 }

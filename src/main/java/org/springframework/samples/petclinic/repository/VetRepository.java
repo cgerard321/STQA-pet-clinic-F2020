@@ -37,7 +37,11 @@ public interface VetRepository {
      */
     Collection<Vet> findAll();
 
+
     Vet findById(int id);
 
     void save(Vet vet);
+
+    Collection<Vet> findAllAvailableForDay(int dayId);
+
 }

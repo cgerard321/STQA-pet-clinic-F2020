@@ -55,56 +55,59 @@ INSERT IGNORE INTO owners VALUES (10, 'images_default','Carlos', 'Estaban', '233
 
 
 INSERT IGNORE INTO pets
-VALUES (1, 'Leo', '2000-09-07', 1, 1);
+VALUES (1, 'Leo', '2000-09-07', 1, 1, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (2, 'Basil', '2002-08-06', 6, 2);
+VALUES (2, 'Basil', '2002-08-06', 6, 2, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (3, 'Rosy', '2001-04-17', 2, 3);
+VALUES (3, 'Rosy', '2001-04-17', 2, 3, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (4, 'Jewel', '2000-03-07', 2, 3);
+VALUES (4, 'Jewel', '2000-03-07', 2, 3, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (5, 'Iggy', '2000-11-30', 3, 4);
+VALUES (5, 'Iggy', '2000-11-30', 3, 4, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (6, 'George', '2000-01-20', 4, 5);
+VALUES (6, 'George', '2000-01-20', 4, 5, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (7, 'Samantha', '1995-09-04', 1, 6);
+VALUES (7, 'Samantha', '1995-09-04', 1, 6, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (8, 'Max', '1995-09-04', 1, 6);
+VALUES (8, 'Max', '1995-09-04', 1, 6, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (9, 'Lucky', '1999-08-06', 5, 7);
+VALUES (9, 'Lucky', '1999-08-06', 5, 7, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (10, 'Mulligan', '1997-02-24', 2, 8);
+VALUES (10, 'Mulligan', '1997-02-24', 2, 8, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (11, 'Freddy', '2000-03-09', 5, 9);
+VALUES (11, 'Freddy', '2000-03-09', 5, 9, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (12, 'Lucky', '2000-06-24', 2, 10);
+VALUES (12, 'Lucky', '2000-06-24', 2, 10, 0, 0);
 INSERT IGNORE INTO pets
-VALUES (13, 'Sly', '2002-06-08', 1, 10);
+VALUES (13, 'Sly', '2002-06-08', 1, 10, 0, 0);
 
 INSERT IGNORE INTO visits
-VALUES (1, 7, '2010-03-04', 'rabies shot');
+VALUES (1, 7, '2021-01-01', 'rabies shot');
 INSERT IGNORE INTO visits
-VALUES (2, 8, '2011-03-04', 'rabies shot');
+VALUES (2, 8, '2020-01-02', 'rabies shot');
 INSERT IGNORE INTO visits
-VALUES (3, 8, '2009-06-04', 'neutered');
+VALUES (3, 8, '2021-01-03', 'neutered');
 INSERT IGNORE INTO visits
-VALUES (4, 7, '2008-09-04', 'spayed');
+VALUES (4, 7, '2021-01-04', 'spayed');
+INSERT IGNORE INTO visits
+VALUES (5, 13, '2021-09-04', 'spayed');
+INSERT IGNORE INTO visits
+VALUES (6, 12, '2021-09-04', 'rabies shot');
 
-
 INSERT INTO schedules
-VALUES (1, 'Monday');
+VALUES (1, 'Sunday');
 INSERT INTO schedules
-VALUES (2, 'Tuesday');
+VALUES (2, 'Monday');
 INSERT INTO schedules
-VALUES (3, 'Wednesday');
+VALUES (3, 'Tuesday');
 INSERT INTO schedules
-VALUES (4, 'Thursday');
+VALUES (4, 'Wednesday');
 INSERT INTO schedules
-VALUES (5, 'Friday');
+VALUES (5, 'Thursday');
 INSERT INTO schedules
-VALUES (6, 'Saturday');
+VALUES (6, 'Friday');
 INSERT INTO schedules
-VALUES (7, 'Sunday');
+VALUES (7, 'Saturday');
 
 
 

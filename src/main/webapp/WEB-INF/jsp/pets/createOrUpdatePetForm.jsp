@@ -28,6 +28,8 @@
                 </div>
                 <petclinic:inputField label="Name" name="name"/>
                 <petclinic:inputField label="Birth Date" name="birthDate"/>
+                <petclinic:inputField label="Weight(lb)" name="weight"/>
+                <petclinic:inputField label="Height(inches)" name="height"/>
                 <div class="control-group">
                     <petclinic:selectField name="type" label="Type " names="${types}" size="5"/>
                 </div>
@@ -36,18 +38,18 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${pet['new']}">
-                            <button class="btn btn-default" type="submit">Add Pet</button>
+                            <button class="btn btn-default" type="submit" name="add"">Add Pet</button>
                         </c:when>
                         <c:otherwise>
-                            <button class="btn btn-default" type="submit">Update Pet</button>
+                            <button class="btn btn-default" type="submit" name="update">Update Pet</button>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </div>
 
             <petclinic:menuItem active="${'pets'}" url="/pets/find.html" title="find pets">
-               <button type="button"  class="btn btn-default" name="petPage">Go to Pet Page</button>
-        </petclinic:menuItem>
+                <button type="button"  class="btn btn-default" name="petPage">Go to Pet Page</button>
+            </petclinic:menuItem>
             <!--  Go to back to pet page -->
         </form:form>
         <c:if test="${!pet['new']}">

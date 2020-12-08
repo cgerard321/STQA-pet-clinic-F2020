@@ -30,4 +30,11 @@ public class JpaRatingRepositoryImpl implements RatingRepository {
         return this.em.createQuery("SELECT distinct rating FROM Rating rating ORDER BY rating.id").getResultList();
     }
 
+    @Override
+    public List<Rating> findByPetId(Integer petId) {
+        Query query = this.em.createQuery("SELECT r FROM Rating r where r.pet.id= :id");
+        query.setParameter("id", petId);
+        return query.getResultList();
+    }
+
 }

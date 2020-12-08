@@ -81,6 +81,7 @@ public class JpaPetRepositoryImpl implements PetRepository {
 
         this.em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
         if (em.contains(pet)) {
+
             em.remove(pet);
         }
     }

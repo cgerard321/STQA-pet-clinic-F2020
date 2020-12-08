@@ -50,6 +50,8 @@ public interface OwnerRepository {
      */
     Owner findById(int id);
 
+    void removeOwner(Owner owner);
+
 
     /**
      * Save an <code>Owner</code> to the data store, either inserting or updating it.

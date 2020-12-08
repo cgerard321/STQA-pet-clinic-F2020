@@ -20,11 +20,13 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.stereotype.Repository;
+
 
 /**
  * JPA implementation of the {@link OwnerRepository} interface.
@@ -65,6 +67,17 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id");
         query.setParameter("id", id);
         return (Owner) query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public void removeOwner(Owner owner) {
+        String ownerId = owner.getId().toString();
+        this.em.createQuery("delete from Owner o WHERE o.id=" +ownerId)
+            .executeUpdate();
+        if (em.contains(owner)) {
+            em.remove(owner);
+        }
     }
 
 

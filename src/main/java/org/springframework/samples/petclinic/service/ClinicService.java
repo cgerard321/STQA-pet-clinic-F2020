@@ -72,9 +72,13 @@ public interface ClinicService {
 
     void removePetById(int petId);
 
+
     void saveRating(Rating rating);
 
     Collection<Rating> findRatings();
 
     Collection<Rating> findRatingsByPetId(int petId);
+
+    void removeOwnerById(int ownerId);
+
 }

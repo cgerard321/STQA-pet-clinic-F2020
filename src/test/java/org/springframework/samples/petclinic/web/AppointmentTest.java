@@ -81,7 +81,7 @@ public class AppointmentTest {
         driver.manage().window().maximize();
 
         // click the cancel button and check we're on the cancel page
-        driver.findElement(By.xpath("/html/body/div[1]/div/a[3]")).click();
+        driver.findElement(By.xpath("/html/body/div[1]/div/a[4]")).click();
         assertThat(driver.getCurrentUrl(), endsWith("/owners/6/appointments/cancel.html"));
 
         // click the back button and check we're back on the owner page

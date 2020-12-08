@@ -63,7 +63,7 @@
     </tr>
 </c:if>
 <c:if test="${filterDuplicate.size > 0} && ${filterDuplicate != null}">
-    <table class="table table-striped table-bordered table-hover" id="upcomingApptsTable">
+    <table class="table table-striped table-bordered table-hover" id="duplicateApptsTable">
         <thead class="thead-dark">
         <tr>
             <th>Date</th>
@@ -88,7 +88,7 @@
     </tr>
 </c:if>
 <c:if test="${filterPetApps.size > 0} && ${filterPetApps != null}">
-    <table class="table table-striped table-bordered table-hover" id="upcomingApptsTable">
+    <table class="table table-striped table-bordered table-hover" id="PetApptsTable">
         <thead class="thead-dark">
         <tr>
             <th>Pet ID</th>

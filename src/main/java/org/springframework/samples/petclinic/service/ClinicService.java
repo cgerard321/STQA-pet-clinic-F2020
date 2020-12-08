@@ -80,7 +80,7 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
-    Collection<Event> getEvents(int year, int month);
+    Collection<Event> getEvents();
 
     Collection<Rating> findRatingsByPetId(int petId);
 }

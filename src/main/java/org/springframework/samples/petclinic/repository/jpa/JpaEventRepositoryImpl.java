@@ -16,7 +16,7 @@ public class JpaEventRepositoryImpl implements EventRepository {
 
 
     @Override
-    public Collection<Event> getEvents(int year, int month) {
+    public Collection<Event> getEvents() {
 
         Query query = this.em.createQuery("SELECT DISTINCT event FROM Event event");
 

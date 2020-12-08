@@ -184,7 +184,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Event> getEvents(int year, int month) {
-        return eventRepository.getEvents(year, month);
+    public Collection<Event> getEvents() {
+        return eventRepository.getEvents();
     }
 }

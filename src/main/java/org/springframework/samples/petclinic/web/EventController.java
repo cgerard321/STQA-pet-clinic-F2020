@@ -23,9 +23,7 @@ public class EventController {
     @GetMapping(value = "event/getAllEvents")
     @ResponseBody
     public String[] getAllEvents() {
-        LocalDate localDate = LocalDate.now();
-
-        ArrayList<Event> events = new ArrayList<>(this.clinicService.getEvents(localDate.getYear(), localDate.getMonthValue()));
+        ArrayList<Event> events = new ArrayList<>(this.clinicService.getEvents());
 
         String[] stringEvents = new String[events.size()];
 

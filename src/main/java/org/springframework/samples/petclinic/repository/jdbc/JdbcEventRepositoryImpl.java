@@ -24,7 +24,7 @@ public class JdbcEventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public ArrayList<Event> getEvents(int year, int month) {
-        return null;
+    public ArrayList<Event> getEvents() {
+        return new ArrayList<>();
     }
 }

@@ -6,6 +6,6 @@ import java.util.Collection;
 
 public interface EventRepository {
 
-    Collection<Event> getEvents(int year, int month);
+    Collection<Event> getEvents();
 
 }

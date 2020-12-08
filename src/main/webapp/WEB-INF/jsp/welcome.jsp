@@ -93,9 +93,10 @@
     <br/>
     <%--    Rating Related Buttons - Nichita--%>
     <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
     <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
-    <a class="btn btn-default" href='<spring:url value="/ratings/findPetRatings" htmlEscape="true"/>'>View Pet Ratings</a>
     <br/>
+
     <%-- Calendar -Louis C. --%>
 
     <%-- For anyone that wants to work on this here is the origin of the css for the calendar that has been modified to show a dinamic calendar --%>
@@ -105,8 +106,8 @@
             <div id="calendar">
                 <table>
                     <summary>
-                        <strong id="currentMonth"><c:out value="${LocalDate.now().getMonth()}"/></strong>
-                        <span id="currentYear"><c:out value="${LocalDate.now().getYear()}"/></span>
+                        <strong><c:out value="${LocalDate.now().getMonth()}"/></strong>
+                        <c:out value="${LocalDate.now().getYear()}"/>
                     </summary>
                     <thead>
                     <tr>
@@ -121,7 +122,7 @@
                     </thead>
 
                     <%-- Loop for weeks --%>
-                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks() - 1}" varStatus="i">
+                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks()}" varStatus="i">
                         <tr>
 
                         <%-- Loop for day in the week --%>

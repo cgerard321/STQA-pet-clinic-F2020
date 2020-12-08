@@ -48,20 +48,10 @@ INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 'https://i.pinimg.com/origin
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg', 0, 0, 1, 10);
 
 
---Updated dates to 2020 and 2021
---Original year: 2013
-INSERT INTO visits VALUES (1, 7, '2021-01-01', 'rabies shot');
-INSERT INTO visits VALUES (2, 8, '2020-01-02', 'rabies shot');
-INSERT INTO visits VALUES (3, 8, '2021-01-03', 'neutered');
-INSERT INTO visits VALUES (4, 7, '2021-01-04', 'spayed');
-INSERT INTO visits VALUES (5, 13, '2021-09-04', 'spayed');
-INSERT INTO visits VALUES (6, 12, '2021-09-04', 'rabies shot');
-INSERT INTO visits VALUES (7, 6, '2020-12-23', 'rabies shot');
-INSERT INTO visits VALUES (8, 11, '2020-12-17', 'rabies shot');
-INSERT INTO visits VALUES (9, 10, '2020-12-07', 'neutered');
-INSERT INTO visits VALUES (10, 9, '2020-12-11', 'spayed');
-INSERT INTO visits VALUES (11, 3, '2020-12-29', 'spayed');
-INSERT INTO visits VALUES (12, 4, '2020-11-30', 'rabies shot');
+INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
+INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
+INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
+INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
 INSERT INTO schedules VALUES (1, 'Monday');
 INSERT INTO schedules VALUES (2, 'Tuesday');

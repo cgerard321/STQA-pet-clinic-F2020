@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Rating;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,10 +31,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -173,6 +171,7 @@ public class PetController {
     public String[] getPetListInJsonString() throws JsonProcessingException {
         // Get all pets
         ArrayList<Pet> pets;
+        ArrayList<Pet> pets2 = new ArrayList<>();
         try {
             pets = new ArrayList<>(this.clinicService.findPets());
         }
@@ -180,33 +179,46 @@ public class PetController {
             return null;
         }
 
+        for (Pet pet : pets) {
+            List<Rating> ratings = (List<Rating>) this.clinicService.findRatingsByPetId(pet.getId());
+            if (ratings.size() > 0) {
+                pet.setTimesRated(ratings.size());
+                int tmpRating = 0;
+                for (Rating rating : ratings) {
+                    tmpRating += rating.getRating();
+                }
+                pet.setTotalRating(tmpRating);
+            }
+            pets2.add(pet);
+        }
+
         // Set array size accordingly
-        String[] stringPets = new String[pets.size()];
+        String[] stringPets = new String[pets2.size()];
 
         // Sort the Pet list in a descending order according to the Average Rating
         double highestRating;
         int highestIndex;
-        for (int i = 0; i < pets.size(); i++){
+        for (int i = 0; i < pets2.size(); i++){
             highestIndex = i;
-            highestRating = pets.get(i).getAverageRating();
-            for (int j = i + 1; j < pets.size(); j++){
-                double averageRating = pets.get(j).getAverageRating();
+            highestRating = pets2.get(i).getAverageRating();
+            for (int j = i + 1; j < pets2.size(); j++){
+                double averageRating = pets2.get(j).getAverageRating();
                 if (averageRating > highestRating){
                     highestRating = averageRating;
                     highestIndex = j;
                 }
                 else if (averageRating == highestRating){
-                    if (pets.get(j).getTimesRated() > pets.get(highestIndex).getTimesRated()){
+                    if (pets2.get(j).getTimesRated() > pets2.get(highestIndex).getTimesRated()){
                         highestRating = averageRating;
                         highestIndex = j;
                     }
                 }
             }
-            Pet tempPet = pets.get(i);
-            pets.set(i, pets.get(highestIndex));
-            pets.set(highestIndex, tempPet);
+            Pet tempPet = pets2.get(i);
+            pets2.set(i, pets2.get(highestIndex));
+            pets2.set(highestIndex, tempPet);
 
-            stringPets[i] = pets.get(i).toJsonString();
+            stringPets[i] = pets2.get(i).toJsonString();
         }
 
         return stringPets;

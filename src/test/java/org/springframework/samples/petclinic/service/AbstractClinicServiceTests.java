@@ -378,13 +378,13 @@ abstract class AbstractClinicServiceTests {
     }
 
 
-@Test
-void shouldFindVetById(){
-
-        Vet vet = this.clinicService.findVetById(1);
-
-        assertThat(vet.getFirstName()).isEqualTo("James");
-}
+//@Test
+//void shouldFindVetById(){
+//
+//        Vet vet = this.clinicService.findVetById(1);
+//
+//        assertThat(vet.getFirstName()).isEqualTo("James");
+//}
 
     @Test
     @Order(21)

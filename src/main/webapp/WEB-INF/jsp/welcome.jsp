@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
 
@@ -22,14 +21,26 @@
     -->
 
     <details id="hallOfFame" style="display:none">
-    <summary><strong>Hall of Fame</strong></summary>
+        <!-- Christos C.-->
+        <div class="input-group">
+
+            <select class="form-control" name='petType' id="petType">
+                <option selected="selected" value="all">All</option>
+
+
+            </select>
+            <span class="input-group-btn">
+    <button class="btn btn-default" id="sortHall" type="button">Set Filter</button>
+  </span>
+        </div>
+        <summary id="Hall"><strong>Hall of Fame</strong></summary>
     <!-- Ryan L. -->
     <table>
         <thead class="thead">
             <tr id="ranking">
-                <th class="text-center">1st</th>
-                <th class="text-center">2nd</th>
-                <th class="text-center">3rd</th>
+                <th id="HOFRank1" class="text-center">1st</th>
+                <th id="HOFRank2" class="text-center">2nd</th>
+                <th id="HOFRank3" class="text-center">3rd</th>
             </tr>
             <tr>
                 <th id="HOF1Name" class="text-center">Pet name [Pet average rating]</th>
@@ -40,7 +51,7 @@
         <tbody>
             <tr>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="firstPlace"/>
-                <td class="text-center" style="width:35%">
+                <td class="text-center"  id="HOF1TD" style="width:35%">
                     <div class="card">
                         <div class="card-inner">
                             <div class="card-front">
@@ -55,7 +66,7 @@
                     </div>
                 </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="secondPlace"/>
-                <td class="text-center" style="width:35%">
+                <td class="text-center" id="HOF2TD" style="width:35%">
                     <div class="card">
                         <div class="card-inner">
                             <div class="card-front">
@@ -70,7 +81,7 @@
                     </div>
                 </td>
                 <spring:url value="/resources/images/imagePlaceholder.png" htmlEscape="true" var="thirdPlace"/>
-                <td class="text-center" style="width:35%">
+                <td class="text-center" id="HOF3TD" style="width:35%">
                     <div class="card" id="card">
                         <div class="card-inner">
                             <div class="card-front">

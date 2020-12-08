@@ -18,7 +18,7 @@ public class VetTests {
     private final ClinicService clinicService;
 
     @Autowired
-    public VetTest(ClinicService clinicService) {
+    public VetTests(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
 

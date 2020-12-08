@@ -19,10 +19,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -45,7 +47,6 @@ import javax.sql.DataSource;
  */
 @Repository
 public class JdbcVetRepositoryImpl implements VetRepository {
-   // JdbcTemplate jdbcTemplatee;
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -110,28 +111,24 @@ public class JdbcVetRepositoryImpl implements VetRepository {
     @Override
     public Vet findById(int id) {
         List<Vet> vets = new ArrayList<>();
-        // Retrieve the list of all vets.
+        // Retrieve the list of vet with proper id
         vets.addAll(this.jdbcTemplate.query(
             "SELECT id, first_name, last_name FROM vets WHERE id =id",
             BeanPropertyRowMapper.newInstance(Vet.class)));
 
-        // Retrieve the list of all possible specialties.
-        final List<Specialty> specialties = this.jdbcTemplate.query(
-            "SELECT id, name FROM specialties",
-            BeanPropertyRowMapper.newInstance(Specialty.class));
 
-        // Build each vet's list of specialties.
+        // Build retrieved vet's list of specialties.
         fillSpecialties(vets);
         return vets.get(0);
     }
 
     @Override
     public void save(Vet vet) {
-//        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(vet);
-//            this.namedParameterJdbcTemplate.update(
-//                "UPDATE vets SET first_name=:firstName, last_name=:lastName WHERE id=:id",
-//                parameterSource);
-           }
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(vet);
 
+            this.jdbcTemplate.update(
+                "UPDATE vets SET first_name=:firstName, last_name=:lastName WHERE id=:id",
+                parameterSource);
 
+    }
 }

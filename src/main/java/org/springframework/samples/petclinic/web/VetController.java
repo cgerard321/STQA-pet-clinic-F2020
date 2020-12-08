@@ -162,11 +162,10 @@ public class VetController {
 
 
     @PostMapping(value = "/modifySchedule/{vetId}")
-    public String saveSchedule(@RequestParam List<String> schedules, @PathVariable(name = "vetId") int vetId, Map<String, Object> m) throws InterruptedException {
+    public String saveSchedule(@RequestParam List<String> schedules, @PathVariable(name = "vetId") int vetId, Map<String, Object> m) {
 
         List<Schedule> scheduleList = new ArrayList<>();
 
-//        vet.setId(vetId);
         Vet vet = clinicService.findVetById(vetId);
         String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         for(int i=0; i<schedules.size(); i++){
@@ -177,7 +176,6 @@ public class VetController {
         vet.setScheduleInternal(scheduleList);
 
         this.clinicService.saveVet(vet);
-        Thread.sleep(60000);
 
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());

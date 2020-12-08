@@ -17,10 +17,12 @@ package org.springframework.samples.petclinic.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,10 +32,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -211,4 +210,14 @@ public class PetController {
 
         return stringPets;
     }
+
+    //Returns a collection of all pet types. Mapped to url petTypes
+    @GetMapping(value = "/pets/petTypes")
+    @ResponseBody
+    public  Collection<PetType> getPetTypes() throws JsonProcessingException{
+        return this.clinicService.findPetTypes();
+    }
+
+
+
 }

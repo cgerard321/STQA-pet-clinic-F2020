@@ -305,7 +305,7 @@ abstract class AbstractClinicServiceTests {
 
     @Test
     void shouldRemoveLeoFromPetList() {
-        boolean jdbcTest = this.getClass().equals(ClinicServiceJdbcTests.class);
+
         int id = 1;
         // Arrange
         Pet pet = EntityUtils.getById(this.clinicService.findPets(), Pet.class, id);
@@ -526,5 +526,11 @@ abstract class AbstractClinicServiceTests {
                 this.clinicService.saveRating(rating);
             }
         }
+    }
+
+    @Test
+    void shouldFindAvailableVets() {
+        Collection<Vet> vets = this.clinicService.findVetsAvailableForDay(6);
+        MatcherAssert.assertThat(vets.size(), is(2));
     }
 }

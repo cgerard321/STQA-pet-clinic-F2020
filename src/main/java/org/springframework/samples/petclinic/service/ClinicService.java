@@ -83,4 +83,6 @@ public interface ClinicService {
     Collection<Event> getEvents();
 
     Collection<Rating> findRatingsByPetId(int petId);
+
+    Collection<Vet> findVetsAvailableForDay(int dayId);
 }

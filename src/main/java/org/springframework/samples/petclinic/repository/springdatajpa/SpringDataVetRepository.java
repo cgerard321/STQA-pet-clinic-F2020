@@ -15,9 +15,13 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
+
+import java.util.Collection;
 
 /**
  * Spring Data JPA specialization of the {@link VetRepository} interface
@@ -26,4 +30,7 @@ import org.springframework.samples.petclinic.repository.VetRepository;
  * @since 15.1.2013
  */
 public interface SpringDataVetRepository extends VetRepository, Repository<Vet, Integer> {
+
+    @Query("SELECT DISTINCT v from Vet v WHERE :day_id IN (SELECT sched.id FROM v.schedules sched)")
+    Collection<Vet> findAllAvailableForDay(@Param("day_id") int dayId);
 }

@@ -232,5 +232,16 @@ class PetControllerTests {
             .andExpect(status().isOk())
             .andExpect(content().string("2")); // Pet List size
     }
+    //Test case for return a collection of pet types
+    @Test
+    void testGetAllPetsType() throws Exception{
+        mockMvc.perform(get("/pets/petTypes"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(startsWith("[")))
+            .andExpect(content().string(containsString("id")))
+            .andExpect(content().string(containsString("name")))
+            .andExpect(content().string(containsString("new")))
+            .andExpect(content().string(endsWith("]")));
+    }
 }
 

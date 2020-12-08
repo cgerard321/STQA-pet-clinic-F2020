@@ -56,34 +56,42 @@ async function initPetSelect() {
 initPetSelect();
 
 
-
-$('#sortHall').click(async function filterByPetType(){
-    const result = await fetch("/spring_framework_petclinic_war/pets/getPets");
+$('#sortHall').click(   async function filterByPetType(){
+    const petResult = await fetch("/spring_framework_petclinic_war/pets/getAllPetsInJson");
     let mySelect = document.getElementById("petType").value;
     let pets=[];
+    console.log(mySelect);
 
-    if (result.ok) {
-      const test = await result.json();
+    if (petResult.ok) {
+        const test = await petResult.json();
 
-      for(var i =1;i<test.length;i++){
-          const test2 = JSON.parse(test[i]);
-        if(test2.type == mySelect) {
-            pets.push(test2);
+        if(mySelect != "all") {
+            for(var i =0;i<test.length;i++){
+                const test2 = JSON.parse(test[i]);
+                if(mySelect == test2.type) {
+                    pets.push(test2);
+                }
+            }
         }
+        else if(mySelect == "all") {
+            for(var i =0;i<test.length;i++){
+          const test2 = JSON.parse(test[i]);
+            pets.push(test2);
+            }
 
       }
       console.log(pets)
-        // if(pets.length === 2){
-        //     $("#HOF3Name").hide();
-        //     $("#HOF3Img").hide();
-        // }
-        // else if(pets.length === 1){
-        //     $("#HOF2Name").hide();
-        //     $("#HOF2Img").hide();
-        //     $("#HOF3Name").hide();
-        //     $("#HOF3Img").hide();
-        // }
-        for (var x = 0; x < 3; x++){
+        for (var i = 1; i <= 3; i++) {
+            $("#HOF" + (i) + "Name").show();
+            $("#HOF" + (i) + "Img").show();
+            if (i > pets.length) {
+                $("#HOF" + (i) + "Name").hide();
+                $("#HOF" + (i) + "Img").hide();
+                $("#Name" + (i)).text("");
+            }
+
+        }
+        for (var x = 0; x <= 3; x++){
                 if (pets[x].totalRating == 0){
                     $("#HOF" + (x+1) + "Name").text(pets[x].name + " [0]");
                 }
@@ -99,6 +107,6 @@ $('#sortHall').click(async function filterByPetType(){
 
 
 });
-
+document.getElementById("sortHall").addEventListener("click", filterByPetType);
 
 

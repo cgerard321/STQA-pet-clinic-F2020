@@ -34,7 +34,7 @@
     <button class="btn btn-default" id="sortHall" type="button">Set Filter</button>
   </span>
         </div>
-        <summary><strong>Hall of Fame</strong></summary>
+        <summary id="Hall"><strong>Hall of Fame</strong></summary>
     <!-- Ryan L. -->
     <table>
         <thead class="thead">

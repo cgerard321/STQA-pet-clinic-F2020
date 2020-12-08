@@ -211,6 +211,7 @@ public class PetController {
         return stringPets;
     }
 
+    //Returns a collection of all pet types. Mapped to url petTypes
     @GetMapping(value = "/pets/petTypes")
     @ResponseBody
     public  Collection<PetType> getPetTypes() throws JsonProcessingException{

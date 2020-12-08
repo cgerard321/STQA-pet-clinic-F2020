@@ -16,21 +16,20 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Schedule;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Vets;
-import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.beans.PropertyEditorSupport;
+import java.util.*;
 
 /**
  * @author Juergen Hoeller
@@ -42,13 +41,14 @@ import java.util.Map;
 public class VetController {
 
     private final ClinicService clinicService;
+    private EntityManager em;
 
     @Autowired
     public VetController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
 
-    @GetMapping(value = { "/vets.html"})
+    @GetMapping(value = {"/vets.html"})
     public String showVetList(Map<String, Object> model) {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects
         // so it is simpler for Object-Xml mapping
@@ -58,7 +58,7 @@ public class VetController {
         return "vets/vetList";
     }
 
-    @GetMapping(value = { "/vets.json", "/vets.xml"})
+    @GetMapping(value = {"/vets.json", "/vets.xml"})
     public
     @ResponseBody
     Vets showResourcesVetList() {
@@ -70,7 +70,7 @@ public class VetController {
     }
 
 
-    @GetMapping(value = { "/scheduleList"})
+    @GetMapping(value = {"/scheduleList"})
     public String showVetScheduleList(Map<String, Object> model) {
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
@@ -79,13 +79,12 @@ public class VetController {
     }
 
     /*Added by the APPT team, returns the schedule of a vet based on their specialty*/
-    @GetMapping(value ="/vetProfile.html")
-    public String showVetProfile(Map<String, Object> model, @RequestParam int id)
-    {
+    @GetMapping(value = "/vetProfile.html")
+    public String showVetProfile(Map<String, Object> model, @RequestParam int id) {
         Vet selectedVet;
 
-         List<Vet> allvets = this.showResourcesVetList().getVetList();
-            //model.put("vet", selectedVet);
+        List<Vet> allvets = this.showResourcesVetList().getVetList();
+        //model.put("vet", selectedVet);
 
         //modified to use findAllFutureVisits() method to get future appointments
         Collection<Visit> allVisits = this.clinicService.findAllFutureVisits();
@@ -96,10 +95,8 @@ public class VetController {
         ArrayList<Visit> miscVisits = new ArrayList<>();
 
         //Loop through all the vets in the db, associate the id that's passed through with the corresponding vet
-        for(int i = 0; i < allvets.size(); i++)
-        {
-            if(allvets.get(i).getId() == id)
-            {
+        for (int i = 0; i < allvets.size(); i++) {
+            if (allvets.get(i).getId() == id) {
                 selectedVet = allvets.get(i);
                 model.put("vet", selectedVet);
                 //Loop through all the visits, sort them through the categories in arraylists listed above.
@@ -126,26 +123,16 @@ public class VetController {
 
                 //Look through the specializations of the veterinarians and add the corresponding appointments
                 //into their schedules
-                if(selectedVet.getSpecialties().size() == 0 )
-                {
+                if (selectedVet.getSpecialties().size() == 0) {
                     generalVisits.addAll(miscVisits);
 
                     model.put("schedule", generalVisits);
-                }
-
-                else if(selectedVet.getSpecialties().toString().contains("surgery"))
-                {
+                } else if (selectedVet.getSpecialties().toString().contains("surgery")) {
                     model.put("schedule", surgeryVisits);
-                }
-
-                else if(selectedVet.getSpecialties().toString().contains("dentistry"))
-                {
+                } else if (selectedVet.getSpecialties().toString().contains("dentistry")) {
                     model.put("schedule", dentistryVisits);
-                }
-
-                else if(selectedVet.getSpecialties().toString().contains("radiology"))
-                {
-                    model.put("schedule",radiologyVisits);
+                } else if (selectedVet.getSpecialties().toString().contains("radiology")) {
+                    model.put("schedule", radiologyVisits);
                 }
             }
         }
@@ -154,6 +141,57 @@ public class VetController {
     }
 
 
+    @GetMapping("/modifySchedule/{vetId}")
+    public String editVetScheduleInit(@PathVariable(name = "vetId") int vetId, Model m) {
+        Vet vet = clinicService.findVetById(vetId);
+
+        List<Schedule> selectableDays = Arrays.asList(
+            new Schedule(1, "Sunday"),
+            new Schedule(2, "Monday"),
+            new Schedule(3, "Tuesday"),
+            new Schedule(4, "Wednesday"),
+            new Schedule(5, "Thursday"),
+            new Schedule(6, "Friday"),
+            new Schedule(7, "Saturday")
+        );
+
+        m.addAttribute("vet", vet);
+        m.addAttribute("selectableDays", selectableDays);
+        return "vets/modifySchedule";
+    }
+
+
+    @PostMapping(value = "/modifySchedule/{vetId}")
+    public String saveSchedule(@RequestParam List<String> schedules, @PathVariable(name = "vetId") int vetId, Map<String, Object> m) throws InterruptedException {
+
+        List<Schedule> scheduleList = new ArrayList<>();
+
+//        vet.setId(vetId);
+        Vet vet = clinicService.findVetById(vetId);
+        String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        for(int i=0; i<schedules.size(); i++){
+            int id = Integer.parseInt(schedules.get(i));
+            scheduleList.add(new Schedule(id, weekDays[id - 1]));
+        }
+
+        vet.setScheduleInternal(scheduleList);
+
+        this.clinicService.saveVet(vet);
+        Thread.sleep(60000);
+
+        Vets vets = new Vets();
+        vets.getVetList().addAll(this.clinicService.findVets());
+
+        for(int i =0; i<vets.getVetList().size(); i++){
+            for(int t=0; t<vets.getVetList().get(i).getSchedules().size();t++)
+                System.out.println(vets.getVetList().get(i).getSchedules().get(t).toString());
+        }
+
+        m.put("vets",vets);
+
+
+        return "vets/scheduleList";
+    }
     @GetMapping("/vets/available")
     @ResponseBody
     Collection<Vet> getAvailableVets(@RequestParam("dayId") int dayId) {

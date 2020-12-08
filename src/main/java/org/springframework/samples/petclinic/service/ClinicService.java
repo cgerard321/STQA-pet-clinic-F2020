@@ -57,6 +57,8 @@ public interface ClinicService {
 
     Collection<Owner> findAllOwner();
 
+    void saveVet(Vet vet);
+
     Collection<Visit> findVisitsByPetId(int petId);
 
 //
@@ -80,6 +82,8 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
+
+    Vet findVetById(int vetId);
     Collection<Event> getEvents();
 
     Collection<Rating> findRatingsByPetId(int petId);

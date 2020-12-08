@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import java.util.Collection;
 
 /**
@@ -39,10 +40,30 @@ public class JpaVetRepositoryImpl implements VetRepository {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     @SuppressWarnings("unchecked")
     public Collection<Vet> findAll() {
         return this.em.createQuery("SELECT distinct vet FROM Vet vet left join fetch vet.specialties ORDER BY vet.lastName, vet.firstName").getResultList();
+    }
+
+    @Override
+    public Vet findById(int id) {
+        Query query = this.em.createQuery("SELECT vet FROM Vet vet WHERE vet.id =: id");
+        query.setParameter("id", id);
+        return (Vet)query.getSingleResult();
+
+
+    }
+
+    @Override
+    public void save(Vet vet) {
+        if (vet.getId() == null) {
+            this.em.persist(vet);
+        } else {
+            this.em.merge(vet);
+
+        }
     }
 
     @Override

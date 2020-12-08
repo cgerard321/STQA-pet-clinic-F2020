@@ -149,7 +149,7 @@ public class PetPageTest {
     @Test
     void editWeight() {
         //ar
-        driver.get("http://localhost:" + "8090/"+ TOMCAT_PREFIX + "/owners/1/pets/1/edit");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/edit");
         driver.manage().window().maximize();
 
         //act
@@ -169,11 +169,11 @@ public class PetPageTest {
     @Test
     void editHeight() {
         //ar
-        driver.get("http://localhost:" + "8090/"+ TOMCAT_PREFIX + "/owners/1/pets/1/edit");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/1/edit");
         driver.manage().window().maximize();
 
         //act
-        driver.findElementById("Height").sendKeys("10");
+        driver.findElementById("height").sendKeys("10");
         driver.findElementByName("update").click();
 
         try {
@@ -189,7 +189,7 @@ public class PetPageTest {
     @Test
     void addNewPetWithWeightAndHeight() {
         //ar
-        driver.get("http://localhost:" + "8090/"+ TOMCAT_PREFIX + "/owners/1/pets/new.html");
+        driver.get("http://localhost:" + TOMCAT_PORT + TOMCAT_PREFIX + "/owners/1/pets/new.html");
         driver.manage().window().maximize();
 
         //act

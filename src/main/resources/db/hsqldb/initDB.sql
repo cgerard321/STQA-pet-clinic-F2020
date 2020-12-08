@@ -51,13 +51,14 @@ CREATE TABLE owners
     comment    VARCHAR(255)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
-
 CREATE TABLE pets
 (
     id         INTEGER IDENTITY PRIMARY KEY,
     name       VARCHAR(30),
     birth_date DATE,
     image_url  VARCHAR(255),
+    weight  INTEGER NOT NULL,
+    height  INTEGER NOT NULL,
     totalRating INTEGER,
     timesRated INTEGER,
     type_id    INTEGER NOT NULL,

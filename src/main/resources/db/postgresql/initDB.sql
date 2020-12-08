@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS pets (
   birth_date DATE,
   type_id INT NOT NULL,
   owner_id INT NOT NULL,
+  weight INT NOT NULL,
+  height INT NOT NULL,
   FOREIGN KEY (owner_id) REFERENCES owners(id),
   FOREIGN KEY (type_id) REFERENCES types(id),
   CONSTRAINT pk_pets PRIMARY KEY (id)

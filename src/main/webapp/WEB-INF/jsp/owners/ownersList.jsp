@@ -4,9 +4,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 <petclinic:layout pageName="owners">
     <h2 id="owners">Owners</h2>
+
+    <form:form action="${pageContext.request.contextPath}/sort" method="POST" id="search-owner-form">
+        <label for="sortingField">Choose a field to sort by</label>
+        <select name="sortingField" id="sortingField">
+            <option value="FirstName">First Name</option>
+            <option value="LastName">Last Name</option>
+            <option value="City">City Name</option>
+            <option value="State">State Name</option>
+        </select>
+        <button type="submit" class="btn btn-default" id="findAllOwners">Sort</button>
+    </form:form>
+
 
     <table id="ownersTable" class="table table-striped" aria-describedby="owners">
         <thead>
@@ -24,7 +38,7 @@
         </thead>
         <tbody>
         <c:forEach items="${selections}" var="owner">
-            <tr>
+            <tr class="ownerObject">
                 <spring:url value="/resources/images/ownersProfilePictures/${owner.profile_picture}.png" var="profilePictureUrl" />
                 <td headers="profile_picture"><img src="${fn:escapeXml(profilePictureUrl)}" alt="owner image"></td>
                 <td>

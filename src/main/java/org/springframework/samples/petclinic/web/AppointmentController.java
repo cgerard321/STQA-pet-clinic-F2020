@@ -94,28 +94,34 @@ public class AppointmentController {
 
         int chosenDay = holder.get(id-1).getId();
 
-        LocalDate visitDate = LocalDate.now();
+        LocalDate visitDate = null;
         LocalDate newDate = LocalDate.now();
 
-        if(chosenDay+1 == calendar.get(Calendar.DAY_OF_WEEK))
+        if(chosenDay == calendar.get(Calendar.DAY_OF_WEEK))
         {
             visitDate = LocalDate.now();
         }
-        else if((chosenDay+1) - calendar.get(Calendar.DAY_OF_WEEK) == 1)
+        //if(chosenDay == )
+        else if((chosenDay) - calendar.get(Calendar.DAY_OF_WEEK) == 1) {
             visitDate = newDate.plusDays(1);
-        else
+        }
+        else {
             visitDate = newDate.plusDays(2);
+        }
 /*Possible bug - Sunday exception case not implemented yet*/
+        if(visitDate != null) {
+            Pet p = this.clinicService.findPetById(petId);
 
-        Pet p = this.clinicService.findPetById(petId);
-
-        Visit v = new Visit();
-        v.setDate(visitDate);
-        v.setDescription("Last minute appointment.");
-        v.setPet(p);
-
-        this.clinicService.saveVisit(v);
-        return "redirect:/owners/{ownerId}";
+            Visit v = new Visit();
+            v.setDate(visitDate);
+            v.setDescription("Last minute appointment.");
+            v.setPet(p);
+            this.clinicService.saveVisit(v);
+            return "redirect:/owners/{ownerId}";
+        }
+        else{
+            return "#";
+        }
     }
 
     @GetMapping(value = "/welcome")

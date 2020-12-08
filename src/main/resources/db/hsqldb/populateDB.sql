@@ -63,13 +63,13 @@ INSERT INTO visits VALUES (10, 9, '2020-12-11', 'spayed');
 INSERT INTO visits VALUES (11, 3, '2020-12-29', 'spayed');
 INSERT INTO visits VALUES (12, 4, '2020-11-30', 'rabies shot');
 
-INSERT INTO schedules VALUES (1, 'Monday');
-INSERT INTO schedules VALUES (2, 'Tuesday');
-INSERT INTO schedules VALUES (3, 'Wednesday');
-INSERT INTO schedules VALUES (4, 'Thursday');
-INSERT INTO schedules VALUES (5, 'Friday');
-INSERT INTO schedules VALUES (6, 'Saturday');
-INSERT INTO schedules VALUES (7, 'Sunday');
+INSERT INTO schedules VALUES (1, 'Sunday');
+INSERT INTO schedules VALUES (2, 'Monday');
+INSERT INTO schedules VALUES (3, 'Tuesday');
+INSERT INTO schedules VALUES (4, 'Wednesday');
+INSERT INTO schedules VALUES (5, 'Thursday');
+INSERT INTO schedules VALUES (6, 'Friday');
+INSERT INTO schedules VALUES (7, 'Saturday');
 
 
 INSERT INTO vet_schedule VALUES (1, 1);

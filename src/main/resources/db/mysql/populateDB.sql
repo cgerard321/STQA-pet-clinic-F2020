@@ -95,19 +95,19 @@ INSERT IGNORE INTO visits
 VALUES (6, 12, '2021-09-04', 'rabies shot');
 
 INSERT INTO schedules
-VALUES (1, 'Monday');
+VALUES (1, 'Sunday');
 INSERT INTO schedules
-VALUES (2, 'Tuesday');
+VALUES (2, 'Monday');
 INSERT INTO schedules
-VALUES (3, 'Wednesday');
+VALUES (3, 'Tuesday');
 INSERT INTO schedules
-VALUES (4, 'Thursday');
+VALUES (4, 'Wednesday');
 INSERT INTO schedules
-VALUES (5, 'Friday');
+VALUES (5, 'Thursday');
 INSERT INTO schedules
-VALUES (6, 'Saturday');
+VALUES (6, 'Friday');
 INSERT INTO schedules
-VALUES (7, 'Sunday');
+VALUES (7, 'Saturday');
 
 
 

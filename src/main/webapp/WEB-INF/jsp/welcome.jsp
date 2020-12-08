@@ -7,7 +7,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <c:set var = "calendar" value = "${CalendarHelper.getCalendar(LocalDate.now().getMonth().getValue() - 1, LocalDate.now().getYear())}"/>
 <c:set var = "days" value = "${calendar.getDays()}"/>
-<c:set var = "events" value = "${calendar.getEvents()}"/>
 
 <petclinic:layout pageName="home">
     <h1><fmt:message key="welcome"/></h1>
@@ -104,9 +103,10 @@
     <br/>
     <%--    Rating Related Buttons - Nichita--%>
     <a class="btn btn-default" href='<spring:url value="/ratings/new" htmlEscape="true"/>'>Rate Pet</a>
+
     <a class="btn btn-default" href='<spring:url value="/ratings" htmlEscape="true"/>'>View All Ratings</a>
-    <a class="btn btn-default" href='<spring:url value="/ratings/findPetRatings" htmlEscape="true"/>'>View Pet Ratings</a>
     <br/>
+
     <%-- Calendar -Louis C. --%>
 
     <%-- For anyone that wants to work on this here is the origin of the css for the calendar that has been modified to show a dinamic calendar --%>
@@ -132,7 +132,7 @@
                     </thead>
 
                     <%-- Loop for weeks --%>
-                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks() - 1}" varStatus="i">
+                    <c:forEach begin="0" end="${calendar.getNumberOfWeeks()}" varStatus="i">
                         <tr>
 
                         <%-- Loop for day in the week --%>
@@ -146,24 +146,13 @@
                                 <c:otherwise>
 
                                     <%-- Check if the day is the current day to add css --%>
-                                    <td class="
-                                        <c:if test = "${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
-                                            current-day
-                                        </c:if>
-                                    ">
+                                    <td class="<c:if test = "${LocalDate.now().getDayOfMonth() == days[i.index][j.index] && LocalDate.now().getMonth().getValue() - 1 == calendar.getMonth() && LocalDate.now().getYear() == calendar.getYear()}">
+                                            current-day</c:if>">
                                         <%-- Content of the cell for the day --%>
                                         <span class="date">${days[i.index][j.index]}
-
-                                            <%-- Check if there is an event for that day --%>
-                                            <c:if test = "${events.containsKey(days[i.index][j.index])}">
-                                                 <ul>
-                                                    <li>
-                                                        <c:set var = "event" value = "${events.get(days[i.index][j.index])}"/>
-                                                        <span class="event">${event.getDescription()}</span>
-                                                        <span class="time">${event.getTime()}</span>
-                                                    </li>
-                                                </ul>
-                                            </c:if>
+                                            <%-- Create the list for the events / visits --%>
+                                            <ul>
+                                            </ul>
                                         </span>
                                     </td>
                                 </c:otherwise>

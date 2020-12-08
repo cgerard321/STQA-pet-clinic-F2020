@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
+
+import static java.time.temporal.TemporalAdjusters.next;
 
 @Controller
 public class AppointmentController {
@@ -94,28 +98,47 @@ public class AppointmentController {
 
         int chosenDay = holder.get(id-1).getId();
 
-        LocalDate visitDate = LocalDate.now();
+        LocalDate visitDate = null;
         LocalDate newDate = LocalDate.now();
 
-        if(chosenDay+1 == calendar.get(Calendar.DAY_OF_WEEK))
+        if(chosenDay == calendar.get(Calendar.DAY_OF_WEEK))
         {
             visitDate = LocalDate.now();
         }
-        else if((chosenDay+1) - calendar.get(Calendar.DAY_OF_WEEK) == 1)
-            visitDate = newDate.plusDays(1);
-        else
-            visitDate = newDate.plusDays(2);
+        //if(chosenDay == )
+        else if((chosenDay) - calendar.get(Calendar.DAY_OF_WEEK) == 1) {
+            if(calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+                visitDate = visitDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+            }
+            else {
+                visitDate = newDate.plusDays(2);
+            }
+        }
+        else {
+            if(calendar.get(Calendar.DAY_OF_WEEK) == 6) {
+                visitDate = visitDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+            }
+            else if(calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+                visitDate = visitDate.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+            }
+            else{
+                visitDate = newDate.plusDays(2);
+            }
+        }
 /*Possible bug - Sunday exception case not implemented yet*/
+        if(visitDate != null) {
+            Pet p = this.clinicService.findPetById(petId);
 
-        Pet p = this.clinicService.findPetById(petId);
-
-        Visit v = new Visit();
-        v.setDate(visitDate);
-        v.setDescription("Last minute appointment.");
-        v.setPet(p);
-
-        this.clinicService.saveVisit(v);
-        return "redirect:/owners/{ownerId}";
+            Visit v = new Visit();
+            v.setDate(visitDate);
+            v.setDescription("Last minute appointment.");
+            v.setPet(p);
+            this.clinicService.saveVisit(v);
+            return "redirect:/owners/{ownerId}";
+        }
+        else{
+            return "#";
+        }
     }
 
     @GetMapping(value = "/welcome")

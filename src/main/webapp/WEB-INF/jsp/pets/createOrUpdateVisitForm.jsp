@@ -4,12 +4,43 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-
+<spring:url value="/vets/available" var="vetsAvailableUrl" />
 <petclinic:layout pageName="owners">
     <jsp:attribute name="customScript">
         <script>
+            async function updateAvailabilities(input) {
+                const availableVets = $("#availableVets");
+                availableVets.empty();
+
+                const date = new Date(input.value);
+                if (isNaN(date)) {
+                    return;
+                }
+
+                const result = await fetch('${vetsAvailableUrl}?dayId=' + (date.getDay() + 1));
+                if (result.ok) {
+                    const vets = await result.json();
+                    if (vets.length === 0) {
+                        $("<li>No vet is available that day :(</li>").appendTo(availableVets)
+                    } else {
+                        for (const vet of vets) {
+                            $("<li></li>")
+                                    .text(vet.firstName + ' ' + vet.lastName)
+                                    .appendTo(availableVets);
+                        }
+                    }
+                }
+            }
+
             $(function () {
-                $("#date").datepicker({dateFormat: 'yy/mm/dd'});
+                const date = $("#date");
+                    date
+                        .datepicker({dateFormat: 'yy/mm/dd'})
+                        .on('change', event => {
+                            updateAvailabilities(event.target);
+                        });
+
+                updateAvailabilities(date[0]);
             });
         </script>
     </jsp:attribute>
@@ -39,6 +70,9 @@
                 <petclinic:inputField label="Date" name="date"/>
                 <petclinic:inputField label="Description" name="description"/>
             </div>
+
+            The following vets are available that day:
+            <ul id="availableVets"></ul>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

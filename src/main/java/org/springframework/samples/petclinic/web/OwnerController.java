@@ -15,10 +15,9 @@
  */
 package org.springframework.samples.petclinic.web;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +33,7 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.SortingUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -40,7 +41,6 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -55,6 +55,7 @@ public class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final ClinicService clinicService;
+    private final SortingUtils sortingUtils = new SortingUtils();
 
     @Autowired
     public OwnerController(ClinicService clinicService) {
@@ -193,32 +194,53 @@ public class OwnerController {
         return "redirect:/owners/{ownerId}";
     }
 
-    // Since multipart support is not enabled on the server, this endpoint is not working as it should and must be commented for the tests to pass.
-   /* @RequestMapping(value = "/owners/addMultipleOwners", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
-    public String addMultipleOwners(@RequestParam("file") MultipartFile file) throws IOException {
-        if (file == null)
-            System.err.println("file is null");
-        else
-            System.err.println("Output: " + file.getName());
-
-
-        return "redirect:/owners";
-    }*/
-
     // The JSON parsing logic is contained within that endpoint until I figure out a way to enable multipart support on Spring.
     @PostMapping(value = "/owners/addMultipleOwnersFake")
     public String addMultipleOwnersFake() throws FileNotFoundException {
 
         // Obviously, the goal is to have the user supply the JSON file and not simply fetching it from our resources folder.
-        final String FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.json").getPath();
+        final String FILE_PATH = ResourceUtils.getFile("classpath:uploads/success.csv").getPath();
 
-        Gson gson = new Gson();
+        FileReader fileReader = new FileReader(FILE_PATH);
 
-        Owner[] owners = gson.fromJson(new FileReader(FILE_PATH), Owner[].class);
+        String fileExtension = Files.getFileExtension(FILE_PATH);
 
-        // We add each owner object into the database.
-        for (Owner owner : owners)
-            clinicService.saveOwner(owner);
+        // If the file is a JSON file.
+        if (fileExtension.equals("json")) {
+            Gson gson = new Gson();
+
+            Owner[] owners = gson.fromJson(fileReader, Owner[].class);
+
+            // We add each owner object into the database.
+            for (Owner owner : owners)
+                clinicService.saveOwner(owner);
+        } else if (fileExtension.equals("csv")) {
+            // If the file is a CSV file.
+            BufferedReader br = new BufferedReader(fileReader);
+            try {
+                // We read each line of the file and add the attributes into a new Owner object.
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] ownerDetails = line.split(",");
+
+                    Owner owner = new Owner();
+                    owner.setFirstName(ownerDetails[0]);
+                    owner.setLastName(ownerDetails[1]);
+                    owner.setAddress(ownerDetails[2]);
+                    owner.setCity(ownerDetails[3]);
+                    owner.setTelephone(ownerDetails[4]);
+                    owner.setEmail(ownerDetails[5]);
+                    owner.setComment(ownerDetails[6]);
+                    owner.setState(ownerDetails[7]);
+                    owner.setProfile_picture(ownerDetails[8]);
+
+                    // Then, we save this object.
+                    clinicService.saveOwner(owner);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return "redirect:/owners";
     }
@@ -227,8 +249,34 @@ public class OwnerController {
     @RequestMapping(value = "/findAll")
     public String processFindAllOwnerForm(Map<String, Object> model) {
         Collection<Owner> results = this.clinicService.findAllOwner();
+
         // multiple owners found
         model.put("selections", results);
+        return "owners/ownersList";
+    }
+
+    //method added by Antoine to sort the list of owner by the field specified in the drop down list
+    @PostMapping(value = "/sort")
+    public String processSortOwnerListByFirstName(@RequestParam("sortingField") String sortValue, Map<String, Object> model) {
+        //this method only sort the list of all the owners see I was not able to find a way of only getting the list being displayed on the screen
+        Collection<Owner> owners = this.clinicService.findAllOwner();
+        List<Owner> ownerList = new ArrayList<>();
+
+        //Sort the list of owner
+        if(sortValue.equals("FirstName")) {
+            ownerList = sortingUtils.sortByFirstName(owners);
+        }
+        else if(sortValue.equals("LastName")) {
+            ownerList = sortingUtils.sortByLastName(owners);
+        }
+        else if(sortValue.equals("City")) {
+            ownerList = sortingUtils.sortByCityName(owners);
+        }
+        else if(sortValue.equals("State")) {
+            ownerList = sortingUtils.sortByStateName(owners);
+        }
+
+        model.put("selections", ownerList);
         return "owners/ownersList";
     }
 }

@@ -94,8 +94,16 @@ public class Vet extends Person {
 
         for(Schedule sched: holder)
         {
-            if(sched.getId() >= dayOfWeek-1 && sched.getId() <= dayOfWeek+1)
+
+            //Bugfix made by Connor
+            if(dayOfWeek < 6 && sched.getId() >= dayOfWeek && sched.getId() <= dayOfWeek+2)
             {
+                sortedSpecs.add(sched);
+            }
+            else if((dayOfWeek == 6 && sched.getId() >= dayOfWeek) || (dayOfWeek == 6 && sched.getId() == 1)){
+                sortedSpecs.add(sched);
+            }
+            else if((dayOfWeek == 7 && sched.getId() >= dayOfWeek) || (dayOfWeek == 7 && sched.getId() == 1) || (dayOfWeek == 7 && sched.getId() == 2)){
                 sortedSpecs.add(sched);
             }
         }

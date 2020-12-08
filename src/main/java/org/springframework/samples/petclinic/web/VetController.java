@@ -154,4 +154,9 @@ public class VetController {
     }
 
 
+    @GetMapping("/vets/available")
+    @ResponseBody
+    Collection<Vet> getAvailableVets(@RequestParam("dayId") int dayId) {
+        return clinicService.findVetsAvailableForDay(dayId);
+    }
 }

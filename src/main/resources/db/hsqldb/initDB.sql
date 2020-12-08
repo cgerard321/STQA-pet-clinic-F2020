@@ -8,6 +8,7 @@ DROP TABLE ratings IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
+DROP TABLE event IF EXISTS;
 
 
 CREATE TABLE vets
@@ -51,13 +52,14 @@ CREATE TABLE owners
     comment    VARCHAR(255)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
-
 CREATE TABLE pets
 (
     id         INTEGER IDENTITY PRIMARY KEY,
     name       VARCHAR(30),
     birth_date DATE,
     image_url  VARCHAR(255),
+    weight  INTEGER ,
+    height  INTEGER ,
     totalRating INTEGER,
     timesRated INTEGER,
     type_id    INTEGER NOT NULL,
@@ -120,3 +122,11 @@ CREATE TABLE ratings
 ALTER TABLE ratings
     ADD CONSTRAINT fk_ratings_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX ratings_pet_id ON ratings (pet_id);
+
+CREATE TABLE event
+(
+    id          INTEGER IDENTITY PRIMARY KEY,
+    dateOfEvent DATE,
+    description VARCHAR(100),
+    timeOfDay   VARCHAR(50)
+);

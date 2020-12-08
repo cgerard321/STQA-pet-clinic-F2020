@@ -15,10 +15,14 @@
  */
 package org.springframework.samples.petclinic.service;
 
+
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.samples.petclinic.model.*;
 
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -76,5 +80,9 @@ public interface ClinicService {
 
     Collection<Rating> findRatings();
 
+    Collection<Event> getEvents();
+
     Collection<Rating> findRatingsByPetId(int petId);
+
+    Collection<Vet> findVetsAvailableForDay(int dayId);
 }

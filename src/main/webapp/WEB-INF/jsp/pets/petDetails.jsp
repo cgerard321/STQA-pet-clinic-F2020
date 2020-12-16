@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <petclinic:layout pageName="pets">
 
@@ -90,7 +91,16 @@
                 <td headers="visitDescription"><c:out value="${visit.description}"/></td>
             </tr>
         </c:forEach>
-    </table>
+
+    </table
+
+    <form:form method="POST" action="/spring_framework_petclinic_war/pets/${pet.id}/remove">
+        <button type="submit" style="margin-top:30px" name="deletePet" value="${pet.id}"
+                onclick="return confirm('Are you sure you want to remove ${pet.name} from the system')">
+            Delete Pet
+        </button>
+        <!--remove the new pet -->
+    </form:form>
 
 
 </petclinic:layout>

@@ -158,6 +158,12 @@ class PetControllerTests {
     }
 
     @Test
+    void testPetRemovedFromPetDetailsRedirectSuccess() throws Exception {
+        mockMvc.perform(post("/pets/4/remove")) //I encountered some difficulties with the 4th pet, but this test ensures that it is working fine.
+            .andExpect(MockMvcResultMatchers.redirectedUrl("/pets/find"));
+    }
+
+    @Test
     void testListAllPetsDisplaySuccess() throws Exception {
         mockMvc.perform(get("/pets/petList")) // Navigate to the page
             .andExpect(status().isOk()) // Make sure the status is ok
